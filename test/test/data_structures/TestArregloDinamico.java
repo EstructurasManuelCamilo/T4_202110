@@ -25,13 +25,20 @@ public class TestArregloDinamico {
 
 	@Test
 	public void testArregloDinamico() {
-		// TODO
+		// TODO X
+		assertTrue(arreglo != null);
+		assertTrue(arreglo.darCapacidad() == TAMANO);
+		assertTrue(arreglo.darTamano() == 0);
+		assertTrue(arreglo.darElemento(0) == null);
 	}
 
 	@Test
 	public void testDarElemento() {
 		setUp2();
-		// TODO
+		// TODO X
+		assertTrue(arreglo.darElemento(-1) == null);
+		assertTrue(arreglo.darElemento(1000) == null);
+		assertEquals("1", arreglo.darElemento(1));
 	}
 
 }

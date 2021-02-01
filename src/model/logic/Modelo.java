@@ -68,5 +68,17 @@ public class Modelo {
 		return datos.eliminar(dato);
 	}
 
-
+	public String toString()
+	{
+		if (darTamano() == 0)
+			return "[]";
+		else{
+			String resp = "[";
+			for (int i = 0; i < darTamano() - 1; i++) 
+				resp += datos.darElemento(i) + ",";
+			
+			resp += datos.darElemento(darTamano()) +"]";
+			return resp;
+		}
+	}
 }

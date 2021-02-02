@@ -68,6 +68,7 @@ public class Modelo {
 		return datos.eliminar(dato);
 	}
 
+	@Override 
 	public String toString()
 	{
 		if (darTamano() == 0)
@@ -75,9 +76,10 @@ public class Modelo {
 		else{
 			String resp = "[";
 			for (int i = 0; i < darTamano() - 1; i++) 
+			{
 				resp += datos.darElemento(i) + ",";
-			
-			resp += datos.darElemento(darTamano()) +"]";
+			}
+			resp += datos.darElemento(darTamano() - 1) +"]";
 			return resp;
 		}
 	}

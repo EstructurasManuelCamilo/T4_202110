@@ -80,14 +80,25 @@ public class Controller {
 					}
 					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
 					break;
+					
+				case 5:
+					if(modelo.darTamano() > 0)
+					{
+						modelo.invertir();
+						view.printMessage("Arreglo invertido");
+					}
+					else
+						view.printMessage("El arreglo está vacío");
+					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
+					break;
 
-				case 5: 
+				case 6: 
 					view.printMessage("--------- \nContenido del Arreglo: ");
 					view.printModelo(modelo);
 					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
 					break;	
 					
-				case 6: 
+				case 7: 
 					view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 					lector.close();
 					fin = true;

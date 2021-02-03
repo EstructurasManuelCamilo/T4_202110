@@ -69,7 +69,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			T resp = null;
 			for (int j = 0; j < tamanoAct; j++) 
 			{
-				if( elementos[j].compareTo(dato) == 0) 
+				if( elementos[j].equals(dato))
 				{
 					resp = elementos[j];
 				}
@@ -84,11 +84,23 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			T[] copia = elementos;
 			for (int i = 0; i < tamanoAct; i++)
 			{
-				if(elementos[i].compareTo(dato) != 0)
+				if(elementos[i].equals(dato))
 					elementos[i] = copia[i];
 			}
 			tamanoAct --;
 			return dato;
+		}
+
+		public void invertir() 
+		{
+			T[] copia = elementos;
+			int contador = 0;
+			for (int i = tamanoAct - 1; i == -1; i--)
+			{
+				elementos[contador] = copia[i];
+				contador ++;
+			}
+			
 		}
 
 }

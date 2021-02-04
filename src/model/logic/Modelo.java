@@ -12,7 +12,7 @@ public class Modelo <T extends Comparable<T>>
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IArregloDinamico datos;
+	private IArregloDinamico<String> datos;
 	
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida

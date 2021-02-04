@@ -54,7 +54,7 @@ public class Modelo <T extends Comparable<T>>
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public T buscar(T dato)
+	public T buscar(String dato)
 	{
 		return (T) datos.buscar(dato);
 	}
@@ -64,7 +64,7 @@ public class Modelo <T extends Comparable<T>>
 	 * @param dato Dato a eliminar
 	 * @return dato eliminado
 	 */
-	public T eliminar(T dato)
+	public T eliminar(String dato)
 	{
 		return (T) datos.eliminar(dato);
 	}

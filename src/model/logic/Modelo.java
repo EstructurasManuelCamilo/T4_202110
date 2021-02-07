@@ -68,7 +68,11 @@ public class Modelo <T extends Comparable<T>>
 	{
 		return (T) datos.eliminar(dato);
 	}
-
+	
+	public void invertir()
+	{
+		datos.invertir();
+	}
 	@Override 
 	public String toString()
 	{

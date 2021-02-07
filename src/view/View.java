@@ -18,8 +18,9 @@ public class View
 			System.out.println("2. Agregar Dato");
 			System.out.println("3. Buscar Dato");
 			System.out.println("4. Eliminar Dato");
-			System.out.println("5. Imprimir el Arreglo");
-			System.out.println("6. Exit");
+			System.out.println("5. Invertir el arreglo");
+			System.out.println("6. Imprimir el Arreglo");
+			System.out.println("7. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 

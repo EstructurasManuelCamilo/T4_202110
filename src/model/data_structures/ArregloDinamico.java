@@ -93,14 +93,11 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 
 		public void invertir() 
 		{
-			T[] copia = elementos;
-			int contador = 0;
-			for (int i = tamanoAct - 1; i == -1; i--)
-			{
-				elementos[contador] = copia[i];
-				contador ++;
-			}
+			T[] nuevo = (T[]) new String[tamanoMax];
+			for (int i = 0; i < tamanoAct; i++)
+				nuevo[i] = elementos[tamanoAct -1 -i];
 			
+			elementos = nuevo;
 		}
 
 }

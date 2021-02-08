@@ -7,7 +7,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestArregloDinamico {
+public class TestArregloDinamico <T extends Comparable<T>>
+{
 
 	private ArregloDinamico arreglo;
 	private static int TAMANO=100;
@@ -22,6 +23,12 @@ public class TestArregloDinamico {
 			arreglo.agregar(""+i);
 		}
 	}
+	public void setUp3() {
+		arreglo.agregar("q");
+		arreglo.agregar("w");
+		arreglo.agregar("e");
+	}
+	
 
 	@Test
 	public void testArregloDinamico() {
@@ -40,5 +47,10 @@ public class TestArregloDinamico {
 		assertTrue(arreglo.darElemento(1000) == null);
 		assertEquals("1", arreglo.darElemento(1));
 	}
-
+	
+	@Test
+	public void invertir() {
+		setUp3();
+		arreglo.invertir();
+	}
 }

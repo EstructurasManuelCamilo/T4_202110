@@ -73,7 +73,7 @@ public class Modelo <T extends Comparable<T>>
 	{
 		datos.invertir();
 	}
-
+	
 	@Override 
 	public String toString()
 	{

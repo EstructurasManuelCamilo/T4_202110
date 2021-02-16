@@ -37,7 +37,7 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public int darTamano()
 	{
-		return datos.darTamano();
+		return datos.size();
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public void agregar(T dato)
 	{	
-		datos.agregar(dato);
+		datos.addLast(dato);
 	}
 	
 	/**
@@ -83,9 +83,9 @@ public class Modelo <T extends Comparable<T>>
 			String resp = "[";
 			for (int i = 0; i < darTamano() - 1; i++) 
 			{
-				resp += datos.darElemento(i) + ",";
+				resp += datos.getElement(i) + ",";
 			}
-			resp += datos.darElemento(darTamano() - 1) +"]";
+			resp += datos.getElement(darTamano() - 1) +"]";
 			return resp;
 		}
 	}

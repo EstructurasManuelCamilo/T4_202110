@@ -1,5 +1,7 @@
 package model.data_structures;
 
+import com.sun.xml.internal.ws.api.policy.PolicyResolver;
+
 public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 {
 	private Nodo <T> first;
@@ -237,7 +239,31 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public void exchange(int pos1, int pos2) 
 	{
-		
+		Nodo<T> elementoAnterior1 = first;
+		Nodo<T> elementoAnterior2 = first;
+		int posElement1 = 1;
+		int posElement2 = 1;
+		boolean enct1 = false;
+		boolean enct2 = false;
+		if (pos1 > 0 && pos2 > 0 && pos1 < tamanio +1 && pos2 < tamanio +1) 
+		{
+			while(!enct1 || !enct2)
+			{
+				if(pos1 != posElement1 -1 )
+				{
+					elementoAnterior1 = elementoAnterior1.darSiguiente();
+					posElement1 ++;
+				}
+				if (pos2 != posElement2 -1) //obtengo el elemento anterior al de la posicion del parametro 
+				{
+					elementoAnterior2 = elementoAnterior2.darSiguiente();
+					posElement2 ++;
+				}
+			}
+			Nodo<T> copiaE1 = new Nodo<T>(elementoAnterior1.darSiguiente().darElemento());
+			Nodo<T> copiaE2 = new Nodo<T>(elementoAnterior1.darSiguiente().darElemento());
+			//eliminar elemento 1 y 2 de la lista
+		}
 	}
 
 	/**

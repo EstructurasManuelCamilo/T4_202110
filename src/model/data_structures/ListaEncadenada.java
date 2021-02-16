@@ -63,8 +63,25 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public void insertElement(T element, int pos) 
 	{
-		// TODO Auto-generated method stub
-		
+		Nodo <T> nuevo = new Nodo<T>(element);
+		Nodo <T> anterior = first;
+		Nodo<T> actual = anterior.darSiguiente();
+		int contador = 1;
+		if (isEmpty()) 
+		{
+			first = nuevo;
+			last = nuevo;
+		}
+		else if(pos > 0 && pos < tamanio +1)
+		{
+			while(contador < tamanio + 1 && pos != contador)
+			{
+				actual = actual.darSiguiente();
+			}
+			nuevo.cambiarSiguiente(actual);
+			anterior.cambiarSiguiente(nuevo);	
+		}
+		tamanio ++;
 	}
 
 	/**
@@ -74,7 +91,14 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public T removeFirst() 
 	{
-		return null;
+		Nodo<T> viejo = first;
+		if (isEmpty()) 
+			return null;
+		else
+		{
+			first = first.darSiguiente();
+			return viejo.darElemento();
+		}
 	}
 
 	/**
@@ -82,9 +106,22 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	 * @return el elemento eliminado
 	 */
 	@Override
-	public T removeLast() {
-		// TODO Auto-generated method stub
-		return null;
+	public T removeLast() 
+	{
+		Nodo<T> viejo = last;
+		Nodo<T> actual = first;
+		if (isEmpty()) 
+			return null;
+		else
+		{
+			while(actual.darSiguiente() != last)
+			{
+				actual = actual.darSiguiente();
+			}
+			actual.cambiarSiguiente(null);
+			last = actual;
+			return viejo.darElemento();
+		}
 	}
 
 	/**
@@ -105,7 +142,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public T firstElement() 
 	{
-		return primero;
+		return first.darElemento();
 	}
 
 	/**
@@ -115,7 +152,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public T lastElement()
 	{
-		return ultimo;
+		return last.darElemento();
 	}
 
 	/**
@@ -127,7 +164,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public T getElement(int pos) 
 	{
-		return null;
+		return pos>0 && pos < tamanio +1? ;
 	}
 
 	/**

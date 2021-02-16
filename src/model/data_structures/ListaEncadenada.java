@@ -286,8 +286,18 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	
 	public void changeInfo(int pos, T elem) 
 	{
-		Nodo<T> nuevo = new Nodo<T> (elem);
-		
+		if(pos > 0  && pos < tamanio +1)
+		{
+			Nodo<T> actual = first;
+			int contador = 1;
+			while(pos != contador)
+			{
+				actual.darSiguiente();
+				contador ++;
+			}
+			if(actual.darElemento() == elem)
+				actual.cambiarElemento(elem);
+		}
 	}
 	
 }

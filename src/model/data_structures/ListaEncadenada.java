@@ -4,7 +4,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 {
 	private Nodo <T> first;
 	public int tamanio;
-	public Nodo <T> last;
+	private Nodo <T> last;
 	
 	/**
 	 * Agrega un elemento al inicio de la lista
@@ -14,14 +14,17 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	public void addFirst(T element)
 	{
 		Nodo <T> nuevo = new Nodo <T> (element);
-		Nodo <T> actual = first;
 		if(isEmpty())
-			first = actual;
+		{
+			first = nuevo;
+			last = nuevo;
+		}
 		else
 		{
 			nuevo.cambiarSiguiente(first);
+			first = nuevo;
 		}
-			
+		tamanio ++;
 	}
 
 	/**
@@ -31,6 +34,19 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public void addLast(T element)
 	{
+		Nodo<T> nuevo = new Nodo<T>(element);
+		
+		if (isEmpty()) 
+		{
+			first = nuevo;
+			last = nuevo;
+		}
+		else
+		{
+			last.cambiarSiguiente(nuevo);
+			last = nuevo;
+		}
+		tamanio ++;
 		
 	}
 

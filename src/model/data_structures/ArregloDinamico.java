@@ -32,37 +32,26 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 		tamanoMax = max;
 		tamanoAct = 0;
 	}
-	
-	
+
+
 	public void addLast(T element) 
 	{
-		if ( tamanoAct == tamanoMax )
-		{  // caso de arreglo lleno (aumentar tamaNo)
-			tamanoMax = 2 * tamanoMax;
-			T [ ] copia = elementos;
-			elementos = (T[])new Comparable [tamanoMax];
-			for ( int i = 0; i < tamanoAct; i++)
-			{
-				elementos[i] = copia[i];
-			} 
-			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
-		}
-		elementos[tamanoAct] = element;
-		tamanoAct++;
+		insertElement(element, tamanoAct);
 	}
-	
-	public int darCapacidad() {
+
+	public int darCapacidad() 
+	{
 		return tamanoMax;
 	}
 
 
-	public T darElemento(int i) {
+	public T getElement(int i) 
+	{
 		return (i < 0 || i > tamanoMax) ? null: elementos[i];
 	}
 
 	public T getElement(T dato) 
 	{
-		
 		T resp = null;
 		for (int j = 0; j < tamanoAct; j++) 
 		{
@@ -96,7 +85,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 		}
 		return elim;
 	}
-	
+
 
 	public void invertir()
 	{
@@ -113,58 +102,77 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 
 	public void addFirst(T element) 
 	{
-		// TODO Auto-generated method stub	
+		insertElement(element, 0);
 	}
 
-	public void insertElement(T element, int pos) {
-		// TODO Auto-generated method stub
-		
+	public void insertElement(T element, int pos) 
+	{
+		T [ ] copia = elementos;
+		if ( tamanoAct == tamanoMax )
+		{  
+			// caso de arreglo lleno (aumentar tamaNo)
+			tamanoMax = 2 * tamanoMax;
+			elementos = (T[])new Comparable [tamanoMax];
+
+			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
+		}
+
+		for ( int i = 0, j = 0; i < tamanoAct; i++, j++)
+		{
+			if(pos==i)
+			{
+				elementos[i] = element;
+				j--;
+			}
+			else
+				elementos[i] = copia[j];
+		} 
+		tamanoAct++;
 	}
 
-	@Override
+	
 	public T removeFirst() 
 	{
-		// TODO Auto-generated method stub
-		return null; 
+		return deleteElement(0);
 	}
 
-	@Override
-	public T removeLast() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public T deleteElement(int pos) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T firstElement() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T lastElement() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T getElement(int pos)
+	public T removeLast() 
 	{
-		return elementos[pos];
+		return deleteElement(tamanoAct);
 	}
 
-	public int size() {
+	public T deleteElement(int pos) 
+	{
+		T elim = elementos[pos];
+
+		for (int j = pos; j < tamanoAct; j++) 
+		{
+			elementos[j] = elementos[j+1];
+		}
+		tamanoAct--;
+
+		return elim;
+	}
+
+	public T firstElement() 
+	{
+		return getElement(0);
+	}
+
+	
+	public T lastElement() 
+	{
+		return getElement(tamanoAct);
+	}
+
+	public int size() 
+	{
 		return tamanoAct;
 	}
 
 	public boolean isEmpty() 
 	{
-		
 		return tamanoAct == 0? true: false;
 	}
 
@@ -175,23 +183,26 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 		{
 			if( elementos[j].compareTo(element) == 0) 
 			{
-			   resp = j;
+				resp = j;
 			}
 		}
 		return resp;
 	}
 
-	@Override
-	public void exchange(int pos1, int pos2) {
-		// TODO Auto-generated method stub
-		
+	public void exchange(int pos1, int pos2) 
+	{
+		T segundo = getElement(pos2);
+		changeInfo(pos2, getElement(pos1));
+		changeInfo(pos1, segundo);
 	}
 
-	@Override
-	public void changeInfo(int pos, T elem) {
-		// TODO Auto-generated method stub
-		
+	public void changeInfo(int pos, T elem) 
+	{
+		if(getElement(pos) != null)
+		{
+			elementos[pos] = elem;
+		}
 	}
 
-	
+
 }

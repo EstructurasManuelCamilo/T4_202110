@@ -97,6 +97,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		else
 		{
 			first = first.darSiguiente();
+			tamanio --;
 			return viejo.darElemento();
 		}
 	}
@@ -120,6 +121,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			}
 			actual.cambiarSiguiente(null);
 			last = actual;
+			tamanio --;
 			return viejo.darElemento();
 		}
 	}
@@ -130,9 +132,24 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	 * @return elemento eliminado
 	 */
 	@Override
-	public T deleteElement(int pos) {
-		// TODO Auto-generated method stub
-		return null;
+	public T deleteElement(int pos) 
+	{
+		if(pos > 0 || pos < tamanio +1 || !isEmpty())
+			return null;
+		else
+		{
+			Nodo<T> anterior = first;
+			Nodo<T> actual = anterior.darSiguiente();
+			int contador = 1;
+			while(contador != pos)
+			{
+				anterior = actual;
+				actual = actual.darSiguiente();
+			}
+			anterior.cambiarSiguiente(actual.darSiguiente());
+			tamanio --;
+			return actual.darElemento();
+		}
 	}
 
 	/**
@@ -164,7 +181,19 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public T getElement(int pos) 
 	{
-		return pos>0 && pos < tamanio +1? ;
+		if(pos < 0 && pos > tamanio +1 && isEmpty())
+			return null;
+		else
+		{
+			Nodo<T> actual = first;
+			int contador = 1;
+			while(contador < tamanio + 1 || contador == pos)
+			{
+				actual = actual.darSiguiente();
+				contador ++;
+			}
+			return actual.darElemento();
+		}
 	}
 
 	/**

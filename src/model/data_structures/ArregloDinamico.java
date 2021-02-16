@@ -32,8 +32,9 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 		tamanoMax = max;
 		tamanoAct = 0;
 	}
-
-	public void agregar( T dato )
+	
+	
+	public void addLast(T element) 
 	{
 		if ( tamanoAct == tamanoMax )
 		{  // caso de arreglo lleno (aumentar tamaNo)
@@ -45,18 +46,15 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 				elementos[i] = copia[i];
 			} 
 			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
-		}	
-		elementos[tamanoAct] = dato;
+		}
+		elementos[tamanoAct] = element;
 		tamanoAct++;
 	}
-
+	
 	public int darCapacidad() {
 		return tamanoMax;
 	}
 
-	public int darTamano() {
-		return tamanoAct;
-	}
 
 	public T darElemento(int i) {
 		return (i < 0 || i > tamanoMax) ? null: elementos[i];
@@ -112,19 +110,12 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 		elementos = invertido;
 	}
 
-	@Override
+
 	public void addFirst(T element) 
 	{
 		// TODO Auto-generated method stub	
 	}
 
-	@Override
-	public void addLast(T element) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void insertElement(T element, int pos) {
 		// TODO Auto-generated method stub
 		
@@ -162,27 +153,32 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 	}
 
 	@Override
-	public T getElement(int pos) {
-		// TODO Auto-generated method stub
-		return null;
+	public T getElement(int pos)
+	{
+		return elementos[pos];
 	}
 
-	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tamanoAct;
 	}
 
-	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isEmpty() 
+	{
+		
+		return tamanoAct == 0? true: false;
 	}
 
-	@Override
-	public int isPresent(T element) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int isPresent(T element)
+	{
+		int resp = -1;
+		for (int j = 0; j < tamanoAct; j++) 
+		{
+			if( elementos[j].compareTo(element) == 0) 
+			{
+			   resp = j;
+			}
+		}
+		return resp;
 	}
 
 	@Override
@@ -196,4 +192,6 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 }

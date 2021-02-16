@@ -12,7 +12,7 @@ public class Modelo <T extends Comparable<T>>
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IArregloDinamico<String> datos;
+	private ArregloDinamico<T> datos;
 	
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -44,7 +44,7 @@ public class Modelo <T extends Comparable<T>>
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public void agregar(String dato)
+	public void agregar(T dato)
 	{	
 		datos.agregar(dato);
 	}
@@ -54,9 +54,9 @@ public class Modelo <T extends Comparable<T>>
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public T buscar(String dato)
+	public T buscar(T dato)
 	{
-		return (T) datos.buscar(dato);
+		return (T) datos.getElement(dato);
 	}
 	
 	/**
@@ -64,9 +64,9 @@ public class Modelo <T extends Comparable<T>>
 	 * @param dato Dato a eliminar
 	 * @return dato eliminado
 	 */
-	public T eliminar(String dato)
+	public T eliminar(T dato)
 	{
-		return (T) datos.eliminar(dato);
+		return (T) datos.deleteElement(dato);
 	}
 	
 	public void invertir()

@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico <T>
+public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 {
 	/**
 	 * Capacidad maxima del arreglo
@@ -62,19 +62,12 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 		return (i < 0 || i > tamanoMax) ? null: elementos[i];
 	}
 
-	public T buscar(T dato) 
+	public T getElement(T dato) 
 	{
 		
 		T resp = null;
 		for (int j = 0; j < tamanoAct; j++) 
 		{
-			//Estudiante2
-			//if( elementos[j].compareTo(dato) == 0) 
-			//{
-			//   resp = elementos[j];
-			//}
-
-			//Estudiante1
 			if( elementos[j].equals(dato))
 			{
 				resp = elementos[j];
@@ -86,21 +79,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 		return resp;
 	}
 
-	//Estudiante1
-//	public T eliminar(T dato) 
-//	{
-//	T[] copia = elementos;
-//	for (int i = 0; i < tamanoAct; i++)
-//	{
-//		if(elementos[i].equals(dato))
-//			elementos[i] = copia[i];
-//	}
-//	tamanoAct --;
-//	return dato;
-//}
-
-	//Estudiante2
-	public T eliminar(T dato) 
+	public T deleteElement(T dato) 
 	{
 		T elim = null;
 		boolean termino = false;
@@ -121,17 +100,6 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	}
 	
 
-	//Estudiante1
-//	public void invertir() 
-//	{
-//		T[] nuevo = (T[]) new String[tamanoMax];
-//		for (int i = 0; i < tamanoAct; i++)
-//			nuevo[i] = elementos[tamanoAct -1 -i];
-//
-//		elementos = nuevo;
-//	}
-
-	//Estudiante2
 	public void invertir()
 	{
 		T[] invertido = (T[])new Comparable [tamanoMax];
@@ -142,5 +110,90 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 		}
 
 		elementos = invertido;
+	}
+
+	@Override
+	public void addFirst(T element) 
+	{
+		// TODO Auto-generated method stub	
+	}
+
+	@Override
+	public void addLast(T element) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertElement(T element, int pos) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public T removeFirst() 
+	{
+		// TODO Auto-generated method stub
+		return null; 
+	}
+
+	@Override
+	public T removeLast() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public T deleteElement(int pos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public T firstElement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public T lastElement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public T getElement(int pos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int isPresent(T element) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void exchange(int pos1, int pos2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeInfo(int pos, T elem) {
+		// TODO Auto-generated method stub
+		
 	}
 }

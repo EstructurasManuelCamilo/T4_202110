@@ -181,13 +181,13 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public T getElement(int pos) 
 	{
-		if(pos < 0 && pos > tamanio +1 && isEmpty())
+		if(pos < 0 || pos > tamanio +1 || isEmpty())
 			return null;
 		else
 		{
 			Nodo<T> actual = first;
 			int contador = 1;
-			while(contador < tamanio + 1 || contador == pos)
+			while(contador < tamanio + 1 && contador != pos)
 			{
 				actual = actual.darSiguiente();
 				contador ++;

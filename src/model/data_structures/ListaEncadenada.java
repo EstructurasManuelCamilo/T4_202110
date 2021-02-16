@@ -254,15 +254,24 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 					elementoAnterior1 = elementoAnterior1.darSiguiente();
 					posElement1 ++;
 				}
+				else
+					enct1 = true;
 				if (pos2 != posElement2 -1) //obtengo el elemento anterior al de la posicion del parametro 
 				{
 					elementoAnterior2 = elementoAnterior2.darSiguiente();
 					posElement2 ++;
 				}
+				else
+					enct2 = true;
 			}
 			Nodo<T> copiaE1 = new Nodo<T>(elementoAnterior1.darSiguiente().darElemento());
 			Nodo<T> copiaE2 = new Nodo<T>(elementoAnterior1.darSiguiente().darElemento());
 			//eliminar elemento 1 y 2 de la lista
+			copiaE1.cambiarSiguiente(elementoAnterior1.darSiguiente().darSiguiente());
+			copiaE2.cambiarSiguiente(elementoAnterior2.darSiguiente().darSiguiente());
+			elementoAnterior1.cambiarSiguiente(copiaE1);
+			elementoAnterior2.cambiarSiguiente(copiaE2);
+			// no funciona para el primero
 		}
 	}
 
@@ -274,6 +283,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public void changeInfo(int pos, T elem) 
 	{
+		Nodo<T> nuevo = new Nodo<T> (elem);
 		
 	}
 	

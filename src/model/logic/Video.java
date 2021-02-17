@@ -15,6 +15,8 @@ public class Video implements Comparable<Video>
 	
 	private int categoryId;
 	
+	private String categoria;
+	
 	private String publishTime;
 	
 	public Video(String pId, String fecha1, String pTitle, String pChannel, int pCat, String fecha2)
@@ -61,6 +63,6 @@ public class Video implements Comparable<Video>
 	{
 		return publishTime;
 	}
-
+	
 	
 }

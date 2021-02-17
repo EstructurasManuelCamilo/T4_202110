@@ -22,13 +22,12 @@ public class Modelo <T extends Comparable<T>>
 	long TInicio, TFin, tiempo;
 
 	private ArregloDinamico<Video> datos;
-
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
 	public Modelo()
 	{
-		datos = new ArregloDinamico(501);
+		datos = new ArregloDinamico<>(501);
 	}
 
 	/**
@@ -104,6 +103,7 @@ public class Modelo <T extends Comparable<T>>
 
 	public void leerDatosVideos()
 	{
+		leerdatorsCategorias();
 		FileReader pDatos = null;
 		CSVReader reader = null;
 		TInicio = System.currentTimeMillis();
@@ -142,6 +142,7 @@ public class Modelo <T extends Comparable<T>>
 
 				Video nuevo = new Video(fila[0], fila[1], fila[2], fila[3], Integer.valueOf(fila[4]), fila[5]);
 				datos.insertElement(nuevo, j);
+				j++;
 
 				ultimo = nuevo;
 			}
@@ -165,10 +166,43 @@ public class Modelo <T extends Comparable<T>>
 		{
 			e.printStackTrace();
 		}
+	}
 
+	public void leerdatorsCategorias()
+	{
+		FileReader pDat = null;
+		CSVReader reader = null;
+		TInicio = System.currentTimeMillis();
+
+		try 
+		{
+
+			pDat = new FileReader("data/category-id.csv");
+			CSVParser separador = new CSVParserBuilder().withSeparator('	').build();
+			reader = new CSVReaderBuilder(pDat).withCSVParser(separador).build();
+			String[] fila = reader.readNext();
+
+			ArregloDinamico<String> columnas = new ArregloDinamico<String>(2);
+			for(int i = 0; i < 1; i++)
+			{
+				columnas.insertElement(fila[i], i);
+			}
+			int j = 0;
+			while((fila = reader.readNext()) != null)
+			{
+
+				j++;
+
+			}
+
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
 
 	}
-	
+
 	public Date fecha(String pFecha) throws ParseException
 	{
 		Date fecha = new SimpleDateFormat("yyyy.dd.MM").parse(pFecha);

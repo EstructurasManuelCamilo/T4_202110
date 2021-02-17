@@ -37,7 +37,7 @@ public class Controller {
 			switch(option){
 
 			case 1:
-				view.printMessage("Inicio de lectura del archivo Videos."); 
+				view.printMessage("Inicio de lectura de los archivos."); 
 				modelo.leerDatosVideos();
 				
 				break;

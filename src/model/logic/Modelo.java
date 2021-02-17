@@ -1,11 +1,11 @@
 package model.logic;
 
 import model.data_structures.*;
-import model.logic.*;
 import com.opencsv.*;
 
 import java.io.*;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,7 +28,7 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public Modelo()
 	{
-		datos = new ArregloDinamico(7);
+		datos = new ArregloDinamico(501);
 	}
 
 	/**
@@ -110,23 +110,21 @@ public class Modelo <T extends Comparable<T>>
 
 		try 
 		{
-			pDatos = new FileReader("data/");
-			CSVParser separador = new CSVParserBuilder().withSeparator(';').build();
+
+			pDatos = new FileReader("data/videos-small.csv");
+			CSVParser separador = new CSVParserBuilder().withSeparator(',').build();
 			reader = new CSVReaderBuilder(pDatos).withCSVParser(separador).build();
 			String[] fila = reader.readNext();
 
-			ArregloDinamico<String> columnas = new ArregloDinamico(17);
+			ArregloDinamico<String> columnas = new ArregloDinamico<String>(17);
 			for(int i = 0; i < 16; i++)
 			{
 				columnas.insertElement(fila[i], i);
 			}
 
-			String[] primero = reader.readNext();
-			DateFormat parser = null;
-			Date trendingDate = parser.parse(fila[1]);
-			Date publish = parser.parse(fila[5]);
+			String[] primera = reader.readNext();
 
-			Video prim = new Video(fila[0], trendingDate, fila[2], fila[3], Integer.valueOf(fila[4]), publish);
+			Video prim = new Video(primera[0], primera[1] , primera[2], primera[3], Integer.valueOf(primera[4]), primera[5]);
 			datos.insertElement(prim, 0);
 			System.out.println("La información del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -135,21 +133,19 @@ public class Modelo <T extends Comparable<T>>
 			System.out.println("Título del canal: " + prim.getChannel());
 			System.out.println("Id de categoría: " + prim.getCategoryId());
 			System.out.println("Fecha de publicación: " + prim.getPublishTime());
-			
+
 			Video ultimo = prim;
 			int j = 1;
-			
+
 			while((fila = reader.readNext()) != null)
 			{
-				Date fecha1 = parser.parse(fila[1]);
-				Date fecha2 = parser.parse(fila[5]);
 
-				Video nuevo = new Video(fila[0], trendingDate, fila[2], fila[3], Integer.valueOf(fila[4]), publish);
+				Video nuevo = new Video(fila[0], fila[1], fila[2], fila[3], Integer.valueOf(fila[4]), fila[5]);
 				datos.insertElement(nuevo, j);
 
 				ultimo = nuevo;
 			}
-			
+
 			System.out.println("La información del último video es: " );
 			System.out.println("Id video: " + ultimo.getId());
 			System.out.println("Trending_Date: " + ultimo.getTrendingDate() );
@@ -157,12 +153,13 @@ public class Modelo <T extends Comparable<T>>
 			System.out.println("Título del canal: " + ultimo.getChannel());
 			System.out.println("Id de categoría: " + ultimo.getCategoryId());
 			System.out.println("Fecha de publicación: " + ultimo.getPublishTime());
-			
+
 			System.out.println("El total de video encontrados fue de: " + j);
 
 			TFin = System.currentTimeMillis();
 			tiempo = TFin - TInicio;
 			System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
+
 		}
 		catch(Exception e) 
 		{
@@ -171,7 +168,11 @@ public class Modelo <T extends Comparable<T>>
 
 
 	}
-
-
+	
+	public Date fecha(String pFecha) throws ParseException
+	{
+		Date fecha = new SimpleDateFormat("yyyy.dd.MM").parse(pFecha);
+		return fecha;
+	}
 
 }

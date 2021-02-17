@@ -7,7 +7,7 @@ public class Video implements Comparable<Video>
 	
 	private String id;
 	
-	private Date trendingDate;
+	private String trendingDate;
 	
 	private String title;
 	
@@ -15,16 +15,16 @@ public class Video implements Comparable<Video>
 	
 	private int categoryId;
 	
-	private Date publishTime;
+	private String publishTime;
 	
-	public Video(String pId, Date pDate1, String pTitle, String pChannel, int pCat, Date pDate2)
+	public Video(String pId, String fecha1, String pTitle, String pChannel, int pCat, String fecha2)
 	{
 		id = pId;
-		trendingDate = pDate1;
+		trendingDate = fecha1;
 		title = pTitle;
 		channel = pChannel;
 		categoryId = pCat;
-		publishTime = pDate2;
+		publishTime = fecha2;
 	}
 	
 	public int compareTo(Video v) 
@@ -37,7 +37,7 @@ public class Video implements Comparable<Video>
 		return id;
 	}
 
-	public Date getTrendingDate() 
+	public String getTrendingDate() 
 	{
 		return trendingDate;
 	}
@@ -57,7 +57,7 @@ public class Video implements Comparable<Video>
 		return categoryId;
 	}
 
-	public Date getPublishTime() 
+	public String getPublishTime() 
 	{
 		return publishTime;
 	}

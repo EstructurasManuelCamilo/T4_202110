@@ -87,16 +87,51 @@ public class TestArregloDinamico <T extends Comparable<T>>
 	
 	
 	@Test
+	public void testAddFirstListaEncadenada()
+	{
+		T elementico = (T) "";
+		listaEncadenada.addFirst(elementico);
+		
+		assertTrue(listaEncadenada.getElement(1).compareTo("") ==0);
+	}
+	
+	@Test
+	public void testAddFirstArreglo()
+	{
+		T elementico = (T) "";
+		arreglo.addFirst(elementico);
+		
+		assertTrue(arreglo.getElement(0).compareTo("") == 0);
+	}
+	
+	@Test
+	public void testAddLastListaEncadenada()
+	{
+		T elementico = (T) "";
+		listaEncadenada.addLast(elementico);
+		
+		assertTrue(listaEncadenada.getElement(listaEncadenada.size()).equals(""));
+	}
+	
+	@Test
+	public void testAddLastArreglo()
+	{
+		T elementico = (T) "";
+		arreglo.addLast(elementico);
+		
+		assertTrue(arreglo.getElement(arreglo.size() - 1).equals(""));
+	}
+	
+	
+	
+	
+	
+	
+	
+	@Test
 	public void invertir() 
 	{
 		setUp3();
 		arreglo.invertir();
 	}
-	@Test
-	public void testAddFirstListaEncadenada()
-	{
-		
-	}
-	
-	
 }

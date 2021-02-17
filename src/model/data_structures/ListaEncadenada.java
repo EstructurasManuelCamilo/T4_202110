@@ -3,8 +3,8 @@ package model.data_structures;
 public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 {
 	private Nodo <T> first;
-	public int tamanio;
 	private Nodo <T> last;
+	public int tamanio;
 	
 	/**
 	 * Agrega un elemento al inicio de la lista
@@ -14,6 +14,15 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	public ListaEncadenada()
 	{
 		tamanio = 0;
+		first = null;
+		last = null;
+	}
+	
+	public ListaEncadenada(T elemento)
+	{
+		first = new Nodo<T> (elemento);
+		last = first;
+		tamanio = 1;
 	}
 	
 	public void addFirst(T element)
@@ -52,7 +61,6 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			last = nuevo;
 		}
 		tamanio ++;
-		
 	}
 
 	/**
@@ -82,11 +90,13 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			while(contador < tamanio + 1 && pos != contador)
 			{
 				actual = actual.darSiguiente();
+				System.out.println("entro");
 			}
 			nuevo.cambiarSiguiente(actual);
 			anterior.cambiarSiguiente(nuevo);	
 		}
 		tamanio ++;
+		System.out.println(tamanio);
 	}
 
 	/**
@@ -164,7 +174,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	
 	public T firstElement() 
 	{
-		return first.darElemento();
+		return isEmpty()? null: first.darElemento();
 	}
 
 	/**
@@ -174,7 +184,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public T lastElement()
 	{
-		return last.darElemento();
+		return isEmpty()? null: last.darElemento();
 	}
 
 	/**

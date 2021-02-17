@@ -119,10 +119,11 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 
 		for ( int i = 0, j = 0; i < tamanoAct; i++, j++)
 		{
-			if(pos==i)
+			if(pos == i)
 			{
 				elementos[i] = element;
 				j--;
+				System.out.println("Algo");
 			}
 			else
 				elementos[i] = copia[j];

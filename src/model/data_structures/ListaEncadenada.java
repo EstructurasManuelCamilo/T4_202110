@@ -231,7 +231,17 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	
 	public int isPresent(T element)
 	{
-		return 0;
+		int contador = 1;
+		Nodo<T> actual = first;
+		while(actual.darElemento().compareTo(element) != 0)
+		{
+			actual = actual.darSiguiente();
+			contador ++;
+		}
+		if (actual.darElemento().compareTo(element) == 0) 
+			return contador;
+		else
+			return -1;
 	}
 
 	/**
@@ -242,8 +252,8 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	
 	public void exchange(int pos1, int pos2) 
 	{
-		Nodo<T> elementoAnterior1 = first;
-		Nodo<T> elementoAnterior2 = first;
+		Nodo<T> elementoActual1 = first;
+		Nodo<T> elementoActual2 = first;
 		int posElement1 = 1;
 		int posElement2 = 1;
 		boolean enct1 = false;
@@ -252,29 +262,25 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		{
 			while(!enct1 || !enct2)
 			{
-				if(pos1 != posElement1 -1 )
+				if(pos1 != posElement1 )
 				{
-					elementoAnterior1 = elementoAnterior1.darSiguiente();
+					elementoActual1 = elementoActual1.darSiguiente();
 					posElement1 ++;
 				}
 				else
 					enct1 = true;
-				if (pos2 != posElement2 -1) //obtengo el elemento anterior al de la posicion del parametro 
+				if (pos2 != posElement2) //obtengo el nodo de la posicion del parametro 
 				{
-					elementoAnterior2 = elementoAnterior2.darSiguiente();
+					elementoActual2 = elementoActual2.darSiguiente();
 					posElement2 ++;
 				}
 				else
 					enct2 = true;
 			}
-			Nodo<T> copiaE1 = new Nodo<T>(elementoAnterior1.darSiguiente().darElemento());
-			Nodo<T> copiaE2 = new Nodo<T>(elementoAnterior1.darSiguiente().darElemento());
-			//eliminar elemento 1 y 2 de la lista
-			copiaE1.cambiarSiguiente(elementoAnterior1.darSiguiente().darSiguiente());
-			copiaE2.cambiarSiguiente(elementoAnterior2.darSiguiente().darSiguiente());
-			elementoAnterior1.cambiarSiguiente(copiaE1);
-			elementoAnterior2.cambiarSiguiente(copiaE2);
-			// no funciona para el primero
+			T copiaE1 = elementoActual1.darElemento();
+			T copiaE2 = elementoActual1.darElemento();
+			elementoActual1.cambiarElemento(copiaE1);
+			elementoActual2.cambiarElemento(copiaE2);
 		}
 	}
 

@@ -7,6 +7,9 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -103,7 +106,6 @@ public class Modelo <T extends Comparable<T>>
 
 	public void leerDatosVideos()
 	{
-		leerdatorsCategorias();
 		FileReader pDatos = null;
 		CSVReader reader = null;
 		TInicio = System.currentTimeMillis();
@@ -124,7 +126,7 @@ public class Modelo <T extends Comparable<T>>
 
 			String[] primera = reader.readNext();
 
-			Video prim = new Video(primera[0], primera[1] , primera[2], primera[3], Integer.valueOf(primera[4]), primera[5]);
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5]);
 			datos.insertElement(prim, 0);
 			System.out.println("La información del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -137,19 +139,26 @@ public class Modelo <T extends Comparable<T>>
 			Video ultimo = prim;
 			int j = 1;
 
-			while((fila = reader.readNext()) != null)
+			try 
 			{
 
-				Video nuevo = new Video(fila[0], fila[1], fila[2], fila[3], Integer.valueOf(fila[4]), fila[5]);
-				datos.insertElement(nuevo, j);
-				j++;
+				while((fila = reader.readNext()) != null)
+				{
 
-				ultimo = nuevo;
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5]);
+					datos.insertElement(nuevo, j);
+					j++;
+					
+					ultimo = nuevo;
+				}
 			}
-
+			catch(Exception e) 
+			{
+				
+			}
 			System.out.println("La información del último video es: " );
 			System.out.println("Id video: " + ultimo.getId());
-			System.out.println("Trending_Date: " + ultimo.getTrendingDate() );
+			System.out.println("Trending_Date: " + ultimo.getTrendingDate());
 			System.out.println("Título: " + ultimo.getTitle());
 			System.out.println("Título del canal: " + ultimo.getChannel());
 			System.out.println("Id de categoría: " + ultimo.getCategoryId());
@@ -168,45 +177,27 @@ public class Modelo <T extends Comparable<T>>
 		}
 	}
 
-	public void leerdatorsCategorias()
+
+	public Date fecha1(String pFecha) throws ParseException
 	{
-		FileReader pDat = null;
-		CSVReader reader = null;
-		TInicio = System.currentTimeMillis();
+		String[] partes = pFecha.split("\\.");
+		String año  = partes[0];
+		String dia  = partes[1];
+		String mes = partes[2];
 
-		try 
-		{
+		String fecha = dia + "/" + mes + "/" + año;
+		Date date =new SimpleDateFormat("dd/MM/yyyy").parse(fecha);  
 
-			pDat = new FileReader("data/category-id.csv");
-			CSVParser separador = new CSVParserBuilder().withSeparator('	').build();
-			reader = new CSVReaderBuilder(pDat).withCSVParser(separador).build();
-			String[] fila = reader.readNext();
-
-			ArregloDinamico<String> columnas = new ArregloDinamico<String>(2);
-			for(int i = 0; i < 1; i++)
-			{
-				columnas.insertElement(fila[i], i);
-			}
-			int j = 0;
-			while((fila = reader.readNext()) != null)
-			{
-
-				j++;
-
-			}
-
-		}
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-		}
-
+		return date;
 	}
-
-	public Date fecha(String pFecha) throws ParseException
+	public LocalDateTime fecha2(String pFecha) throws ParseException
 	{
-		Date fecha = new SimpleDateFormat("yyyy.dd.MM").parse(pFecha);
+		String[] partes = pFecha.split("\\.");
+		String fechaHora  = partes[0];
+		LocalDateTime fecha = LocalDateTime.parse(fechaHora);
 		return fecha;
 	}
 
+	//ESTA LEYENDO HASTA LA 794
+	//ERROR EN 998
 }

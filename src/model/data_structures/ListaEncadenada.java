@@ -4,13 +4,14 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 {
 	private Nodo <T> first;
 	private Nodo <T> last;
+
 	public int tamanio;
-	
+
 	/**
 	 * Agrega un elemento al inicio de la lista
 	 * @param element que se va a agregar
 	 */
-	
+
 	public ListaEncadenada()
 	{
 		tamanio = 0;
@@ -24,7 +25,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		last = first;
 		tamanio = 1;
 	}
-	
+
 	public void addFirst(T element)
 	{
 		Nodo <T> nuevo = new Nodo <T> (element);
@@ -45,11 +46,11 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	 * Agraga un elemento al final de la lista
 	 * @param element
 	 */
-	
+
 	public void addLast(T element)
 	{
 		Nodo<T> nuevo = new Nodo<T>(element);
-		
+
 		if (isEmpty()) 
 		{
 			first = nuevo;
@@ -73,12 +74,14 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	 * @param element
 	 * @param pos
 	 */
-	
+
 	public void insertElement(T element, int pos) 
 	{
+
 		Nodo <T> nuevo = new Nodo<T>(element);
 		Nodo <T> anterior = first;
 		Nodo<T> actual = anterior.darSiguiente();
+
 		int contador = 1;
 		if (isEmpty()) 
 		{
@@ -99,73 +102,75 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		System.out.println(tamanio);
 	}
 
-	/**
-	 * Elimina el primer elemento. Se retorna el elemento eliminado.
-	 * @return el elemento eliminado
-	 */
-	
-	public T removeFirst() 
-	{
-		Nodo<T> viejo = first;
-		if (isEmpty()) 
-			return null;
-		else
-		{
-			first = first.darSiguiente();
-			tamanio --;
-			return viejo.darElemento();
-		}
-	}
 
-	/**
-	 * Elimina el último elemento. Se retorna el elemento eliminado.
-	 * @return el elemento eliminado
-	 */
-	
-	public T removeLast() 
-	{
-		Nodo<T> viejo = last;
-		Nodo<T> actual = first;
-		if (isEmpty()) 
-			return null;
-		else
-		{
-			while(actual.darSiguiente() != last)
-			{
-				actual = actual.darSiguiente();
-			}
-			actual.cambiarSiguiente(null);
-			last = actual;
-			tamanio --;
-			return viejo.darElemento();
-		}
-	}
 
-	/**
-	 * Elimina el elemento de una posición válida (mayor que -1). Se retorna el elemento eliminado.
-	 * @param la posición del elemento a eliminar
-	 * @return elemento eliminado
-	 */
-	
-	public T deleteElement(int pos) 
+/**
+ * Elimina el primer elemento. Se retorna el elemento eliminado.
+ * @return el elemento eliminado
+ */
+
+public T removeFirst() 
+{
+	Nodo<T> viejo = first;
+	if (isEmpty()) 
+		return null;
+	else
 	{
-		if(pos > 0 || pos < tamanio +1 || !isEmpty())
-			return null;
-		else
-		{
-			Nodo<T> anterior = first;
-			Nodo<T> actual = anterior.darSiguiente();
-			int contador = 1;
-			while(contador != pos)
-			{
-				anterior = actual;
-				actual = actual.darSiguiente();
-			}
-			anterior.cambiarSiguiente(actual.darSiguiente());
-			tamanio --;
-			return actual.darElemento();
-		}
+		first = first.darSiguiente();
+		tamanio --;
+		return viejo.darElemento();
 	}
+}
+
+/**
+ * Elimina el último elemento. Se retorna el elemento eliminado.
+ * @return el elemento eliminado
+ */
+
+public T removeLast() 
+{
+	Nodo<T> viejo = last;
+	Nodo<T> actual = first;
+	if (isEmpty()) 
+		return null;
+	else
+	{
+		while(actual.darSiguiente() != last)
+		{
+			actual = actual.darSiguiente();
+		}
+		actual.cambiarSiguiente(null);
+		last = actual;
+		tamanio --;
+		return viejo.darElemento();
+	}
+}
+
+/**
+ * Elimina el elemento de una posición válida (mayor que -1). Se retorna el elemento eliminado.
+ * @param la posición del elemento a eliminar
+ * @return elemento eliminado
+ */
+
+public T deleteElement(int pos) 
+{
+	if(pos > 0 || pos < tamanio +1 || !isEmpty())
+		return null;
+	else
+	{
+		Nodo<T> anterior = first;
+		Nodo<T> actual = anterior.darSiguiente();
+		int contador = 1;
+		while(contador != pos)
+		{
+			anterior = actual;
+			actual = actual.darSiguiente();
+		}
+		anterior.cambiarSiguiente(actual.darSiguiente());
+		tamanio --;
+		return actual.darElemento();
+	}
+}
 
 	/**
 	 * Retorna el primer elemento
@@ -186,51 +191,52 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	{
 		return isEmpty()? null: last.darElemento();
 	}
+/**
+ * Retorna el primer elemento
+ * @return el primer elemento
+ */
 
-	/**
-	 * Retorna el elemento en una posición válida. La posición del
-	 * primer elemento es 1, la del segundo es 2 y así sucesivamente
-	 * @param la posición del elemento que se busca
-	 * @return el elemento en la posición especificada
-	 */
-	
-	public T getElement(int pos) 
+
+/**
+ * Retorna el último elemento
+ * @return el último elemento
+ */
+@Override
+
+
+/**
+ * Retorna el elemento en una posición válida. La posición del
+ * primer elemento es 1, la del segundo es 2 y así sucesivamente
+ * @param la posición del elemento que se busca
+ * @return el elemento en la posición especificada
+ */
+
+public T getElement(int pos) 
+{
+	if(pos < 0 || pos > tamanio +1 || isEmpty())
+		return null;
+	else
 	{
-		if(pos < 0 || pos > tamanio +1 || isEmpty())
-			return null;
-		else
+		Nodo<T> actual = first;
+		int contador = 1;
+		while(contador < tamanio + 1 && contador != pos)
 		{
-			Nodo<T> actual = first;
-			int contador = 1;
-			while(contador < tamanio + 1 && contador != pos)
-			{
-				actual = actual.darSiguiente();
-				contador ++;
-			}
-			return actual.darElemento();
+			actual = actual.darSiguiente();
+			contador ++;
 		}
+		return actual.darElemento();
 	}
+}
 
-	/**
-	 * Retorna el número de datos en el arreglo
-	 * @return el tamanio del arreglo
-	 */
-	
-	public int size() 
-	{
-		return tamanio;
-	}
+/**
+ * Retorna el número de datos en el arreglo
+ * @return el tamanio del arreglo
+ */
 
-	
-	/**
-	 * Retorna true si el arreglo No tiene datos. false en caso contrario.
-	 * @return si el arreglo tiene datos o no
-	 */
-	
-	public boolean isEmpty() 
-	{
-		return tamanio == 0? true: false;
-	}
+public int size() 
+{
+	return tamanio;
+}
 
 	/**
 	 * Retorna la posición válida de un elemento. Si no se 
@@ -254,45 +260,70 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			return -1;
 	}
 
-	/**
-	 * Intercambia la información de los elementos en dos posiciones válidas.
-	 * @param la posición primera posición
-	 * @param la posición segunta posición
-	 */
-	
-	public void exchange(int pos1, int pos2) 
+
+/**
+ * Retorna true si el arreglo No tiene datos. false en caso contrario.
+ * @return si el arreglo tiene datos o no
+ */
+
+public boolean isEmpty() 
+{
+	return tamanio == 0? true: false;
+}
+
+/**
+ * Retorna la posición válida de un elemento. Si no se 
+ * encuentra el elemento, el valor retornado es -1
+ * @param element para consultar
+ * @return la posicion del elemento
+ */
+
+/**
+ * Intercambia la información de los elementos en dos posiciones válidas.
+ * @param la posición primera posición
+ * @param la posición segunta posición
+ */
+
+public void exchange(int pos1, int pos2) 
+{
+	Nodo<T> elementoActual1 = first;
+	Nodo<T> elementoActual2 = first;
+	int posElement1 = 1;
+	int posElement2 = 1;
+	boolean enct1 = false;
+	boolean enct2 = false;
+	if (pos1 > 0 && pos2 > 0 && pos1 < tamanio +1 && pos2 < tamanio +1) 
 	{
-		Nodo<T> elementoActual1 = first;
-		Nodo<T> elementoActual2 = first;
-		int posElement1 = 1;
-		int posElement2 = 1;
-		boolean enct1 = false;
-		boolean enct2 = false;
-		if (pos1 > 0 && pos2 > 0 && pos1 < tamanio +1 && pos2 < tamanio +1) 
+		while(!enct1 || !enct2)
 		{
-			while(!enct1 || !enct2)
+			if(pos1 != posElement1 )
 			{
-				if(pos1 != posElement1 )
-				{
-					elementoActual1 = elementoActual1.darSiguiente();
-					posElement1 ++;
-				}
-				else
-					enct1 = true;
-				if (pos2 != posElement2) //obtengo el nodo de la posicion del parametro 
-				{
-					elementoActual2 = elementoActual2.darSiguiente();
-					posElement2 ++;
-				}
-				else
-					enct2 = true;
+				elementoActual1 = elementoActual1.darSiguiente();
+				posElement1 ++;
 			}
-			T copiaE1 = elementoActual1.darElemento();
-			T copiaE2 = elementoActual1.darElemento();
-			elementoActual1.cambiarElemento(copiaE1);
-			elementoActual2.cambiarElemento(copiaE2);
+			else
+				enct1 = true;
+			if (pos2 != posElement2) //obtengo el nodo de la posicion del parametro 
+			{
+				elementoActual2 = elementoActual2.darSiguiente();
+				posElement2 ++;
+			}
+			else
+				enct2 = true;
 		}
+		T copiaE1 = elementoActual1.darElemento();
+		T copiaE2 = elementoActual1.darElemento();
+		elementoActual1.cambiarElemento(copiaE1);
+		elementoActual2.cambiarElemento(copiaE2);
 	}
+}
+
+
+/**
+ * Cambia la información del elemento especificado por parámetro
+ * @param pos
+ * @param elem
+ */
 
 	/**
 	 * Cambia la información del elemento especificado por parámetro
@@ -315,5 +346,5 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 				actual.cambiarElemento(elem);
 		}
 	}
-	
+
 }

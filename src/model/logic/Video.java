@@ -1,34 +1,40 @@
 package model.logic;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Video implements Comparable<Video>
 {
-	
+
 	private String id;
-	
-	private String trendingDate;
-	
+
+	private Date trendingDate;
+
 	private String title;
-	
+
 	private String channel;
-	
+
 	private int categoryId;
-	
+
 	private String categoria;
+
+	private LocalDateTime publishTime;
 	
-	private String publishTime;
-	
-	public Video(String pId, String fecha1, String pTitle, String pChannel, int pCat, String fecha2)
+	private String fechaPublicacion;
+
+	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub)
 	{
 		id = pId;
-		trendingDate = fecha1;
+		trendingDate = date;
 		title = pTitle;
 		channel = pChannel;
 		categoryId = pCat;
 		publishTime = fecha2;
+		categoria = "";
+		fechaPublicacion = pFpub;
 	}
-	
+
 	public int compareTo(Video v) 
 	{
 		return 0;
@@ -39,7 +45,7 @@ public class Video implements Comparable<Video>
 		return id;
 	}
 
-	public String getTrendingDate() 
+	public Date getTrendingDate() 
 	{
 		return trendingDate;
 	}
@@ -59,10 +65,19 @@ public class Video implements Comparable<Video>
 		return categoryId;
 	}
 
-	public String getPublishTime() 
+	public LocalDateTime getPublishTime() 
 	{
 		return publishTime;
 	}
 	
-	
+	public String darPublishTime()
+	{
+		return fechaPublicacion;
+	}
+
+	public String darNombreCategoria()
+	{
+		return "";
+	}
+
 }

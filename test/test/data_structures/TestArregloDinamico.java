@@ -24,6 +24,7 @@ public class TestArregloDinamico <T extends Comparable<T>>
 		listaEncadenada = new ListaEncadenada<T>(elemento);
 	}
 
+
 	public void setUp2() 
 	{
 		for(int i =0; i< TAMANO*2; i++)
@@ -39,6 +40,7 @@ public class TestArregloDinamico <T extends Comparable<T>>
 		arreglo.insertElement((T) "e", 2);
 	}
 	
+	
 	public void setUp4()
 	{
 		for(int i =1; i< 10; i++)
@@ -53,7 +55,6 @@ public class TestArregloDinamico <T extends Comparable<T>>
 	{
 		
 		setUp3();
-		// TODO X
 		assertTrue(arreglo != null);
 		assertTrue(arreglo.darCapacidad() == TAMANO);
 		assertTrue(arreglo.size() == 3);
@@ -72,7 +73,6 @@ public class TestArregloDinamico <T extends Comparable<T>>
 	public void testGetElementArreglo() 
 	{
 		setUp2();
-		// TODO X
 		assertTrue(arreglo.getElement(-1) == null);
 		assertTrue(arreglo.getElement(1000) == null);
 		assertEquals("1", arreglo.getElement(1));
@@ -95,6 +95,17 @@ public class TestArregloDinamico <T extends Comparable<T>>
 		listaEncadenada.addFirst(elementico);
 		
 		assertTrue(listaEncadenada.getElement(1).compareTo("") ==0);
+		assertTrue(arreglo.size() == 0);
+		assertTrue(arreglo.getElement(0) == null);
+	}
+
+	@Test
+	public void testDarElemento() 
+	{
+		setUp2();
+		assertTrue(arreglo.getElement(-1) == null);
+		assertTrue(arreglo.getElement(1000) == null);
+		assertEquals("" + 1, arreglo.getElement(1));
 	}
 	
 	@Test

@@ -47,7 +47,9 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 
 	public T getElement(int i) 
 	{
-		return (i < 0 || i > tamanoMax) ? null: elementos[i];
+		if(i < 0 || i > tamanoMax)
+			return null; 
+		return elementos[i];
 	}
 
 	public T getElement(T dato) 

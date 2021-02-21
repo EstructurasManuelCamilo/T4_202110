@@ -38,11 +38,17 @@ public class Controller {
 
 			case 1:
 				view.printMessage("Inicio de lectura de los archivos."); 
-				modelo.leerDatosVideos();
+				modelo.leerDatosVideosArregloDinamico();
+				view.printMessage("Lectura completa y Arreglo Dinamico creado."); 
+				break;
 				
+			case 2:
+				view.printMessage("Inicio de lectura de los archivos."); 
+				modelo.leerDatosVideosListaEncadenada();
+				view.printMessage("Lectura completa y Lista Encadenada creada.");
 				break;
 
-			case 2: 
+			case 3: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;

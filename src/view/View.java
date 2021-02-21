@@ -14,8 +14,9 @@ public class View
 	    
 		public void printMenu()
 		{
-			System.out.println("1. Leer datos de archivos.");
-			System.out.println("2. Exit");
+			System.out.println("1. Leer datos de archivos y crear un Arreglo Dinámico.");
+			System.out.println("2. Leer datos de archivos y crear una Lista Encadenada.");
+			System.out.println("3. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 

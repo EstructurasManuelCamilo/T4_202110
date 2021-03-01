@@ -208,4 +208,13 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 	}
 
 
+	@Override
+	public ILista<T> sublista(int numElementos) 
+	{
+		ILista<T> lista = new ILista<ArregloDinamico.T>() {
+		};
+		return invertido;
+	}
+
+
 }

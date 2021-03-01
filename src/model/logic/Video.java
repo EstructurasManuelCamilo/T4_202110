@@ -23,8 +23,10 @@ public class Video implements Comparable<Video>
 	private LocalDateTime publishTime;
 	
 	private String fechaPublicacion;
+	
+	private int likes;
 
-	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub)
+	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, int pLikes)
 	{
 		id = pId;
 		trendingDate = date;
@@ -32,14 +34,22 @@ public class Video implements Comparable<Video>
 		channel = pChannel;
 		categoryId = pCat;
 		publishTime = fecha2;
-		categoria = "";
+		categoria = ""; //tags??
 		fechaPublicacion = pFpub;
+		
 	}
-
+	
+	/** Comparación natural de acuerdo a algún atributo con identificación única
+	* @return valor 0 si this y otro son iguales. Numero negativo si this es menor a otro. 
+	 * Numero positivo this es mayor a otro */
 	public int compareTo(Video v) 
 	{
-		// TODO implementar método comparar
-		return 0;
+		if (v.getId().equals(this.getId()) )
+			return 0;
+		else if (v.getId().compareTo(this.getId()) > 0)
+			return -1;
+		else
+			return 1;
 	}
 
 	public String getId() 
@@ -82,6 +92,10 @@ public class Video implements Comparable<Video>
 		return "";
 	}
 	
+	public int darLikes()
+	{
+		return likes;
+	}
 	
 	public static class ComparadorXLikes implements Comparator<Video> 
 	{
@@ -92,9 +106,13 @@ public class Video implements Comparable<Video>
 		 valor positivo si video1 tiene más likes que video2. */
 		 public int compare(Video video1, Video video2) 
 		 {
-			 //TODO implementar método
-			 return 0;
+			 if(video1.darLikes()==video2.darLikes())
+				 return 0;
+			 else if( video1.darLikes() < video2.darLikes())
+				 return -1;
+			 else 
+				 return 1;
 		 }
-		}
+	}
 
 }

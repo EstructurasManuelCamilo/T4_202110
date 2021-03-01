@@ -93,6 +93,8 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			while(contador < tamanio + 1 && pos != contador)
 			{
 				actual = actual.darSiguiente();
+				contador ++;
+				anterior = anterior.darSiguiente();
 			}
 			nuevo.cambiarSiguiente(actual);
 			anterior.cambiarSiguiente(nuevo);	
@@ -163,6 +165,8 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			{
 				anterior = actual;
 				actual = actual.darSiguiente();
+				anterior = anterior.darSiguiente();
+				contador ++;
 			}
 			anterior.cambiarSiguiente(actual.darSiguiente());
 			tamanio --;
@@ -259,12 +263,6 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		return tamanio == 0? true: false;
 	}
 	
-	/**
-	 * Retorna la posici�n v�lida de un elemento. Si no se 
-	 * encuentra el elemento, el valor retornado es -1
-	 * @param element para consultar
-	 * @return la posicion del elemento
-	 */
 	
 	/**
 	 * Intercambia la informaci�n de los elementos en dos posiciones v�lidas.
@@ -274,36 +272,75 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	
 	public void exchange(int pos1, int pos2) 
 	{
+		if(pos1 == pos2)
+			return;
+		Nodo<T> elementoAnterior1 = null;
 		Nodo<T> elementoActual1 = first;
+		Nodo<T> elementoAnterior2 = null;
 		Nodo<T> elementoActual2 = first;
-		int posElement1 = 1;
-		int posElement2 = 1;
-		boolean enct1 = false;
-		boolean enct2 = false;
-		if (pos1 > 0 && pos2 > 0 && pos1 < tamanio +1 && pos2 < tamanio +1) 
+		int contador1 = 1;
+		int contador2 = 1;
+		while(elementoActual1 != null && contador1 != pos1)
 		{
-			while(!enct1 || !enct2)
-			{
-				if(pos1 != posElement1 )
-				{
-					elementoActual1 = elementoActual1.darSiguiente();
-					posElement1 ++;
-				}
-				else
-					enct1 = true;
-				if (pos2 != posElement2) //obtengo el nodo de la posicion del parametro 
-				{
-					elementoActual2 = elementoActual2.darSiguiente();
-					posElement2 ++;
-				}
-				else
-					enct2 = true;
-			}
-			T copiaE1 = elementoActual1.darElemento();
-			T copiaE2 = elementoActual1.darElemento();
-			elementoActual1.cambiarElemento(copiaE1);
-			elementoActual2.cambiarElemento(copiaE2);
+			elementoAnterior1 =  elementoActual1;
+			elementoActual1 = elementoAnterior1.darSiguiente();
+			contador1 ++;
 		}
+		while(elementoActual2 != null && contador2 != pos2)
+		{
+			elementoAnterior2 =  elementoActual2;
+			elementoActual2 = elementoAnterior2.darSiguiente();
+			contador2 ++;
+		}
+		if(elementoActual1 == null || elementoActual2 == null)
+			return;
+		
+		if(elementoAnterior1 != null)
+			elementoAnterior1.cambiarSiguiente(elementoActual2);
+		else
+			first = elementoActual2;
+		
+		if(elementoAnterior2 != null)
+			elementoAnterior2.cambiarSiguiente(elementoActual1);
+		else
+			first = elementoActual2;
+		Nodo<T> cambio = elementoActual1.darSiguiente();
+		cambio.cambiarSiguiente(elementoActual2.darSiguiente());
+		elementoActual2.cambiarSiguiente(cambio);
+		
+		
+//		cmd + 7 
+//		Nodo<T> elementoActual1 = first;
+//		Nodo<T> elementoActual2 = first;
+//		int posElement1 = 1;
+//		int posElement2 = 1;
+//		boolean enct1 = false;
+//		boolean enct2 = false;
+//		
+//		if (pos1 > 0 && pos2 > 0 && pos1 < tamanio +1 && pos2 < tamanio +1) 
+//		{
+//			while(!enct1 || !enct2)
+//			{
+//				if(pos1 != posElement1 )
+//				{
+//					elementoActual1 = elementoActual1.darSiguiente();
+//					posElement1 ++;
+//				}
+//				else
+//					enct1 = true;
+//				if (pos2 != posElement2) //obtengo el nodo de la posicion del parametro 
+//				{
+//					elementoActual2 = elementoActual2.darSiguiente();
+//					posElement2 ++;
+//				}
+//				else
+//					enct2 = true;
+//			}
+//			T copiaE1 = elementoActual1.darElemento();
+//			T copiaE2 = elementoActual1.darElemento();
+//			elementoActual1.cambiarElemento(copiaE1);
+//			elementoActual2.cambiarElemento(copiaE2);
+//		}
 	}
 	
 	

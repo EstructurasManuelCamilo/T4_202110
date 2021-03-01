@@ -211,7 +211,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 	@Override
 	public ILista<T> sublista(int numElementos) 
 	{
-		// LO IMPLEMENTA JUAN CAMILO
+		// TODO implementar codigo
 		return null;
 	}
 

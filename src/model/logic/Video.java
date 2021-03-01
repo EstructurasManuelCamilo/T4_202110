@@ -37,6 +37,7 @@ public class Video implements Comparable<Video>
 
 	public int compareTo(Video v) 
 	{
+		// TODO implementar método comparar
 		return 0;
 	}
 
@@ -79,5 +80,18 @@ public class Video implements Comparable<Video>
 	{
 		return "";
 	}
+	public static class ComparadorXLikes implements Comparator<Video> 
+	{
+
+		/** Comparador alterno de acuerdo al número de likes
+		* @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		 public int compare(Video video1, Video video2) 
+		 {
+			 //TODO implementar método
+			 return 0;
+		 }
+		}
 
 }

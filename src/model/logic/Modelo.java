@@ -131,13 +131,13 @@ public class Modelo <T extends Comparable<T>>
 
 			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5]);
 			datosArreglo.insertElement((T) prim, 0);
-			System.out.println("La información del primer video es: " );
+			System.out.println("La informaciï¿½n del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
 			System.out.println("Trending_Date: " + prim.getTrendingDate() );
-			System.out.println("Título: " + prim.getTitle());
-			System.out.println("Título del canal: " + prim.getChannel());
-			System.out.println("Id de categoría: " + prim.getCategoryId());
-			System.out.println("Fecha de publicación: " + prim.getPublishTime());
+			System.out.println("Tï¿½tulo: " + prim.getTitle());
+			System.out.println("Tï¿½tulo del canal: " + prim.getChannel());
+			System.out.println("Id de categorï¿½a: " + prim.getCategoryId());
+			System.out.println("Fecha de publicaciï¿½n: " + prim.getPublishTime());
 
 			Video ultimo = prim;
 			int j = 1;
@@ -159,19 +159,19 @@ public class Modelo <T extends Comparable<T>>
 			{
 
 			}
-			System.out.println("La información del último video es: " );
+			System.out.println("La informaciï¿½n del ï¿½ltimo video es: " );
 			System.out.println("Id video: " + ultimo.getId());
 			System.out.println("Trending_Date: " + ultimo.getTrendingDate());
-			System.out.println("Título: " + ultimo.getTitle());
-			System.out.println("Título del canal: " + ultimo.getChannel());
-			System.out.println("Id de categoría: " + ultimo.getCategoryId());
-			System.out.println("Fecha de publicación: " + ultimo.getPublishTime());
+			System.out.println("Tï¿½tulo: " + ultimo.getTitle());
+			System.out.println("Tï¿½tulo del canal: " + ultimo.getChannel());
+			System.out.println("Id de categorï¿½a: " + ultimo.getCategoryId());
+			System.out.println("Fecha de publicaciï¿½n: " + ultimo.getPublishTime());
 
 			System.out.println("El total de video encontrados fue de: " + j);
 
 			TFin = System.currentTimeMillis();
 			tiempo = TFin - TInicio;
-			System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
+			System.out.println("Tiempo de ejecuciï¿½n en milisegundos: " + tiempo);
 
 		}
 		catch(Exception e) 
@@ -205,13 +205,13 @@ public class Modelo <T extends Comparable<T>>
 
 			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5]);
 			datosLista.insertElement((T) prim, 0);
-			System.out.println("La información del primer video es: " );
+			System.out.println("La informaciï¿½n del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
 			System.out.println("Trending_Date: " + prim.getTrendingDate() );
-			System.out.println("Título: " + prim.getTitle());
-			System.out.println("Título del canal: " + prim.getChannel());
-			System.out.println("Id de categoría: " + prim.getCategoryId());
-			System.out.println("Fecha de publicación: " + prim.getPublishTime());
+			System.out.println("Tï¿½tulo: " + prim.getTitle());
+			System.out.println("Tï¿½tulo del canal: " + prim.getChannel());
+			System.out.println("Id de categorï¿½a: " + prim.getCategoryId());
+			System.out.println("Fecha de publicaciï¿½n: " + prim.getPublishTime());
 
 			Video ultimo = prim;
 			int j = 1;
@@ -233,19 +233,19 @@ public class Modelo <T extends Comparable<T>>
 			{
 
 			}
-			System.out.println("La información del último video es: " );
+			System.out.println("La informaciï¿½n del ï¿½ltimo video es: " );
 			System.out.println("Id video: " + ultimo.getId());
 			System.out.println("Trending_Date: " + ultimo.getTrendingDate());
-			System.out.println("Título: " + ultimo.getTitle());
-			System.out.println("Título del canal: " + ultimo.getChannel());
-			System.out.println("Id de categoría: " + ultimo.getCategoryId());
-			System.out.println("Fecha de publicación: " + ultimo.getPublishTime());
+			System.out.println("Tï¿½tulo: " + ultimo.getTitle());
+			System.out.println("Tï¿½tulo del canal: " + ultimo.getChannel());
+			System.out.println("Id de categorï¿½a: " + ultimo.getCategoryId());
+			System.out.println("Fecha de publicaciï¿½n: " + ultimo.getPublishTime());
 
 			System.out.println("El total de videos encontrados fue de: " + j);
 
 			TFin = System.currentTimeMillis();
 			tiempo = TFin - TInicio;
-			System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
+			System.out.println("Tiempo de ejecuciï¿½n en milisegundos: " + tiempo);
 
 		}
 		catch(Exception e) 
@@ -258,11 +258,11 @@ public class Modelo <T extends Comparable<T>>
 	public Date fecha1(String pFecha) throws ParseException
 	{
 		String[] partes = pFecha.split("\\.");
-		String año  = partes[0];
+		String anio  = partes[0];
 		String dia  = partes[1];
 		String mes = partes[2];
 
-		String fecha = dia + "/" + mes + "/" + año;
+		String fecha = dia + "/" + mes + "/" + anio;
 		Date date =new SimpleDateFormat("dd/MM/yyyy").parse(fecha);  
 
 		return date;

@@ -15,12 +15,12 @@ public interface ILista <T extends Comparable<T>>
 	void addLast(T element);
 	
 	/**
-	 * Agrega un elemento en la posición pos si la posición es una posición válida. 
-	 * Los elementos que estén a partir de la 
-	 * posición dada deben correrse una posición a la derecha.
-	 * Las posiciones válidas son posiciones donde ya hay un
-	 * elemento en la lista. La posición del primer elemento es 1, 
-	 * la del segundo es 2 y así sucesivamente
+	 * Agrega un elemento en la posiciï¿½n pos si la posiciï¿½n es una posiciï¿½n vï¿½lida. 
+	 * Los elementos que estï¿½n a partir de la 
+	 * posiciï¿½n dada deben correrse una posiciï¿½n a la derecha.
+	 * Las posiciones vï¿½lidas son posiciones donde ya hay un
+	 * elemento en la lista. La posiciï¿½n del primer elemento es 1, 
+	 * la del segundo es 2 y asï¿½ sucesivamente
 	 * @param element
 	 * @param pos
 	 */
@@ -33,14 +33,14 @@ public interface ILista <T extends Comparable<T>>
 	T removeFirst( );
 	
 	/**
-	 * Elimina el último elemento. Se retorna el elemento eliminado.
+	 * Elimina el ï¿½ltimo elemento. Se retorna el elemento eliminado.
 	 * @return el elemento eliminado
 	 */
 	T removeLast( ); 
 	
 	/**
-	 * Elimina el elemento de una posición válida (mayor que -1). Se retorna el elemento eliminado.
-	 * @param la posición del elemento a eliminar
+	 * Elimina el elemento de una posiciï¿½n vï¿½lida (mayor que -1). Se retorna el elemento eliminado.
+	 * @param la posiciï¿½n del elemento a eliminar
 	 * @return elemento eliminado
 	 */
 	T deleteElement( int pos);
@@ -52,21 +52,21 @@ public interface ILista <T extends Comparable<T>>
 	T firstElement( );
 	
 	/**
-	 * Retorna el último elemento
-	 * @return el último elemento
+	 * Retorna el ï¿½ltimo elemento
+	 * @return el ï¿½ltimo elemento
 	 */
 	T lastElement();
 	
 	/**
-	 * Retorna el elemento en una posición válida. La posición del
-	 * primer elemento es 1, la del segundo es 2 y así sucesivamente
-	 * @param la posición del elemento que se busca
-	 * @return el elemento en la posición especificada
+	 * Retorna el elemento en una posiciï¿½n vï¿½lida. La posiciï¿½n del
+	 * primer elemento es 1, la del segundo es 2 y asï¿½ sucesivamente
+	 * @param la posiciï¿½n del elemento que se busca
+	 * @return el elemento en la posiciï¿½n especificada
 	 */
 	T getElement( int pos) ;
 	
 	/**
-	 * Retorna el número de datos en el arreglo
+	 * Retorna el nï¿½mero de datos en el arreglo
 	 * @return el tamanio del arreglo
 	 */
 	int size( );
@@ -78,7 +78,7 @@ public interface ILista <T extends Comparable<T>>
 	boolean isEmpty( );
 	
 	/**
-	 * Retorna la posición válida de un elemento. Si no se 
+	 * Retorna la posiciï¿½n vï¿½lida de un elemento. Si no se 
 	 * encuentra el elemento, el valor retornado es -1
 	 * @param element para consultar
 	 * @return la posicion del elemento
@@ -86,17 +86,26 @@ public interface ILista <T extends Comparable<T>>
 	int isPresent (T element);
 	
 	/**
-	 * Intercambia la información de los elementos en dos posiciones válidas.
-	 * @param la posición primera posición
-	 * @param la posición segunta posición
+	 * Intercambia la informaciï¿½n de los elementos en dos posiciones vï¿½lidas.
+	 * @param la posiciï¿½n primera posiciï¿½n
+	 * @param la posiciï¿½n segunta posiciï¿½n
 	 */
 	void exchange (int pos1, int pos2);
 	
 	/**
-	 * Cambia la información del elemento especificado por parámetro
+	 * Cambia la informaciï¿½n del elemento especificado por parï¿½metro
 	 * @param pos
 	 * @param elem
 	 */
 	void changeInfo (int pos, T elem);
+	
+	/**
+	 * Crear una sublista de la lista original (this).
+	 * Los elementos se toman en el mismo orden como aparecen en la lista original (this).
+	 * @param nÃºmero de elementos que contendrÃ¡ la sublista. Si el nÃºmero es superior al tamaÃ±o
+	 * original de la lista, se obtiene una copia de la lista original.
+	* @return sublista creada con la misma representaciÃ³n de la lista original (this).
+	 */
+	public ILista<T> sublista(int numElementos);
 
 }

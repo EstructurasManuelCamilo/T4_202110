@@ -275,17 +275,17 @@ public class Modelo <T extends Comparable<T>>
 		return fecha;
 	}
 
-	public void mostrar(int tamaño)
+	public void mostrar(int tamanio)
 	{
 		if(!datosArreglo.isEmpty()) 
 		{
-			ArregloDinamico<Video> muestra = (ArregloDinamico<Video>) muestraArreglo(tamaño);
+			ArregloDinamico<Video> muestra = (ArregloDinamico<Video>) muestraArreglo(tamanio);
 			for(int i = 0; i < muestra.size(); i++)
 				System.out.println("El titulo del video" + i+1 + "es: " + muestra.getElement(i).getTitle());
 		}
 		else
 		{
-			ListaEncadenada<Video> muestra = (ListaEncadenada<Video>) muestraLista(tamaño);
+			ListaEncadenada<Video> muestra = (ListaEncadenada<Video>) muestraLista(tamanio);
 			Video actual = muestra.firstElement();
 			int i = 0;
 			while(actual != null)
@@ -295,14 +295,14 @@ public class Modelo <T extends Comparable<T>>
 			}
 		}
 	}
-	public ArregloDinamico<T> muestraArreglo(int tamaño)
+	public ArregloDinamico<T> muestraArreglo(int tamanio)
 	{
-		return datosArreglo.sublista(tamaño);
+		return datosArreglo.sublista(tamanio);
 
 	}
-	public ListaEncadenada<T> muestraLista(int tamaño)
+	public ListaEncadenada<T> muestraLista(int tamanio)
 	{
-		return datosLista.sublista(tamaño) ;
+		return datosLista.sublista(tamanio) ;
 
 	}
 	//RETORNA LA 794

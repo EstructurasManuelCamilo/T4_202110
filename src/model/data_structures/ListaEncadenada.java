@@ -65,12 +65,12 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	}
 
 	/**
-	 * Agrega un elemento en la posición pos si la posición es una posición válida. 
-	 * Los elementos que estén a partir de la 
-	 * posición dada deben correrse una posición a la derecha.
-	 * Las posiciones válidas son posiciones donde ya hay un
-	 * elemento en la lista. La posición del primer elemento es 1, 
-	 * la del segundo es 2 y así sucesivamente
+	 * Agrega un elemento en la posiciï¿½n pos si la posiciï¿½n es una posiciï¿½n vï¿½lida. 
+	 * Los elementos que estï¿½n a partir de la 
+	 * posiciï¿½n dada deben correrse una posiciï¿½n a la derecha.
+	 * Las posiciones vï¿½lidas son posiciones donde ya hay un
+	 * elemento en la lista. La posiciï¿½n del primer elemento es 1, 
+	 * la del segundo es 2 y asï¿½ sucesivamente
 	 * @param element
 	 * @param pos
 	 */
@@ -123,7 +123,7 @@ public T removeFirst()
 }
 
 /**
- * Elimina el último elemento. Se retorna el elemento eliminado.
+ * Elimina el ï¿½ltimo elemento. Se retorna el elemento eliminado.
  * @return el elemento eliminado
  */
 
@@ -147,8 +147,8 @@ public T removeLast()
 }
 
 /**
- * Elimina el elemento de una posición válida (mayor que -1). Se retorna el elemento eliminado.
- * @param la posición del elemento a eliminar
+ * Elimina el elemento de una posiciï¿½n vï¿½lida (mayor que -1). Se retorna el elemento eliminado.
+ * @param la posiciï¿½n del elemento a eliminar
  * @return elemento eliminado
  */
 
@@ -183,8 +183,8 @@ public T deleteElement(int pos)
 	}
 
 	/**
-	 * Retorna el último elemento
-	 * @return el último elemento
+	 * Retorna el ï¿½ltimo elemento
+	 * @return el ï¿½ltimo elemento
 	 */
 	@Override
 	public T lastElement()
@@ -198,17 +198,17 @@ public T deleteElement(int pos)
 
 
 /**
- * Retorna el último elemento
- * @return el último elemento
+ * Retorna el ï¿½ltimo elemento
+ * @return el ï¿½ltimo elemento
  */
 @Override
 
 
 /**
- * Retorna el elemento en una posición válida. La posición del
- * primer elemento es 1, la del segundo es 2 y así sucesivamente
- * @param la posición del elemento que se busca
- * @return el elemento en la posición especificada
+ * Retorna el elemento en una posiciï¿½n vï¿½lida. La posiciï¿½n del
+ * primer elemento es 1, la del segundo es 2 y asï¿½ sucesivamente
+ * @param la posiciï¿½n del elemento que se busca
+ * @return el elemento en la posiciï¿½n especificada
  */
 
 public T getElement(int pos) 
@@ -229,7 +229,7 @@ public T getElement(int pos)
 }
 
 /**
- * Retorna el número de datos en el arreglo
+ * Retorna el nï¿½mero de datos en el arreglo
  * @return el tamanio del arreglo
  */
 
@@ -239,7 +239,7 @@ public int size()
 }
 
 	/**
-	 * Retorna la posición válida de un elemento. Si no se 
+	 * Retorna la posiciï¿½n vï¿½lida de un elemento. Si no se 
 	 * encuentra el elemento, el valor retornado es -1
 	 * @param element para consultar
 	 * @return la posicion del elemento
@@ -272,16 +272,16 @@ public boolean isEmpty()
 }
 
 /**
- * Retorna la posición válida de un elemento. Si no se 
+ * Retorna la posiciï¿½n vï¿½lida de un elemento. Si no se 
  * encuentra el elemento, el valor retornado es -1
  * @param element para consultar
  * @return la posicion del elemento
  */
 
 /**
- * Intercambia la información de los elementos en dos posiciones válidas.
- * @param la posición primera posición
- * @param la posición segunta posición
+ * Intercambia la informaciï¿½n de los elementos en dos posiciones vï¿½lidas.
+ * @param la posiciï¿½n primera posiciï¿½n
+ * @param la posiciï¿½n segunta posiciï¿½n
  */
 
 public void exchange(int pos1, int pos2) 
@@ -320,13 +320,13 @@ public void exchange(int pos1, int pos2)
 
 
 /**
- * Cambia la información del elemento especificado por parámetro
+ * Cambia la informaciï¿½n del elemento especificado por parï¿½metro
  * @param pos
  * @param elem
  */
 
 	/**
-	 * Cambia la información del elemento especificado por parámetro
+	 * Cambia la informaciï¿½n del elemento especificado por parï¿½metro
 	 * @param pos
 	 * @param elem
 	 */
@@ -345,6 +345,12 @@ public void exchange(int pos1, int pos2)
 			if(actual.darElemento() == elem)
 				actual.cambiarElemento(elem);
 		}
+	}
+
+	@Override
+	public ILista<T> sublista(int numElementos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

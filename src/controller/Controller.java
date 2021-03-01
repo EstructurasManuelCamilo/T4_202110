@@ -47,8 +47,15 @@ public class Controller {
 				modelo.leerDatosVideosListaEncadenada();
 				view.printMessage("Lectura completa y Lista Encadenada creada.");
 				break;
+			
+			case 3:
+				view.printMessage("Inserte el tamaño deseado de la muestra."); 
+				dato = lector.nextLine();
+				modelo.mostrar(Integer.valueOf(dato));
+				view.printMessage("");
+				break;
 
-			case 3: 
+			case 4: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;

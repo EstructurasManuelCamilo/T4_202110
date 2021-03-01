@@ -133,7 +133,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 		tamanoAct++;
 	}
 
-	
+
 	public T removeFirst() 
 	{
 		return deleteElement(0);
@@ -163,7 +163,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 		return getElement(0);
 	}
 
-	
+
 	public T lastElement() 
 	{
 		return getElement(tamanoAct);
@@ -209,10 +209,23 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 
 
 	@Override
-	public ILista<T> sublista(int numElementos) 
+	public ArregloDinamico<T> sublista(int numElementos) 
 	{
-		// TODO implementar codigo
-		return null;
+		ArregloDinamico<T> sub = new ArregloDinamico<T>(numElementos);
+		for(int i = 0; i < numElementos; i++)
+		{
+			if(elementos[i]!=null)
+			{
+				sub.addLast(elementos[i]);
+			}
+			else
+			{
+				numElementos -= i;
+				i = 0;
+			}
+		}
+		return sub;
+
 	}
 
 

@@ -332,7 +332,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	}
 	
 	@Override
-	public ILista<T> sublista(int numElementos) 
+	public ListaEncadenada<T> sublista(int numElementos) 
 	{
 		// TODO implementar codigo subLista en ListaE
 		Nodo<T> actual = first;

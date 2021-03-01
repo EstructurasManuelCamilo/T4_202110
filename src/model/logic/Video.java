@@ -2,6 +2,7 @@ package model.logic;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Date;
 
 public class Video implements Comparable<Video>
@@ -80,6 +81,8 @@ public class Video implements Comparable<Video>
 	{
 		return "";
 	}
+	
+	
 	public static class ComparadorXLikes implements Comparator<Video> 
 	{
 

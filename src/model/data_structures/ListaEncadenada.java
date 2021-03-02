@@ -308,39 +308,6 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		cambio.cambiarSiguiente(elementoActual2.darSiguiente());
 		elementoActual2.cambiarSiguiente(cambio);
 		
-		
-//		cmd + 7 
-//		Nodo<T> elementoActual1 = first;
-//		Nodo<T> elementoActual2 = first;
-//		int posElement1 = 1;
-//		int posElement2 = 1;
-//		boolean enct1 = false;
-//		boolean enct2 = false;
-//		
-//		if (pos1 > 0 && pos2 > 0 && pos1 < tamanio +1 && pos2 < tamanio +1) 
-//		{
-//			while(!enct1 || !enct2)
-//			{
-//				if(pos1 != posElement1 )
-//				{
-//					elementoActual1 = elementoActual1.darSiguiente();
-//					posElement1 ++;
-//				}
-//				else
-//					enct1 = true;
-//				if (pos2 != posElement2) //obtengo el nodo de la posicion del parametro 
-//				{
-//					elementoActual2 = elementoActual2.darSiguiente();
-//					posElement2 ++;
-//				}
-//				else
-//					enct2 = true;
-//			}
-//			T copiaE1 = elementoActual1.darElemento();
-//			T copiaE2 = elementoActual1.darElemento();
-//			elementoActual1.cambiarElemento(copiaE1);
-//			elementoActual2.cambiarElemento(copiaE2);
-//		}
 	}
 	
 	

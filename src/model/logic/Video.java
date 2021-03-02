@@ -36,6 +36,7 @@ public class Video implements Comparable<Video>
 		publishTime = fecha2;
 		categoria = ""; //tags??
 		fechaPublicacion = pFpub;
+		likes = pLikes;
 		
 	}
 	

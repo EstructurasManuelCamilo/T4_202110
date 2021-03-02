@@ -1,6 +1,8 @@
 package model.logic;
 
 import model.data_structures.*;
+import model.utils.Ordenamientos;
+
 import com.opencsv.*;
 
 import java.io.*;
@@ -10,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -275,13 +278,12 @@ public class Modelo <T extends Comparable<T>>
 		return fecha;
 	}
 
-	public void mostrar(int tamanio)
+	public ILista mostrar(int tamanio)
 	{
 		if(!datosArreglo.isEmpty()) 
 		{
 			ArregloDinamico<Video> muestra = (ArregloDinamico<Video>) muestraArreglo(tamanio);
-			for(int i = 0; i < muestra.size(); i++)
-				System.out.println("El titulo del video" + i+1 + "es: " + muestra.getElement(i).getTitle());
+			return muestra;
 		}
 		else
 		{
@@ -293,18 +295,25 @@ public class Modelo <T extends Comparable<T>>
 				System.out.println("El titulo del video" + i+1 + "es: " + muestra.getElement(i).getTitle());
 				i++;
 			}
+			return muestra;
 		}
+		
 	}
-	public ArregloDinamico<T> muestraArreglo(int tamanio)
+	public ArregloDinamico<Video> muestraArreglo(int tamanio)
 	{
-		return datosArreglo.sublista(tamanio);
+		return (ArregloDinamico<Video>) datosArreglo.sublista(tamanio);
 
 	}
-	public ListaEncadenada<T> muestraLista(int tamanio)
+	public ListaEncadenada<Video> muestraLista(int tamanio)
 	{
-		return datosLista.sublista(tamanio) ;
+		return (ListaEncadenada<Video>) datosLista.sublista(tamanio) ;
 
 	}
+	public ArregloDinamico<T> darArreglo()
+	{
+		return (ArregloDinamico<T>) datosArreglo;
+	}
+	
 	//RETORNA LA 794
 	//ERROR EN 998
 }

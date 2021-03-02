@@ -79,22 +79,23 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	{
 
 		Nodo <T> nuevo = new Nodo<T>(element);
-		Nodo <T> anterior = first;
-		Nodo<T> actual = anterior.darSiguiente();
-
+		Nodo <T> anterior = null;
+		Nodo<T> actual = null;
 		int contador = 1;
 		if (isEmpty()) 
 		{
 			first = nuevo;
 			last = nuevo;
+			actual = first;
 		}
 		else if(pos > 0 && pos < tamanio +1)
 		{
+			actual = first;
 			while(contador < tamanio + 1 && pos != contador)
 			{
+				anterior = actual;
 				actual = actual.darSiguiente();
 				contador ++;
-				anterior = anterior.darSiguiente();
 			}
 			nuevo.cambiarSiguiente(actual);
 			anterior.cambiarSiguiente(nuevo);	

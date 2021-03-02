@@ -6,9 +6,15 @@ import model.data_structures.ILista;
 
 public class Ordenamientos <T extends Comparable<T>> 
 {
+	public Ordenamientos() 
+	{
+		
+	}
+	long TInicio, TFin, tiempo;
 	public final void ordenarSeleccion(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	{
-		 for (int i = 1; i < lista.size(); i ++)
+		TInicio = System.currentTimeMillis();
+		for (int i = 1; i < lista.size(); i ++)
 		 {
 			 int posMayorMenor = i;
 			 for (int j = i+1; j <= lista.size(); j++)
@@ -19,13 +25,17 @@ public class Ordenamientos <T extends Comparable<T>>
 			 	}
 			 lista.exchange(posMayorMenor, i);
 		 }
+		 TFin = System.currentTimeMillis();
+		 tiempo = TFin - TInicio;
+		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	}
 	
 	/* Ordenamiento de N elementos en posiciones [1, N], con criterio de comparacion,
 	ascendentemente o descendentemente */
 	public final void ordenarInsercion(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	{
-	int n = lista.size();
+		TInicio = System.currentTimeMillis();
+		int n = lista.size();
 		for (int i = 1+1; i <= n; i++)
 		{
 			 boolean enPosicion = false;
@@ -38,9 +48,13 @@ public class Ordenamientos <T extends Comparable<T>>
 					 enPosicion = true;
 			 }
 		}
+		TFin = System.currentTimeMillis();
+		 tiempo = TFin - TInicio;
+		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	 }
 	public final void ordenarShell(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	 {
+		TInicio = System.currentTimeMillis();
 		 int n = lista.size();
 		 int h = 1;
 		 while (h < n/3)
@@ -63,10 +77,14 @@ public class Ordenamientos <T extends Comparable<T>>
 			 }
 			 h /= 3;
 		 }
+		 TFin = System.currentTimeMillis();
+		 tiempo = TFin - TInicio;
+		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	 }
 	
-	public final void ordenarGnomo(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
+	public final void ordenarSort(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	 {
+		TInicio = System.currentTimeMillis();
 		 int i = 2;
 		 while (i <= lista.size())
 		 {
@@ -82,6 +100,9 @@ public class Ordenamientos <T extends Comparable<T>>
 					 i = 2;
 			 }
 		 }
+		 TFin = System.currentTimeMillis();
+		 tiempo = TFin - TInicio;
+		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	 }
 	
 }

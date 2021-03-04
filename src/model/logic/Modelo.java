@@ -27,9 +27,9 @@ public class Modelo <T extends Comparable<T>>
 
 	long TInicio, TFin, tiempo;
 
-	private ArregloDinamico<T> datosArreglo;
+	private ArregloDinamico<Video> datosArreglo; // pones videos 
 
-	private ListaEncadenada<T> datosLista;
+	private ListaEncadenada<Video> datosLista;
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -61,7 +61,7 @@ public class Modelo <T extends Comparable<T>>
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public void agregar(T element)
+	public void agregar(Video element)
 	{	
 		datosArreglo.addLast(element);
 	}
@@ -71,7 +71,7 @@ public class Modelo <T extends Comparable<T>>
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public T buscar(T dato)
+	public Video buscar(Video dato)
 	{
 		if(datosArreglo.isPresent(dato)!= -1)
 			return datosArreglo.getElement(dato);
@@ -84,7 +84,7 @@ public class Modelo <T extends Comparable<T>>
 	 * @param dato Dato a eliminar
 	 * @return dato eliminado
 	 */
-	public T eliminar(T dato)
+	public Video eliminar(Video dato)
 	{
 		return datosArreglo.deleteElement(dato);
 	}
@@ -132,8 +132,8 @@ public class Modelo <T extends Comparable<T>>
 
 			String[] primera = reader.readNext();
 
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[8]));
-			datosArreglo.insertElement((T) prim, 0);
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[8]);
+			datosArreglo.insertElement(prim, 0);
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
 			System.out.println("Trending_Date: " + prim.getTrendingDate() );
@@ -151,8 +151,8 @@ public class Modelo <T extends Comparable<T>>
 				while((fila = reader.readNext()) != null)
 				{
 
-					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], Integer.valueOf(primera[8]));
-					datosArreglo.insertElement((T) nuevo, j);
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], primera[8]);
+					datosArreglo.insertElement( nuevo, j);
 					j++;
 
 					ultimo = nuevo;
@@ -206,8 +206,8 @@ public class Modelo <T extends Comparable<T>>
 
 			String[] primera = reader.readNext();
 
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[8]));
-			datosLista.insertElement((T) prim, 0);
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[8]);
+			datosLista.insertElement( prim, 0);
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
 			System.out.println("Trending_Date: " + prim.getTrendingDate() );
@@ -225,8 +225,8 @@ public class Modelo <T extends Comparable<T>>
 				while((fila = reader.readNext()) != null)
 				{
 
-					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], Integer.valueOf(primera[8]));
-					datosLista.insertElement((T) nuevo, j);
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], primera[8]);
+					datosLista.insertElement( nuevo, j);
 					j++;
 
 					ultimo = nuevo;
@@ -301,6 +301,7 @@ public class Modelo <T extends Comparable<T>>
 	}
 	public ArregloDinamico<Video> muestraArreglo(int tamanio)
 	{
+		System.out.println(datosArreglo.size());
 		return (ArregloDinamico<Video>) datosArreglo.sublista(tamanio);
 
 	}

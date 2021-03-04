@@ -109,29 +109,31 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 
 	public void insertElement(T element, int pos) 
 	{
-		T [ ] copia = elementos;
 		if ( tamanoAct == tamanoMax )
-		{  
-			// caso de arreglo lleno (aumentar tamaNo)
+		{  // caso de arreglo lleno (aumentar tamaNo)
 			tamanoMax = 2 * tamanoMax;
+			T [ ] copia1 = elementos;
 			elementos = (T[])new Comparable [tamanoMax];
-
+			for ( int i = 0; i < tamanoAct; i++)
+			{
+				elementos[i] = copia1[i];
+			} 
 			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
-		}
-
+		}	
+		T [ ] copia2 = elementos;
 		for ( int i = 0, j = 0; i < tamanoAct; i++, j++)
 		{
 			if(pos == i)
 			{
 				elementos[i] = element;
 				j--;
-				System.out.println("Algo");
 			}
 			else
-				elementos[i] = copia[j];
+				elementos[i] = copia2[j];
 		} 
 		tamanoAct++;
 	}
+
 
 
 	public T removeFirst() 

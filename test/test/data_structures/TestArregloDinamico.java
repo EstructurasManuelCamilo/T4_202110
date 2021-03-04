@@ -12,6 +12,7 @@ public class TestArregloDinamico <T extends Comparable<T>>
 {
 
 	private ArregloDinamico<T> arreglo;
+	
 	private static int TAMANO=100;
 	
 	private ListaEncadenada listaEncadenada;
@@ -20,7 +21,7 @@ public class TestArregloDinamico <T extends Comparable<T>>
 	@Before
 	public void setUp1() 
 	{
-		arreglo= new ArregloDinamico(TAMANO);
+		arreglo= new ArregloDinamico<T>(TAMANO);
 		listaEncadenada = new ListaEncadenada<T>(elemento);
 	}
 
@@ -47,7 +48,6 @@ public class TestArregloDinamico <T extends Comparable<T>>
 		{
 			listaEncadenada.insertElement(""+i, i);
 		}
-		
 	}
 
 	@Test
@@ -129,18 +129,34 @@ public class TestArregloDinamico <T extends Comparable<T>>
 	@Test
 	public void testAddLastArreglo()
 	{
-		T elementico = (T) "";
+		setUp2();
+		T elementico = (T) " ";
 		arreglo.addLast(elementico);
-		
-		assertTrue(arreglo.getElement(arreglo.size() - 1).equals(""));
+		System.out.println(arreglo.getElement(0));
+		assertTrue(arreglo.getElement(arreglo.size() - 1).equals(" "));
 	}
+	 
+	 
+    @Test
+    public void testInsertElementListaEncadenada()
+    {
+    	setUp4();
+        listaEncadenada.insertElement(0, 2);
+        assertEquals(1, listaEncadenada.size());
+        System.out.println(listaEncadenada.getElement(0));
+ 
+        listaEncadenada.insertElement(1, 3);
+        assertEquals(2, listaEncadenada.size());
+
+ 
+        listaEncadenada.insertElement(0, 1);
+        assertEquals(3, listaEncadenada.size());
+    }
 	
-	
-	
-	
-	
-	
-	
+    public void testInsertElementArregloDinamino()
+    {
+    	
+    }
 	@Test
 	public void invertir() 
 	{

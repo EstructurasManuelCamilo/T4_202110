@@ -80,17 +80,21 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 
 		Nodo <T> nuevo = new Nodo<T>(element);
 		Nodo <T> anterior = null;
-		Nodo<T> actual = null;
+		Nodo<T> actual = first;
 		int contador = 1;
-		if (isEmpty()) 
+		if (isEmpty())  
 		{
 			first = nuevo;
 			last = nuevo;
-			actual = first;
 		}
+		else if(pos == 1)
+		{
+			nuevo.cambiarSiguiente(first);
+			first = nuevo;
+		}
+		
 		else if(pos > 0 && pos < tamanio +1)
 		{
-			actual = first;
 			while(contador < tamanio + 1 && pos != contador)
 			{
 				anterior = actual;
@@ -207,7 +211,10 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	public T getElement(int pos) 
 	{
 		if(pos < 0 || pos > tamanio +1 || isEmpty())
+		{
+			System.out.println("Se quedó acá");
 			return null;
+		}
 		else
 		{
 			Nodo<T> actual = first;
@@ -312,8 +319,6 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	}
 	
 	
-	
-	
 	/**
 	 * Cambia la informaci�n del elemento especificado por par�metro
 	 * @param pos
@@ -341,11 +346,12 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	{
 		// TODO implementar codigo subLista en ListaE
 		Nodo<T> actual = first;
-		int contador = 0;
+		int contador = 1;
 		ListaEncadenada<T> copia = new ListaEncadenada<T>();
 		while(actual != null || numElementos != contador)
 		{
-			copia.addLast(actual.darElemento());
+			System.out.println(actual.darElemento());
+			copia.addFirst(actual.darElemento());
 			actual = actual.darSiguiente();
 			contador ++;
 		}

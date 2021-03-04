@@ -24,9 +24,9 @@ public class Video implements Comparable<Video>
 	
 	private String fechaPublicacion;
 	
-	private int likes;
+	private String likes;
 
-	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, int pLikes)
+	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, String pLikes)
 	{
 		id = pId;
 		trendingDate = date;
@@ -93,7 +93,7 @@ public class Video implements Comparable<Video>
 		return "";
 	}
 	
-	public int darLikes()
+	public String darLikes()
 	{
 		return likes;
 	}
@@ -107,12 +107,7 @@ public class Video implements Comparable<Video>
 		 valor positivo si video1 tiene más likes que video2. */
 		 public int compare(Video video1, Video video2) 
 		 {
-			 if(video1.darLikes()==video2.darLikes())
-				 return 0;
-			 else if( video1.darLikes() < video2.darLikes())
-				 return -1;
-			 else 
-				 return 1;
+			 return video1.darLikes().compareToIgnoreCase(video2.darLikes());
 		 }
 	}
 

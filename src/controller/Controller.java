@@ -91,7 +91,8 @@ public class Controller {
 				
 			case 4:
 				view.printMessage("Lista ordenada por insercion"); 
-				ordenamientos.ordenarInsercion(modelo.darArreglo(), comparar, true);
+				Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+				ordenamientos.ordenarInsercion(modelo.darArreglo(), compardorXLikes, true);
 				view.printMessage("");
 				break;
 

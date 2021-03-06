@@ -234,8 +234,7 @@ public class Modelo <T extends Comparable<T>>
 				{
 
 					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], primera[8], primera[9]);
-					System.out.println(fila + "---"+j);
-					datosLista.insertElement( nuevo, j);
+					datosLista.addLast(nuevo);
 					j++;
 
 					ultimo = nuevo;
@@ -298,10 +297,10 @@ public class Modelo <T extends Comparable<T>>
 		{
 			ListaEncadenada<Video> muestra = (ListaEncadenada<Video>) muestraLista(tamanio);
 			Video actual = muestra.firstElement();
-			int i = 0;
+			int i = 1;
 			while(actual != null)
 			{
-				System.out.println("El titulo del video" + i+1 + "es: " + muestra.getElement(i).getTitle());
+				System.out.println("El titulo del video " + i + " es: " + muestra.getElement(i).getTitle());
 				i++;
 			}
 			return muestra;

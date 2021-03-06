@@ -79,7 +79,7 @@ public class Controller {
 					for(int i = 0; i < arreglo.size(); i++)
 					{
 						try{
-						System.out.println("El titulo del video" + i+1 + " es: " + arreglo.getElement(i).getTitle());
+						System.out.println("El titulo del video" + i + " es: " + arreglo.getElement(i).getTitle());
 						}
 						catch(Exception e){
 							e.printStackTrace();
@@ -90,7 +90,7 @@ public class Controller {
 				{
 					 lista = (ListaEncadenada<Video>) modelo.mostrar(Integer.valueOf(dato));
 					 for(int i = 0; i < lista.size(); i++)
-							System.out.println("El titulo del video" + i+1 + "es: " + lista.getElement(i).getTitle());
+							System.out.println("El titulo del video" + i + "es: " + lista.getElement(i).getTitle());
 				}
 				
 				view.printMessage("");

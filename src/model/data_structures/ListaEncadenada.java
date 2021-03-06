@@ -212,12 +212,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	
 	public T getElement(int pos) 
 	{
-		if(pos < 0 || pos > tamanio +1 || isEmpty())
-		{
-			System.out.println("Se quedó acá");
-			return null;
-		}
-		else
+		if(pos >= 0 && pos < tamanio +1)
 		{
 			Nodo<T> actual = first;
 			int contador = 1;
@@ -228,6 +223,8 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			}
 			return actual.darElemento();
 		}
+		else
+			return null;
 	}
 	
 	/**

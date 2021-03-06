@@ -11,6 +11,7 @@ public class Ordenamientos <T extends Comparable<T>>
 		
 	}
 	long TInicio, TFin, tiempo;
+	
 	public final void ordenarSeleccion(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	{
 		TInicio = System.currentTimeMillis();

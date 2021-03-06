@@ -25,8 +25,10 @@ public class Video implements Comparable<Video>
 	private String fechaPublicacion;
 	
 	private String likes;
+	
+	private String disLikes;
 
-	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, String pLikes)
+	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, String pLikes, String pDislikes)
 	{
 		id = pId;
 		trendingDate = date;
@@ -37,6 +39,7 @@ public class Video implements Comparable<Video>
 		categoria = ""; //tags??
 		fechaPublicacion = pFpub;
 		likes = pLikes;
+		disLikes = pDislikes;
 		
 	}
 	
@@ -96,6 +99,11 @@ public class Video implements Comparable<Video>
 	public String darLikes()
 	{
 		return likes;
+	}
+	
+	public String darDisLikes()
+	{
+		return disLikes;
 	}
 	
 	public static class ComparadorXLikes implements Comparator<Video> 

@@ -1,6 +1,7 @@
 package model.logic;
 
 import model.data_structures.*;
+import model.logic.Video.ComparadorXLikes;
 import model.utils.Ordenamientos;
 
 import com.opencsv.*;
@@ -24,12 +25,19 @@ public class Modelo <T extends Comparable<T>>
 	/**
 	 * Atributos del modelo del mundo
 	 */
-
 	long TInicio, TFin, tiempo;
-
-	private ArregloDinamico<Video> datosArreglo; // pones videos 
-
+	
+	private ArregloDinamico<Video> datosArreglo; 
+	
 	private ListaEncadenada<Video> datosLista;
+	
+	private Ordenamientos ordenamientos;
+	
+	private ListaEncadenada<Video> lista;
+	
+	private ArregloDinamico<Video> arreglo;
+	
+	private ComparadorXLikes comparar;
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -63,7 +71,7 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public void agregar(Video element)
 	{	
-		datosArreglo.addLast(element);
+		datosArreglo.addLast(element); // es O(1)
 	}
 
 	/**
@@ -132,7 +140,7 @@ public class Modelo <T extends Comparable<T>>
 
 			String[] primera = reader.readNext();
 
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[8]);
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[8], primera[9]);
 			datosArreglo.insertElement(prim, 0);
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -151,7 +159,7 @@ public class Modelo <T extends Comparable<T>>
 				while((fila = reader.readNext()) != null)
 				{
 
-					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], primera[8]);
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], primera[8], primera[9]);
 					datosArreglo.insertElement( nuevo, j);
 					j++;
 
@@ -206,7 +214,7 @@ public class Modelo <T extends Comparable<T>>
 
 			String[] primera = reader.readNext();
 
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[8]);
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[8], primera[9]);
 			datosLista.insertElement( prim, 0);
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -225,7 +233,8 @@ public class Modelo <T extends Comparable<T>>
 				while((fila = reader.readNext()) != null)
 				{
 
-					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], primera[8]);
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], primera[8], primera[9]);
+					System.out.println(fila + "---"+j);
 					datosLista.insertElement( nuevo, j);
 					j++;
 
@@ -301,7 +310,6 @@ public class Modelo <T extends Comparable<T>>
 	}
 	public ArregloDinamico<Video> muestraArreglo(int tamanio)
 	{
-		System.out.println(datosArreglo.size());
 		return (ArregloDinamico<Video>) datosArreglo.sublista(tamanio);
 
 	}

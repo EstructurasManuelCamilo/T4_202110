@@ -86,14 +86,16 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		{
 			first = nuevo;
 			last = nuevo;
+			tamanio ++;
 		}
 		else if(pos == 1)
 		{
 			nuevo.cambiarSiguiente(first);
 			first = nuevo;
+			tamanio ++;
 		}
 		
-		else if(pos > 0 && pos < tamanio +1)
+		else if(pos > 0 && pos < tamanio + 1)
 		{
 			while(contador < tamanio + 1 && pos != contador)
 			{
@@ -103,8 +105,8 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			}
 			nuevo.cambiarSiguiente(actual);
 			anterior.cambiarSiguiente(nuevo);	
+			tamanio ++;
 		}
-		tamanio ++;
 	}
 
 
@@ -219,7 +221,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		{
 			Nodo<T> actual = first;
 			int contador = 1;
-			while(contador < tamanio + 1 && contador != pos)
+			while(contador < tamanio && contador != pos)
 			{
 				actual = actual.darSiguiente();
 				contador ++;
@@ -348,10 +350,10 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		Nodo<T> actual = first;
 		int contador = 1;
 		ListaEncadenada<T> copia = new ListaEncadenada<T>();
-		while(actual != null || numElementos != contador)
+		while(actual != null && numElementos != contador)
 		{
 			System.out.println(actual.darElemento());
-			copia.addFirst(actual.darElemento());
+			copia.addLast(actual.darElemento());
 			actual = actual.darSiguiente();
 			contador ++;
 		}

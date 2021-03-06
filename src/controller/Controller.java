@@ -77,7 +77,14 @@ public class Controller {
 					arreglo = modelo.muestraArreglo(Integer.valueOf(dato));
 					System.out.println(arreglo.size());
 					for(int i = 0; i < arreglo.size(); i++)
-						System.out.println("El titulo del video" + i+1 + "es: " + arreglo.getElement(i).getTitle());
+					{
+						try{
+						System.out.println("El titulo del video" + i+1 + " es: " + arreglo.getElement(i).getTitle());
+						}
+						catch(Exception e){
+							e.printStackTrace();
+						}
+					}
 				}
 				else 
 				{

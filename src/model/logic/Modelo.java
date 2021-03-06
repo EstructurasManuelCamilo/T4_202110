@@ -160,7 +160,7 @@ public class Modelo <T extends Comparable<T>>
 				{
 
 					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),primera[5], primera[8], primera[9]);
-					datosArreglo.insertElement( nuevo, j);
+					datosArreglo.addLast(nuevo);;
 					j++;
 
 					ultimo = nuevo;

@@ -115,7 +115,9 @@ public class Video implements Comparable<Video>
 		 valor positivo si video1 tiene más likes que video2. */
 		 public int compare(Video video1, Video video2) 
 		 {
-			 return video1.darLikes().compareToIgnoreCase(video2.darLikes());
+			 int lksV1 = Integer.parseInt(video1.darLikes());
+			 int lksV2 = Integer.parseInt(video2.darLikes());
+			 return lksV2 - lksV1;
 		 }
 	}
 

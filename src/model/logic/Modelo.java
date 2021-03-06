@@ -43,8 +43,8 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public Modelo()
 	{
-		datosArreglo = new ArregloDinamico<>(501);
-		datosLista = new ListaEncadenada<>();
+		datosArreglo = new ArregloDinamico<Video>(501);
+		datosLista = new ListaEncadenada<Video>();
 	}
 
 	/**

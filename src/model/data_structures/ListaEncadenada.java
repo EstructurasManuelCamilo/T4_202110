@@ -352,7 +352,6 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 		ListaEncadenada<T> copia = new ListaEncadenada<T>();
 		while(actual != null && numElementos != contador)
 		{
-			System.out.println(actual.darElemento());
 			copia.addLast(actual.darElemento());
 			actual = actual.darSiguiente();
 			contador ++;

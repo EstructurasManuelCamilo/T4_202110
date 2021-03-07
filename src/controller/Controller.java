@@ -15,16 +15,16 @@ import view.View;
 public class Controller {
 
 	/* Instancia del Modelo*/
-	private Modelo modelo;
+	private Modelo<Video> modelo;
 
 	/* Instancia de la Vista*/
 	private View view;
 
-	private Ordenamientos ordenamientos;
+	private Ordenamientos<Video> ordenamientos;
 	
 	//private ListaEncadenada<Video> lista; //NO VA ACA
 	
-	//private ArregloDinamico<Video> arreglo;  //NO VA ACA
+	private ArregloDinamico<Video> mArreglo;  //NO VA ACA
 	
 	private ComparadorXLikes comparar;
 	/**
@@ -34,8 +34,9 @@ public class Controller {
 	public Controller ()
 	{
 		view = new View();
-		modelo = new Modelo();
-		ordenamientos = new Ordenamientos();
+		modelo = new Modelo<Video>();
+		ordenamientos = new Ordenamientos<Video>();
+		mArreglo = new ArregloDinamico<Video>(2000);
 	}
 
 	public void run() 
@@ -75,6 +76,7 @@ public class Controller {
 				}
 				if(esArreglo)
 				{
+					mArreglo = modelo.muestraArreglo(Integer.valueOf(dato));
 					for(int i = 0; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
 					{
 						try{
@@ -107,7 +109,7 @@ public class Controller {
 				{
 					view.printMessage("Lista ordenada por insercion"); 
 					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarInsercion(modelo.darArreglo(), compardorXLikes, true);
+					ordenamientos.ordenarInsercion(mArreglo, compardorXLikes, true);
 					view.printMessage("");
 				}
 				else 
@@ -121,14 +123,14 @@ public class Controller {
 			case 5:
 				if(esArreglo)
 				{
-					view.printMessage("Lista ordenada por insercion"); 
+					view.printMessage("Lista ordenada por ShellSort"); 
 					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarShell(modelo.darArreglo(), compardorXLikes, true);
+					ordenamientos.ordenarShell(mArreglo, compardorXLikes, true);
 					view.printMessage("");
 				}
 				else 
 				{
-					view.printMessage("Lista ordenada por insercion"); 
+					view.printMessage("Lista ordenada por Shellsort"); 
 					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
 					ordenamientos.ordenarShell(modelo.darLista(), compardorXLikes, true);
 					view.printMessage("");
@@ -138,16 +140,16 @@ public class Controller {
 			case 6:
 				if(esArreglo)
 				{
-					view.printMessage("Lista ordenada por insercion"); 
+					view.printMessage("Lista ordenada por MergeSort"); 
 					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarMerge(modelo.darArreglo(), compardorXLikes, true);
+					ordenamientos.ordenarMerge(mArreglo, compardorXLikes, true);
 					view.printMessage("");
 				}
 				else 
 				{
-					view.printMessage("Lista ordenada por insercion"); 
+					view.printMessage("Lista ordenada por MergeSort"); 
 					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarShell(modelo.darLista(), compardorXLikes, true);
+					ordenamientos.ordenarMerge(modelo.darLista(), compardorXLikes, true);
 					view.printMessage("");
 				}
 				break;

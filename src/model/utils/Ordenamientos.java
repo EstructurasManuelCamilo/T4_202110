@@ -40,7 +40,7 @@ public class Ordenamientos <T extends Comparable<T>>
 		for (int i = 1+1; i <= n; i++)
 		{
 			 boolean enPosicion = false;
-			 for (int j = i; j > 1 && !enPosicion; j -= 1)
+			 for (int j = i-1; j > 1 && !enPosicion; j -= 1)
 			{
 				 int factorComparacion = (ascendente?1:-1) * criterio.compare(lista.getElement(j), lista.getElement(j-1));
 				 if (factorComparacion < 0)
@@ -67,7 +67,7 @@ public class Ordenamientos <T extends Comparable<T>>
 			 for (int i = h+1; i <= n; i++)
 			 {
 				 boolean enPosicion = false;
-				 for (int j = i; j > h && !enPosicion; j -= h)
+				 for (int j = i-1; j > h && !enPosicion; j -= h)
 				 {
 					 int factorComparacion = (ascendente?1:-1) * criterio.compare(lista.getElement(j), lista.getElement(j-h));
 					 if (factorComparacion < 0)

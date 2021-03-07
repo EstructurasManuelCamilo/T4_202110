@@ -358,10 +358,13 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	}
 
 	@Override
-	public ILista<T> subList(int i, int mid) 
+	public ILista<T> subList(int pos, int num) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ILista<T> respuesta=null;
+		
+		
+		
+		return respuesta;
 	}
 
 }

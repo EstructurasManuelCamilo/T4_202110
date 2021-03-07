@@ -237,7 +237,8 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 	@Override
 	public ILista<T> subList(int i, int mid) 
 	{
-		return null;
+		
+		
 	}
 
 

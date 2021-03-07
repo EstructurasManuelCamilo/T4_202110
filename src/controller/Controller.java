@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 import model.data_structures.ArregloDinamico;
@@ -21,9 +22,9 @@ public class Controller {
 
 	private Ordenamientos ordenamientos;
 	
-	private ListaEncadenada<Video> lista;
+	//private ListaEncadenada<Video> lista; //NO VA ACA
 	
-	private ArregloDinamico<Video> arreglo;
+	//private ArregloDinamico<Video> arreglo;  //NO VA ACA
 	
 	private ComparadorXLikes comparar;
 	/**
@@ -74,12 +75,10 @@ public class Controller {
 				}
 				if(esArreglo)
 				{
-					arreglo = modelo.muestraArreglo(Integer.valueOf(dato));
-					System.out.println(arreglo.size());
-					for(int i = 0; i < arreglo.size(); i++)
+					for(int i = 0; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
 					{
 						try{
-						System.out.println("El titulo del video" + i + " es: " + arreglo.getElement(i).getTitle());
+						System.out.println("El titulo del video" + i + " es: " + ((Video) modelo.muestraArreglo(Integer.valueOf(dato)).getElement(i)).getTitle());
 						}
 						catch(Exception e){
 							e.printStackTrace();
@@ -88,22 +87,72 @@ public class Controller {
 				}
 				else 
 				{
-					 lista = (ListaEncadenada<Video>) modelo.mostrar(Integer.valueOf(dato));
-					 for(int i = 0; i < lista.size(); i++)
-							System.out.println("El titulo del video" + i + "es: " + lista.getElement(i).getTitle());
+						for(int i = 0; i < modelo.muestraLista(Integer.valueOf(dato)).size(); i++)
+						{
+							try{
+							System.out.println("El titulo del video" + i + " es: " + ((Video) modelo.muestraLista(Integer.valueOf(dato)).getElement(i)).getTitle());
+							}
+							catch(Exception e)
+							{
+								e.printStackTrace();
+							}
+						}
 				}
 				
 				view.printMessage("");
 				break;
 				
 			case 4:
-				view.printMessage("Lista ordenada por insercion"); 
-				Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-				ordenamientos.ordenarInsercion(modelo.darArreglo(), compardorXLikes, true);
-				view.printMessage("");
+				if(esArreglo)
+				{
+					view.printMessage("Lista ordenada por insercion"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarInsercion(modelo.darArreglo(), compardorXLikes, true);
+					view.printMessage("");
+				}
+				else 
+				{
+					view.printMessage("Lista ordenada por insercion"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarInsercion(modelo.darLista(), compardorXLikes, true);
+					view.printMessage("");
+				}
+				break;
+			case 5:
+				if(esArreglo)
+				{
+					view.printMessage("Lista ordenada por insercion"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarShell(modelo.darArreglo(), compardorXLikes, true);
+					view.printMessage("");
+				}
+				else 
+				{
+					view.printMessage("Lista ordenada por insercion"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarShell(modelo.darLista(), compardorXLikes, true);
+					view.printMessage("");
+				}
+				break;
+				
+			case 6:
+				if(esArreglo)
+				{
+					view.printMessage("Lista ordenada por insercion"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarMerge(modelo.darArreglo(), compardorXLikes, true);
+					view.printMessage("");
+				}
+				else 
+				{
+					view.printMessage("Lista ordenada por insercion"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarShell(modelo.darLista(), compardorXLikes, true);
+					view.printMessage("");
+				}
 				break;
 
-			case 5: 
+			case 7: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;

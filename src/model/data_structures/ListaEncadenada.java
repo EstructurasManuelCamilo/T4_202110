@@ -343,7 +343,6 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public ListaEncadenada<T> sublista(int numElementos) 
 	{
-		// TODO implementar codigo subLista en ListaE
 		Nodo<T> actual = first;
 		int contador = 1;
 		ListaEncadenada<T> copia = new ListaEncadenada<T>();
@@ -360,11 +359,24 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	@Override
 	public ILista<T> subList(int pos, int num) 
 	{
-		ILista<T> respuesta=null;
-		
-		
-		
-		return respuesta;
+		Nodo<T> actual = first;
+		int cont1 = 1;
+		int cont2 = 1;
+		boolean encontro = false;
+		ListaEncadenada<T> copia = new ListaEncadenada<T>();
+		while(pos != cont1 && num !=cont2)
+		{
+			actual = actual.darSiguiente();
+			if(!encontro)
+				cont1++;
+			if(cont1 == pos)
+			{
+				encontro =true;
+				copia.addLast(actual.darElemento());
+				cont2++;
+			}
+		}
+		return copia;
 	}
 
 }

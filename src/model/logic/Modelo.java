@@ -453,6 +453,7 @@ public class Modelo <T extends Comparable<T>>
 		return solucion;
 	}
 
-	//RETORNA LA 794
-	//ERROR EN 998
+	// Requerimiento 2
+	
+	public ILista <Video> viderTendenciaPais(String pPais)
 }

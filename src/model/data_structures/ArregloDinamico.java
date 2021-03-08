@@ -133,7 +133,6 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 			}
 			elementos[pos] = element;
 		}
-
 		tamanoAct++;
 	}
 
@@ -217,7 +216,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 	public ArregloDinamico<T> sublista(int numElementos) 
 	{
 		ArregloDinamico<T> sub = new ArregloDinamico<T>(numElementos);
-		for(int i = 0; i < numElementos; i++)
+		for(int i = 0; i < numElementos+1; i++)
 		{
 			if(elementos[i]!=null)
 			{
@@ -237,6 +236,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 	@Override
 	public ILista<T> subList(int i, int mid) 
 	{
+		return null;
 		
 		
 	}

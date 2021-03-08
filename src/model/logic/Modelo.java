@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -26,19 +27,19 @@ public class Modelo <T extends Comparable<T>>
 	 * Atributos del modelo del mundo
 	 */
 	long TInicio, TFin, tiempo;
-	
+
 	private ILista<Video> videos; // TODO cambio ILista
-	
+
 	private ArregloDinamico<Video> datosArreglo; 
-	
+
 	private ListaEncadenada<Video> datosLista;
-	
+
 	private Ordenamientos ordenamientos;
-	
+
 	private ListaEncadenada<Video> lista;
-	
+
 	private ArregloDinamico<Video> arreglo;
-	
+
 	private ComparadorXLikes comparar;
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -122,6 +123,7 @@ public class Modelo <T extends Comparable<T>>
 
 	public void leerDatosVideosArregloDinamico()
 	{
+		ArrayList<Categoria> categorias = leerCategorias();
 		FileReader pDatos = null;
 		CSVReader reader = null;
 		TInicio = System.currentTimeMillis();
@@ -141,9 +143,10 @@ public class Modelo <T extends Comparable<T>>
 			}
 
 			String[] primera = reader.readNext();
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[7]), primera[8], primera[9], primera[16]);
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[7]), primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias), primera[16]);
+
 			datosArreglo.insertElement(prim, 0);
-			
+
 			// Podemos quitar todo esto 
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -151,6 +154,7 @@ public class Modelo <T extends Comparable<T>>
 			System.out.println("Titulo: " + prim.getTitle());
 			System.out.println("Titulo del canal: " + prim.getChannel());
 			System.out.println("Id de categoria: " + prim.getCategoryId());
+			System.out.println("Nombre de categoria: " + prim.darNombreCategoria());
 			System.out.println("Fecha de publicacion: " + prim.getPublishTime());
 
 			Video ultimo = prim;
@@ -162,8 +166,8 @@ public class Modelo <T extends Comparable<T>>
 				while((fila = reader.readNext()) != null)
 				{
 
-					Video nuevo = new Video(fila[0], fecha1(fila[1]) , fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]), fila[5], Integer.valueOf(fila[7]), fila[8], fila[9], fila[16]);
-					datosArreglo.addLast(nuevo);;
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], Integer.valueOf(fila[7]), fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias), fila[16]);
+					datosArreglo.insertElement( nuevo, j);
 					j++;
 
 					ultimo = nuevo;
@@ -179,6 +183,7 @@ public class Modelo <T extends Comparable<T>>
 			System.out.println("Titulo: " + ultimo.getTitle());
 			System.out.println("Titulo del canal: " + ultimo.getChannel());
 			System.out.println("Id de categoria: " + ultimo.getCategoryId());
+			System.out.println("Nombre de categoria: " + ultimo.darNombreCategoria());
 			System.out.println("Fecha de publicacion: " + ultimo.getPublishTime());
 
 			System.out.println("El total de video encontrados fue de: " + j);
@@ -197,6 +202,7 @@ public class Modelo <T extends Comparable<T>>
 
 	public void leerDatosVideosListaEncadenada()
 	{
+		ArrayList<Categoria> categorias = leerCategorias();
 		FileReader pDatos = null;
 		CSVReader reader = null;
 		TInicio = System.currentTimeMillis();
@@ -217,7 +223,7 @@ public class Modelo <T extends Comparable<T>>
 
 			String[] primera = reader.readNext();
 
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[7]), primera[8], primera[9], primera[16]);;
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5],  Integer.valueOf(primera[7]), primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias), primera[16]);
 			datosLista.insertElement( prim, 0);
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -225,6 +231,7 @@ public class Modelo <T extends Comparable<T>>
 			System.out.println("Titulo: " + prim.getTitle());
 			System.out.println("Titulo del canal: " + prim.getChannel());
 			System.out.println("Id de categoria: " + prim.getCategoryId());
+			System.out.println("Nombre de categoria: " + prim.darNombreCategoria());
 			System.out.println("Fecha de publicacion: " + prim.getPublishTime());
 
 			Video ultimo = prim;
@@ -236,8 +243,8 @@ public class Modelo <T extends Comparable<T>>
 				while((fila = reader.readNext()) != null)
 				{
 
-					Video nuevo = new Video(fila[0], fecha1(fila[1]) , fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]), fila[5], Integer.valueOf(fila[7]), fila[8], fila[9], fila[16]);
-					datosLista.addLast(nuevo);
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5],  Integer.valueOf(fila[7]), fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias), fila[16]);
+					datosLista.insertElement( nuevo, j);
 					j++;
 
 					ultimo = nuevo;
@@ -253,6 +260,7 @@ public class Modelo <T extends Comparable<T>>
 			System.out.println("Titulo: " + ultimo.getTitle());
 			System.out.println("Titulo del canal: " + ultimo.getChannel());
 			System.out.println("Id de categoria: " + ultimo.getCategoryId());
+			System.out.println("Nombre de categoria: " + ultimo.darNombreCategoria());
 			System.out.println("Fecha de publicacion: " + ultimo.getPublishTime());
 
 			System.out.println("El total de videos encontrados fue de: " + j);
@@ -289,6 +297,54 @@ public class Modelo <T extends Comparable<T>>
 		return fecha;
 	}
 
+	public ArrayList<Categoria> leerCategorias()
+	{
+
+		System.out.println("Se inicio la lectura de categorias");
+		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+
+		FileReader pDatos = null;
+		CSVReader reader = null;
+		try 
+		{
+
+			pDatos = new FileReader("data/category-id.csv");
+			CSVParser separador = new CSVParserBuilder().withSeparator('	').build();
+			reader = new CSVReaderBuilder(pDatos).withCSVParser(separador).build();
+			String[] fila = reader.readNext();
+
+			String[] columnas = new String[2];
+			for(int i = 0; i < 2; i++)
+			{
+				columnas[i] = fila[i];
+			}
+
+			System.out.println("Las categorias tienen: " + columnas[0] + " y " + columnas[1]);
+
+			try 
+			{
+
+				while((fila = reader.readNext()) != null)
+				{
+					Categoria nueva = new Categoria(Integer.valueOf(fila[0]), fila[1]);
+					categorias.add(nueva);
+					System.out.println("Categoria: " + nueva.darIdCat() + " se llama " + nueva.darNombreCat());
+				}
+			}
+			catch(Exception e) 
+			{
+
+			}
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+
+		return categorias;
+
+	}
+
 	public ILista mostrar(int tamanio)
 	{
 		if(!datosArreglo.isEmpty()) 
@@ -309,7 +365,7 @@ public class Modelo <T extends Comparable<T>>
 			}
 			return muestra;
 		}
-		
+
 	}
 	public ArregloDinamico<Video> muestraArreglo(int tamanio)
 	{
@@ -325,12 +381,32 @@ public class Modelo <T extends Comparable<T>>
 	{
 		return (ArregloDinamico<Video>) datosArreglo;
 	}
-	
+
 	public ListaEncadenada<Video> darLista()
 	{
 		return (ListaEncadenada<Video>) datosLista;
 	}
-	
+
+	public String darNomCat(int pId, ArrayList<Categoria> pCategorias)
+	{
+		String resp = "";
+		for(int i = 0; i < pCategorias.size() & resp.equals(""); i++)
+		{
+			if(pId == pCategorias.get(i).darIdCat())
+			{
+				resp = pCategorias.get(i).darNombreCat();
+			}
+
+		}
+		return resp;
+	}
+
+	//Requerimiento1
+	public void mejoresVideosCatPa(String pCat, String pPa)
+	{
+
+	}
+
 	//RETORNA LA 794
 	//ERROR EN 998
 }

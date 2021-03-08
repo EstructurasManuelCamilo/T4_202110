@@ -344,7 +344,7 @@ public class Modelo <T extends Comparable<T>>
 
 	}
 
-	public ILista mostrar(int tamanio)
+	public ILista<Video> mostrar(int tamanio)
 	{
 		if(!datosArreglo.isEmpty()) 
 		{
@@ -401,9 +401,9 @@ public class Modelo <T extends Comparable<T>>
 	}
 
 	//Requerimiento1
-	public void mejoresVideosCatPa(int n, String pCat, String pPa)
+	public ILista<Video> mejoresVideosCatPa(int n, String pCat, String pPa)
 	{
-
+		ILista<Video> solucion = null; 
 		//Primero se ordena por cantidadVistas
 		if(!datosArreglo.isEmpty())
 		{
@@ -411,10 +411,38 @@ public class Modelo <T extends Comparable<T>>
 			int j = 0;
 			for(int i = 0; i < n; i++)
 			{
-				if(datosArreglo.getElement(i).darPais().equals(pPa) && datosArreglo.getElement(i).darNombreCategoria().equals(pCat))
+				try
 				{
-					arregloSolucion.insertElement(datosArreglo.getElement(i), j);
-					j++;
+					Video actual = datosArreglo.getElement(i);
+					if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(pCat))
+					{
+						arregloSolucion.insertElement(actual, j);
+						j++;
+					}
+					else
+					{
+						n++;
+					}
+				}
+				catch(Exception e)
+				{
+
+				}
+			}
+			solucion = arregloSolucion;
+		}
+		else
+		{
+			ListaEncadenada<Video>  listaSolucion = new ListaEncadenada<>();
+			Video actual = datosLista.firstElement();
+			int i = 1;
+			while(actual != null || i < n)
+			{
+				if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(pCat))
+				{
+					listaSolucion.addLast(actual);
+					actual = datosLista.getElement(i);
+					i++;
 				}
 				else
 				{
@@ -422,11 +450,7 @@ public class Modelo <T extends Comparable<T>>
 				}
 			}
 		}
-		else
-		{
-			ListaEncadenada<Video>  ListaSolucion = new ListaEncadenada<>();
-			//TODO completar
-		}
+		return solucion;
 	}
 
 	//RETORNA LA 794

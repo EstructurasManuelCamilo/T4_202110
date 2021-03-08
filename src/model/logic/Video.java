@@ -27,8 +27,12 @@ public class Video implements Comparable<Video>
 	private String likes;
 	
 	private String disLikes;
+	
+	private String pais;
+	
+	private String vistas;
 
-	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, String pLikes, String pDislikes, String pNomCat)
+	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, String pVistas, String pLikes, String pDislikes, String pNomCat, String pPais)
 	{
 		id = pId;
 		trendingDate = date;
@@ -37,11 +41,11 @@ public class Video implements Comparable<Video>
 		categoryId = pCat;
 		categoria = pNomCat;
 		publishTime = fecha2;
-		categoria = ""; //tags??
 		fechaPublicacion = pFpub;
 		likes = pLikes;
 		disLikes = pDislikes;
-		
+		pais = pPais;
+		vistas = pVistas;
 	}
 	
 	/** Comparación natural de acuerdo a algún atributo con identificación única
@@ -107,6 +111,15 @@ public class Video implements Comparable<Video>
 		return disLikes;
 	}
 	
+	public String darPais()
+	{
+		return pais;
+	}
+	
+	public String darVistas()
+	{
+		return vistas;
+	}
 	public static class ComparadorXLikes implements Comparator<Video> 
 	{
 

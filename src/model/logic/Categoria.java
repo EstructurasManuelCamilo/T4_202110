@@ -16,7 +16,7 @@ public class Categoria
 		return nombre;
 	}
 
-	public int darId()
+	public int darIdCat()
 	{
 		return id;
 	}

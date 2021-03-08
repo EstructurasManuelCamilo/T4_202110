@@ -142,7 +142,7 @@ public class Modelo <T extends Comparable<T>>
 
 			String[] primera = reader.readNext();
 
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias));
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[7], primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias), primera[16]);
 			datosArreglo.insertElement(prim, 0);
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -162,7 +162,7 @@ public class Modelo <T extends Comparable<T>>
 				while((fila = reader.readNext()) != null)
 				{
 
-					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias));
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], fila[7], fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias), fila[16]);
 					datosArreglo.insertElement( nuevo, j);
 					j++;
 
@@ -219,7 +219,7 @@ public class Modelo <T extends Comparable<T>>
 
 			String[] primera = reader.readNext();
 
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias));
+			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], primera[7], primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias), primera[16]);
 			datosLista.insertElement( prim, 0);
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -239,7 +239,7 @@ public class Modelo <T extends Comparable<T>>
 				while((fila = reader.readNext()) != null)
 				{
 
-					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias));
+					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], fila[7], fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias), fila[16]);
 					System.out.println(fila + "---"+j);
 					datosLista.insertElement( nuevo, j);
 					j++;
@@ -325,6 +325,7 @@ public class Modelo <T extends Comparable<T>>
 				{
 					Categoria nueva = new Categoria(Integer.valueOf(fila[0]), fila[1]);
 					categorias.add(nueva);
+					System.out.println("Categoria: " + nueva.darIdCat() + " se llama " + nueva.darNombreCat());
 				}
 			}
 			catch(Exception e) 
@@ -382,7 +383,7 @@ public class Modelo <T extends Comparable<T>>
 		String resp = "";
 		for(int i = 0; i < pCategorias.size() & resp.equals(""); i++)
 		{
-			if(pId == pCategorias.get(i).darId())
+			if(pId == pCategorias.get(i).darIdCat())
 			{
 				resp = pCategorias.get(i).darNombreCat();
 			}
@@ -392,7 +393,10 @@ public class Modelo <T extends Comparable<T>>
 	}
 
 	//Requerimiento1
-
+	public void mejoresVideosCatPa(String pCat, String pPa)
+	{
+		
+	}
 
 	//RETORNA LA 794
 	//ERROR EN 998

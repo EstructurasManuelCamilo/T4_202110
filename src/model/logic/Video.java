@@ -28,7 +28,7 @@ public class Video implements Comparable<Video>
 	
 	private String disLikes;
 	
-	private String pais;
+	private String pais; // Agrego el pais
 	
 	private int vistas;
 
@@ -44,6 +44,7 @@ public class Video implements Comparable<Video>
 		fechaPublicacion = pFpub;
 		likes = pLikes;
 		disLikes = pDislikes;
+		pais = pPais;
 		pais = pPais;
 		vistas = pVistas;
 	}

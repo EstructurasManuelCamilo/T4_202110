@@ -28,6 +28,8 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	long TInicio, TFin, tiempo;
 
+	private ILista<Video> videos; // TODO cambio ILista
+
 	private ArregloDinamico<Video> datosArreglo; 
 
 	private ListaEncadenada<Video> datosLista;
@@ -141,9 +143,10 @@ public class Modelo <T extends Comparable<T>>
 			}
 
 			String[] primera = reader.readNext();
-
 			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[7]), primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias), primera[16]);
 			datosArreglo.insertElement(prim, 0);
+
+			// Podemos quitar todo esto 
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
 			System.out.println("Trending_Date: " + prim.getTrendingDate() );
@@ -220,6 +223,7 @@ public class Modelo <T extends Comparable<T>>
 			String[] primera = reader.readNext();
 
 			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[7]), primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias), primera[16]);
+
 			datosLista.insertElement( prim, 0);
 			System.out.println("La informacion del primer video es: " );
 			System.out.println("Id video: " + prim.getId());
@@ -238,9 +242,7 @@ public class Modelo <T extends Comparable<T>>
 
 				while((fila = reader.readNext()) != null)
 				{
-
 					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], Integer.valueOf(fila[7]), fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias), fila[16]);
-					System.out.println(fila + "---"+j);
 					datosLista.insertElement( nuevo, j);
 					j++;
 
@@ -296,7 +298,7 @@ public class Modelo <T extends Comparable<T>>
 
 	public ArrayList<Categoria> leerCategorias()
 	{
-		
+
 		System.out.println("Se inicio la lectura de categorias");
 		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 
@@ -315,7 +317,7 @@ public class Modelo <T extends Comparable<T>>
 			{
 				columnas[i] = fila[i];
 			}
-			
+
 			System.out.println("Las categorias tienen: " + columnas[0] + " y " + columnas[1]);
 
 			try 
@@ -353,11 +355,12 @@ public class Modelo <T extends Comparable<T>>
 		{
 			ListaEncadenada<Video> muestra = (ListaEncadenada<Video>) muestraLista(tamanio);
 			Video actual = muestra.firstElement();
-			int i = 0;
+			int i = 1;
 			while(actual != null)
 			{
-				System.out.println("El titulo del video" + i+1 + "es: " + muestra.getElement(i).getTitle());
+				System.out.println("El titulo del video " + i + " es: " + muestra.getElement(i).getTitle());
 				i++;
+				actual = muestra.getElement(i);
 			}
 			return muestra;
 		}
@@ -373,9 +376,14 @@ public class Modelo <T extends Comparable<T>>
 		return (ListaEncadenada<Video>) datosLista.sublista(tamanio) ;
 
 	}
-	public ArregloDinamico<T> darArreglo()
+	public ArregloDinamico<Video> darArreglo()
 	{
-		return (ArregloDinamico<T>) datosArreglo;
+		return (ArregloDinamico<Video>) datosArreglo;
+	}
+
+	public ListaEncadenada<Video> darLista()
+	{
+		return (ListaEncadenada<Video>) datosLista;
 	}
 
 	public String darNomCat(int pId, ArrayList<Categoria> pCategorias)
@@ -395,6 +403,7 @@ public class Modelo <T extends Comparable<T>>
 	//Requerimiento1
 	public void mejoresVideosCatPa(int n, String pCat, String pPa)
 	{
+
 		//Primero se ordena por cantidadVistas
 		if(!datosArreglo.isEmpty())
 		{

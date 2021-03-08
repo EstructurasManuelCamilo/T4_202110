@@ -108,4 +108,6 @@ public interface ILista <T extends Comparable<T>>
 	 */
 	public ILista<T> sublista(int numElementos);
 
+	public ILista<T> subList(int i, int mid);
+
 }

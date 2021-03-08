@@ -30,9 +30,9 @@ public class Video implements Comparable<Video>
 	
 	private String pais;
 	
-	private String vistas;
+	private int vistas;
 
-	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, String pVistas, String pLikes, String pDislikes, String pNomCat, String pPais)
+	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, int pVistas, String pLikes, String pDislikes, String pNomCat, String pPais)
 	{
 		id = pId;
 		trendingDate = date;
@@ -116,7 +116,7 @@ public class Video implements Comparable<Video>
 		return pais;
 	}
 	
-	public String darVistas()
+	public int darVistas()
 	{
 		return vistas;
 	}

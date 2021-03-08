@@ -4,6 +4,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 {
 	private Nodo <T> first;
 	private Nodo <T> last;
+	private int cantVideosAgregados = 0;
 
 	public int tamanio;
 
@@ -12,6 +13,10 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 	 * @param element que se va a agregar
 	 */
 
+	public int darCantVideos()
+	{
+		return cantVideosAgregados;
+	}
 	public ListaEncadenada()
 	{
 		tamanio = 0;
@@ -107,6 +112,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T>
 			anterior.cambiarSiguiente(nuevo);	
 			tamanio ++;
 		}
+		cantVideosAgregados ++;
 	}
 
 

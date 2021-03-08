@@ -6,6 +6,8 @@ import model.utils.Ordenamientos;
 
 import com.opencsv.*;
 
+
+
 import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -186,6 +188,7 @@ public class Modelo <T extends Comparable<T>>
 			System.out.println("Fecha de publicacion: " + ultimo.getPublishTime());
 
 			System.out.println("El total de video encontrados fue de: " + j);
+			System.out.println();
 
 			TFin = System.currentTimeMillis();
 			tiempo = TFin - TInicio;
@@ -236,22 +239,29 @@ public class Modelo <T extends Comparable<T>>
 
 			Video ultimo = prim;
 			int j = 1;
-
+			
 			try 
 			{
-
-				while((fila = reader.readNext()) != null)
+				fila = reader.readNext();
+				while(fila != null)
 				{
 					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], Integer.valueOf(fila[7]), fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias), fila[16]);
 					datosLista.insertElement( nuevo, j);
 					j++;
-
 					ultimo = nuevo;
+					System.out.println(j);
+					try {
+						fila = reader.readNext();
+					}
+					catch(Exception e)
+					{
+						fila = reader.readNext();
+					}
 				}
 			}
 			catch(Exception e) 
 			{
-
+				e.printStackTrace();
 			}
 			System.out.println("La informacion del utimo video es: " );
 			System.out.println("Id video: " + ultimo.getId());
@@ -455,5 +465,9 @@ public class Modelo <T extends Comparable<T>>
 
 	// Requerimiento 2
 	
-	public ILista <Video> viderTendenciaPais(String pPais)
+	public ILista <Video> videoTendenciaPais(String pPais)
+	{
+		ILista<Video> resp = null;
+		return resp;
+	}
 }

@@ -153,8 +153,24 @@ public class Controller {
 					view.printMessage("");
 				}
 				break;
+			case 7:
+				if(esArreglo)
+				{
+					view.printMessage("Lista ordenada por QuickSort"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarQuickSort(mArreglo, compardorXLikes, true);
+					view.printMessage("");
+				}
+				else 
+				{
+					view.printMessage("Lista ordenada por QuickSort"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarQuickSort(modelo.darLista(), compardorXLikes, true);
+					view.printMessage("");
+				}
+				break;
 
-			case 7: 
+			case 8: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;

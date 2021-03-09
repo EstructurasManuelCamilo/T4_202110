@@ -107,8 +107,8 @@ public class Ordenamientos <T extends Comparable<T>>
 	 }
 	public void ordenarMerge(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	{
+		System.out.println(lista.firstElement());
 		int size = lista.size();
-		System.out.println(size);
 		if(size>1)
 		{
 			int mid = size/2;
@@ -158,12 +158,16 @@ public class Ordenamientos <T extends Comparable<T>>
 				j++;
 				k++;
 			}
-		}
+		}	 
 	}
 	
 	public void ordenarQuickSort(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	{
+		TInicio = System.currentTimeMillis();
 		sort(lista, criterio, ascendente, 1, lista.size());
+		TFin = System.currentTimeMillis();
+		tiempo = TFin - TInicio;
+		System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	}
 	
 	private void sort(ILista<T> lista, Comparator<T> criterio, boolean ascendente, int lo, int hi)

@@ -27,6 +27,8 @@ public class Controller {
 	private ArregloDinamico<Video> mArreglo;  //NO VA ACA
 	
 	private ComparadorXLikes comparar;
+	
+	private boolean cargados;
 	/**
 	 * Crear la vista y el modelo del proyecto
 	 * @param capacidad tamaNo inicial del arreglo
@@ -57,30 +59,53 @@ public class Controller {
 			case 1:
 				view.printMessage("Inicio de lectura de los archivos."); 
 				modelo.leerDatosVideosArregloDinamico();
-				view.printMessage("Lectura completa y Arreglo Dinamico creado."); 
+				view.printMessage("El total de videos cargados es: " + modelo.darArreglo().size());
+				view.printMessage("La información del primer video es: ");
+				view.printMessage("Title: " + modelo.darArreglo().getElement(0).getTitle());
+				view.printMessage("Trending date: " + modelo.darArreglo().getElement(0).getTrendingDate());
+				view.printMessage("Country: " + modelo.darArreglo().getElement(0).darPais());
+				view.printMessage("Views: " + modelo.darArreglo().getElement(0).darVistas());
+				view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
+				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
+				view.printMessage("Las categorías cargargadas son:");
+				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
+				{
+					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+				}
 				esArreglo = true;
+				cargados = true;
 				break;
 				
 			case 2:
 				view.printMessage("Inicio de lectura de los archivos."); 
 				modelo.leerDatosVideosListaEncadenada();
-				view.printMessage("Lectura completa y Lista Encadenada creada.");
+				view.printMessage("El total de videos cargados es: " + modelo.darLista().size());
+				view.printMessage("La información del primer video es: ");
+				view.printMessage("Title: " + modelo.darLista().getElement(1).getTitle());
+				view.printMessage("Trending date: " + modelo.darLista().getElement(1).getTrendingDate());
+				view.printMessage("Country: " + modelo.darLista().getElement(1).darPais());
+				view.printMessage("Views: " + modelo.darLista().getElement(1).darVistas());
+				view.printMessage("Likes: " + modelo.darLista().getElement(1).darLikes());
+				view.printMessage("Dislikes: " + modelo.darLista().getElement(1).darDisLikes());
+				view.printMessage("Las categorías cargargadas son:");
+				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
+				{
+					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+				}
 				esLista = true;
+				cargados = true;
 				break;
 			
 			case 3:
-				view.printMessage("Inserte el tama�o deseado de la muestra."); 
-				while(dato.equals(""))
-				{
-					dato = lector.nextLine();
-				}
+				view.printMessage("Requerimiento 1"); 
 				if(esArreglo)
 				{
-					mArreglo = modelo.muestraArreglo(Integer.valueOf(dato));
-					for(int i = 0; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
+					modelo.muestraArreglo(Integer.valueOf(dato));
+					for(int i = 1; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
 					{
-						try{
-						System.out.println("El titulo del video" + i + " es: " + ((Video) modelo.muestraArreglo(Integer.valueOf(dato)).getElement(i)).getTitle());
+						try
+						{
+						System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraArreglo(Integer.valueOf(dato)).getElement(i-1)).getTitle());
 						}
 						catch(Exception e){
 							e.printStackTrace();
@@ -89,10 +114,11 @@ public class Controller {
 				}
 				else 
 				{
-						for(int i = 0; i < modelo.muestraLista(Integer.valueOf(dato)).size(); i++)
+						for(int i = 1; i < modelo.muestraLista(Integer.valueOf(dato)).size(); i++)
 						{
-							try{
-							System.out.println("El titulo del video" + i + " es: " + ((Video) modelo.muestraLista(Integer.valueOf(dato)).getElement(i)).getTitle());
+							try
+							{
+							System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraLista(Integer.valueOf(dato)).getElement(i)).getTitle());
 							}
 							catch(Exception e)
 							{
@@ -153,8 +179,24 @@ public class Controller {
 					view.printMessage("");
 				}
 				break;
+			case 7:
+				if(esArreglo)
+				{
+					view.printMessage("Lista ordenada por QuickSort"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarQuickSort(mArreglo, compardorXLikes, true);
+					view.printMessage("");
+				}
+				else 
+				{
+					view.printMessage("Lista ordenada por QuickSort"); 
+					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+					ordenamientos.ordenarQuickSort(modelo.darLista(), compardorXLikes, true);
+					view.printMessage("");
+				}
+				break;
 
-			case 7: 
+			case 8: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;

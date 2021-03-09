@@ -118,7 +118,6 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 			{
 				elementos[i] = copia1[i];
 			} 
-			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
 		}	
 
 		if(tamanoAct == pos)
@@ -236,9 +235,23 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 	@Override
 	public ILista<T> subList(int i, int mid) 
 	{
-		return null;
-		
-		
+		if(mid <1 || i<1 || i > tamanoAct)
+		{
+			return null;
+		}
+		else 
+		{
+			ArregloDinamico<T> resp = new ArregloDinamico<T>(mid);
+			int total=0;
+			int j = i -1;
+			while((tamanoAct-j)<=0 && total<=mid&& j<tamanoAct)
+			{
+				resp.addLast(elementos[i]);
+				total++;
+				j ++;
+			}
+			return resp;
+		}
 	}
 
 

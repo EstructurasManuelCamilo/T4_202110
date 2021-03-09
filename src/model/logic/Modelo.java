@@ -202,9 +202,9 @@ public class Modelo <T extends Comparable<T>>
 		return fecha;
 	}
 
-	public ListaEncadenada<Categoria> leerCategorias()
+	public ArregloDinamico<Categoria> leerCategorias()
 	{ 
-		ListaEncadenada<Categoria> resp = new ListaEncadenada<>();
+		ArregloDinamico<Categoria> resp = new ArregloDinamico<>(50);
 		try 
 		{
 			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/category-id.csv")),"UTF-8");

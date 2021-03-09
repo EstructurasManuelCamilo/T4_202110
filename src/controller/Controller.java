@@ -27,6 +27,8 @@ public class Controller {
 	private ArregloDinamico<Video> mArreglo;  //NO VA ACA
 	
 	private ComparadorXLikes comparar;
+	
+	private boolean cargados;
 	/**
 	 * Crear la vista y el modelo del proyecto
 	 * @param capacidad tamaNo inicial del arreglo
@@ -66,11 +68,12 @@ public class Controller {
 				view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
 				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
 				view.printMessage("Las categorías cargargadas son:");
-				for( int i = 1; i < modelo.leerCategorias().tamanio; i++ )
+				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
 				{
 					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
 				}
 				esArreglo = true;
+				cargados = true;
 				break;
 				
 			case 2:
@@ -79,17 +82,18 @@ public class Controller {
 				view.printMessage("El total de videos cargados es: " + modelo.darLista().size());
 				view.printMessage("La información del primer video es: ");
 				view.printMessage("Title: " + modelo.darLista().getElement(1).getTitle());
-				view.printMessage("Trending date: " + modelo.darLista().getElement(0).getTrendingDate());
+				view.printMessage("Trending date: " + modelo.darLista().getElement(1).getTrendingDate());
 				view.printMessage("Country: " + modelo.darLista().getElement(1).darPais());
 				view.printMessage("Views: " + modelo.darLista().getElement(1).darVistas());
 				view.printMessage("Likes: " + modelo.darLista().getElement(1).darLikes());
 				view.printMessage("Dislikes: " + modelo.darLista().getElement(1).darDisLikes());
 				view.printMessage("Las categorías cargargadas son:");
-				for( int i = 1; i < modelo.leerCategorias().tamanio; i++ )
+				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
 				{
 					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
 				}
 				esLista = true;
+				cargados = true;
 				break;
 			
 			case 3:

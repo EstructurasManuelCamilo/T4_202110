@@ -31,6 +31,8 @@ public class Video implements Comparable<Video>
 	private String pais; // Agrego el pais
 	
 	private int vistas;
+	
+	private String etiqueta;
 
 	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, int pVistas, String pLikes, String pDislikes, String pNomCat, String pPais)
 	{
@@ -121,6 +123,12 @@ public class Video implements Comparable<Video>
 	{
 		return vistas;
 	}
+	
+	public String darEtiqueta() 
+	{
+		return etiqueta;
+	}
+
 	public static class ComparadorXLikes implements Comparator<Video> 
 	{
 
@@ -135,5 +143,5 @@ public class Video implements Comparable<Video>
 			 return lksV2 - lksV1;
 		 }
 	}
-
+	
 }

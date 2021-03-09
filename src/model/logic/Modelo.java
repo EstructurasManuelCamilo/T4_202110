@@ -405,6 +405,7 @@ public class Modelo <T extends Comparable<T>>
 	{
 		ILista<Video> solucion = null; 
 		//Primero se ordena por cantidadVistas
+		
 		if(!datosArreglo.isEmpty())
 		{
 			ArregloDinamico<Video>  arregloSolucion = new ArregloDinamico<>(n);
@@ -453,6 +454,60 @@ public class Modelo <T extends Comparable<T>>
 		return solucion;
 	}
 
+	//Requerimiento4
+	public ILista<Video> Req2(int n, String pTag, String pPa)
+	{
+		ILista<Video> solucion = null; 
+		//Primero se ordena por cantidadLikes
+		
+		
+		if(!datosArreglo.isEmpty())
+		{
+			ArregloDinamico<Video>  arregloSolucion = new ArregloDinamico<>(n);
+			int j = 0;
+			for(int i = 0; i < n; i++)
+			{
+				try
+				{
+					Video actual = datosArreglo.getElement(i);
+					if(actual.darPais().equals(pPa) && actual.darEtiqueta().equals(pTag))
+					{
+						arregloSolucion.insertElement(actual, j);
+						j++;
+					}
+					else
+					{
+						n++;
+					}
+				}
+				catch(Exception e)
+				{
+
+				}
+			}
+			solucion = arregloSolucion;
+		}
+		else
+		{
+			ListaEncadenada<Video>  listaSolucion = new ListaEncadenada<>();
+			Video actual = datosLista.firstElement();
+			int i = 1;
+			while(actual != null || i < n)
+			{
+				if(actual.darPais().equals(pPa) && actual.darEtiqueta().equals(pTag))
+				{
+					listaSolucion.addLast(actual);
+					actual = datosLista.getElement(i);
+					i++;
+				}
+				else
+				{
+					n++;
+				}
+			}
+		}
+		return solucion;
+	}
 	//RETORNA LA 794
 	//ERROR EN 998
 }

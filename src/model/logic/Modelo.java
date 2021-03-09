@@ -4,9 +4,9 @@ import model.data_structures.*;
 import model.logic.Video.ComparadorXLikes;
 import model.utils.Ordenamientos;
 
-import com.opencsv.*;
-
-
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -38,11 +38,8 @@ public class Modelo <T extends Comparable<T>>
 
 	private Ordenamientos ordenamientos;
 
-	private ListaEncadenada<Video> lista;
-
-	private ArregloDinamico<Video> arreglo;
-
 	private ComparadorXLikes comparar;
+	
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -125,77 +122,29 @@ public class Modelo <T extends Comparable<T>>
 
 	public void leerDatosVideosArregloDinamico()
 	{
-		ArrayList<Categoria> categorias = leerCategorias();
-		FileReader pDatos = null;
-		CSVReader reader = null;
-		TInicio = System.currentTimeMillis();
 
 		try 
 		{
-
-			pDatos = new FileReader("data/videos-small.csv");
-			CSVParser separador = new CSVParserBuilder().withSeparator(',').build();
-			reader = new CSVReaderBuilder(pDatos).withCSVParser(separador).build();
-			String[] fila = reader.readNext();
-
-			ArregloDinamico<String> columnas = new ArregloDinamico<String>(17);
-			for(int i = 0; i < 16; i++)
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-small.csv")),"UTF-8");
+			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
+			for(final CSVRecord excel : separador)
 			{
-				columnas.insertElement(fila[i], i);
+				
+				String id = excel.get("video_id");
+				String fechaTrending = excel.get("trending_date");		
+				String titulo = excel.get("title");
+				String canal = excel.get("channel_title");
+				String categoria = excel.get("category_id");
+				String publicacion = excel.get("publish_time");
+				String vistas = excel.get("views");
+				String likes =excel.get("likes");
+				String dislikes = excel.get("dislikes");
+				String pais = excel.get("country");
+				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, Integer.valueOf(vistas), likes, dislikes, categoria, pais);
+				datosArreglo.addLast(nuevo);
 			}
-
-			String[] primera = reader.readNext();
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[7]), primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias), primera[16]);
-			datosArreglo.insertElement(prim, 0);
-
-			// Podemos quitar todo esto 
-			System.out.println("La informacion del primer video es: " );
-			System.out.println("Id video: " + prim.getId());
-			System.out.println("Trending_Date: " + prim.getTrendingDate() );
-			System.out.println("Titulo: " + prim.getTitle());
-			System.out.println("Titulo del canal: " + prim.getChannel());
-			System.out.println("Id de categoria: " + prim.getCategoryId());
-			System.out.println("Nombre de categoria: " + prim.darNombreCategoria());
-			System.out.println("Fecha de publicacion: " + prim.getPublishTime());
-
-			Video ultimo = prim;
-			int j = 1;
-
-			try 
-			{
-
-				while((fila = reader.readNext()) != null)
-				{
-
-					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], Integer.valueOf(fila[7]), fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias), fila[16]);
-					datosArreglo.insertElement( nuevo, j);
-					j++;
-
-					ultimo = nuevo;
-				}
-			}
-			catch(Exception e) 
-			{
-
-			}
-			System.out.println("La informacion del ultimo video es: " );
-			System.out.println("Id video: " + ultimo.getId());
-			System.out.println("Trending_Date: " + ultimo.getTrendingDate());
-			System.out.println("Titulo: " + ultimo.getTitle());
-			System.out.println("Titulo del canal: " + ultimo.getChannel());
-			System.out.println("Id de categoria: " + ultimo.getCategoryId());
-			System.out.println("Nombre de categoria: " + ultimo.darNombreCategoria());
-			System.out.println("Fecha de publicacion: " + ultimo.getPublishTime());
-
-			System.out.println("El total de video encontrados fue de: " + j);
-			System.out.println();
-
-			TFin = System.currentTimeMillis();
-			tiempo = TFin - TInicio;
-			System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
-
 		}
-		catch(Exception e) 
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -204,82 +153,28 @@ public class Modelo <T extends Comparable<T>>
 
 	public void leerDatosVideosListaEncadenada()
 	{
-		ArrayList<Categoria> categorias = leerCategorias();
-		FileReader pDatos = null;
-		CSVReader reader = null;
-		TInicio = System.currentTimeMillis();
-
 		try 
 		{
-
-			pDatos = new FileReader("data/videos-small.csv");
-			CSVParser separador = new CSVParserBuilder().withSeparator(',').build();
-			reader = new CSVReaderBuilder(pDatos).withCSVParser(separador).build();
-			String[] fila = reader.readNext();
-
-			ListaEncadenada<String> columnas = new ListaEncadenada<>();
-			for(int i = 0; i < 16; i++)
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-small.csv")),"UTF-8");
+			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
+			for(final CSVRecord excel : separador)
 			{
-				columnas.insertElement(fila[i], i);
+				
+				String id = excel.get("video_id");
+				String fechaTrending = excel.get("trending_date");		
+				String titulo = excel.get("title");
+				String canal = excel.get("channel_title");
+				String categoria = excel.get("category_id");
+				String publicacion = excel.get("publish_time");
+				String vistas = excel.get("views");
+				String likes =excel.get("likes");
+				String dislikes = excel.get("dislikes");
+				String pais = excel.get("country");
+				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, Integer.valueOf(vistas), likes, dislikes, categoria, pais);
+				datosLista.addLast(nuevo);
 			}
-
-			String[] primera = reader.readNext();
-
-			Video prim = new Video(primera[0], fecha1(primera[1]) , primera[2], primera[3], Integer.valueOf(primera[4]), fecha2(primera[5]), primera[5], Integer.valueOf(primera[7]), primera[8], primera[9], darNomCat(Integer.valueOf(primera[4]), categorias), primera[16]);
-
-			datosLista.insertElement( prim, 0);
-			System.out.println("La informacion del primer video es: " );
-			System.out.println("Id video: " + prim.getId());
-			System.out.println("Trending_Date: " + prim.getTrendingDate() );
-			System.out.println("Titulo: " + prim.getTitle());
-			System.out.println("Titulo del canal: " + prim.getChannel());
-			System.out.println("Id de categoria: " + prim.getCategoryId());
-			System.out.println("Nombre de categoria: " + prim.darNombreCategoria());
-			System.out.println("Fecha de publicacion: " + prim.getPublishTime());
-
-			Video ultimo = prim;
-			int j = 1;
-			
-			try 
-			{
-				fila = reader.readNext();
-				while(fila != null)
-				{
-					Video nuevo = new Video(fila[0], fecha1(fila[1]), fila[2], fila[3], Integer.valueOf(fila[4]), fecha2(fila[5]),fila[5], Integer.valueOf(fila[7]), fila[8], fila[9], darNomCat(Integer.valueOf(fila[4]), categorias), fila[16]);
-					datosLista.insertElement( nuevo, j);
-					j++;
-					ultimo = nuevo;
-					System.out.println(j);
-					try {
-						fila = reader.readNext();
-					}
-					catch(Exception e)
-					{
-						fila = reader.readNext();
-					}
-				}
-			}
-			catch(Exception e) 
-			{
-				e.printStackTrace();
-			}
-			System.out.println("La informacion del utimo video es: " );
-			System.out.println("Id video: " + ultimo.getId());
-			System.out.println("Trending_Date: " + ultimo.getTrendingDate());
-			System.out.println("Titulo: " + ultimo.getTitle());
-			System.out.println("Titulo del canal: " + ultimo.getChannel());
-			System.out.println("Id de categoria: " + ultimo.getCategoryId());
-			System.out.println("Nombre de categoria: " + ultimo.darNombreCategoria());
-			System.out.println("Fecha de publicacion: " + ultimo.getPublishTime());
-
-			System.out.println("El total de videos encontrados fue de: " + j);
-
-			TFin = System.currentTimeMillis();
-			tiempo = TFin - TInicio;
-			System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
-
 		}
-		catch(Exception e) 
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -306,52 +201,27 @@ public class Modelo <T extends Comparable<T>>
 		return fecha;
 	}
 
-	public ArrayList<Categoria> leerCategorias()
-	{
-
-		System.out.println("Se inicio la lectura de categorias");
-		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
-
-		FileReader pDatos = null;
-		CSVReader reader = null;
+	public ArregloDinamico<Categoria> leerCategorias()
+	{ 
+		ArregloDinamico<Categoria> resp = null;
 		try 
 		{
-
-			pDatos = new FileReader("data/category-id.csv");
-			CSVParser separador = new CSVParserBuilder().withSeparator('	').build();
-			reader = new CSVReaderBuilder(pDatos).withCSVParser(separador).build();
-			String[] fila = reader.readNext();
-
-			String[] columnas = new String[2];
-			for(int i = 0; i < 2; i++)
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/category-id.csv")),"UTF-8");
+			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
+			for(final CSVRecord excel : separador)
 			{
-				columnas[i] = fila[i];
-			}
-
-			System.out.println("Las categorias tienen: " + columnas[0] + " y " + columnas[1]);
-
-			try 
-			{
-
-				while((fila = reader.readNext()) != null)
-				{
-					Categoria nueva = new Categoria(Integer.valueOf(fila[0]), fila[1]);
-					categorias.add(nueva);
-					System.out.println("Categoria: " + nueva.darIdCat() + " se llama " + nueva.darNombreCat());
-				}
-			}
-			catch(Exception e) 
-			{
-
+				
+				String id = excel.get("id");
+				String name = excel.get("name");
+				Categoria cat = new Categoria(Integer.valueOf(id), name);
+				resp.addLast(cat);
 			}
 		}
-		catch(Exception e) 
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-
-		return categorias;
-
+		return resp;
 	}
 
 	public ILista<Video> mostrar(int tamanio)

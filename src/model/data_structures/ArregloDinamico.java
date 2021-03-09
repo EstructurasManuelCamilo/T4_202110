@@ -235,15 +235,23 @@ public class ArregloDinamico <T extends Comparable<T>> implements ILista <T>
 	@Override
 	public ILista<T> subList(int i, int mid) 
 	{
-		ArregloDinamico<T> temp = new ArregloDinamico<T>(mid);
-		int cont = 0;
-		while(cont < mid)
+		if(mid <1 || i<1 || i > tamanoAct)
 		{
-			temp.addLast(elementos[i]);
-			i ++;
-			cont ++;
+			return null;
 		}
-		return temp;
+		else 
+		{
+			ArregloDinamico<T> resp = new ArregloDinamico<T>(mid);
+			int total=0;
+			int j = i -1;
+			while((tamanoAct-j)<=0 && total<=mid&& j<tamanoAct)
+			{
+				resp.addLast(elementos[i]);
+				total++;
+				j ++;
+			}
+			return resp;
+		}
 	}
 
 

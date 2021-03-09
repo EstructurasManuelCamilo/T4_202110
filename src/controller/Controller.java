@@ -77,10 +77,11 @@ public class Controller {
 				if(esArreglo)
 				{
 					mArreglo = modelo.muestraArreglo(Integer.valueOf(dato));
-					for(int i = 0; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
+					for(int i = 1; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
 					{
-						try{
-						System.out.println("El titulo del video" + i + " es: " + ((Video) modelo.muestraArreglo(Integer.valueOf(dato)).getElement(i)).getTitle());
+						try
+						{
+						System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraArreglo(Integer.valueOf(dato)).getElement(i-1)).getTitle());
 						}
 						catch(Exception e){
 							e.printStackTrace();
@@ -89,10 +90,11 @@ public class Controller {
 				}
 				else 
 				{
-						for(int i = 0; i < modelo.muestraLista(Integer.valueOf(dato)).size(); i++)
+						for(int i = 1; i < modelo.muestraLista(Integer.valueOf(dato)).size(); i++)
 						{
-							try{
-							System.out.println("El titulo del video" + i + " es: " + ((Video) modelo.muestraLista(Integer.valueOf(dato)).getElement(i)).getTitle());
+							try
+							{
+							System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraLista(Integer.valueOf(dato)).getElement(i)).getTitle());
 							}
 							catch(Exception e)
 							{

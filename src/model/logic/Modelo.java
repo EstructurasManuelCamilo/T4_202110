@@ -40,6 +40,7 @@ public class Modelo <T extends Comparable<T>>
 
 	private ComparadorXLikes comparar;
 	
+	
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -201,16 +202,15 @@ public class Modelo <T extends Comparable<T>>
 		return fecha;
 	}
 
-	public ArregloDinamico<Categoria> leerCategorias()
+	public ListaEncadenada<Categoria> leerCategorias()
 	{ 
-		ArregloDinamico<Categoria> resp = null;
+		ListaEncadenada<Categoria> resp = new ListaEncadenada<>();
 		try 
 		{
 			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/category-id.csv")),"UTF-8");
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{
-				
 				String id = excel.get("id");
 				String name = excel.get("name");
 				Categoria cat = new Categoria(Integer.valueOf(id), name);

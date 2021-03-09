@@ -166,9 +166,8 @@ public class Ordenamientos <T extends Comparable<T>>
 		TInicio = System.currentTimeMillis();
 		sort(lista, criterio, ascendente, 1, lista.size());
 		TFin = System.currentTimeMillis();
-		 tiempo = TFin - TInicio;
-		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
-	 
+		tiempo = TFin - TInicio;
+		System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	}
 	
 	private void sort(ILista<T> lista, Comparator<T> criterio, boolean ascendente, int lo, int hi)

@@ -57,26 +57,46 @@ public class Controller {
 			case 1:
 				view.printMessage("Inicio de lectura de los archivos."); 
 				modelo.leerDatosVideosArregloDinamico();
-				view.printMessage("Lectura completa y Arreglo Dinamico creado."); 
+				view.printMessage("El total de videos cargados es: " + modelo.darArreglo().size());
+				view.printMessage("La información del primer video es: ");
+				view.printMessage("Title: " + modelo.darArreglo().getElement(0).getTitle());
+				view.printMessage("Trending date: " + modelo.darArreglo().getElement(0).getTrendingDate());
+				view.printMessage("Country: " + modelo.darArreglo().getElement(0).darPais());
+				view.printMessage("Views: " + modelo.darArreglo().getElement(0).darVistas());
+				view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
+				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
+				view.printMessage("Las categorías cargargadas son:");
+				for( int i = 1; i < modelo.leerCategorias().tamanio; i++ )
+				{
+					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+				}
 				esArreglo = true;
 				break;
 				
 			case 2:
 				view.printMessage("Inicio de lectura de los archivos."); 
 				modelo.leerDatosVideosListaEncadenada();
-				view.printMessage("Lectura completa y Lista Encadenada creada.");
+				view.printMessage("El total de videos cargados es: " + modelo.darLista().size());
+				view.printMessage("La información del primer video es: ");
+				view.printMessage("Title: " + modelo.darLista().getElement(1).getTitle());
+				view.printMessage("Trending date: " + modelo.darLista().getElement(0).getTrendingDate());
+				view.printMessage("Country: " + modelo.darLista().getElement(1).darPais());
+				view.printMessage("Views: " + modelo.darLista().getElement(1).darVistas());
+				view.printMessage("Likes: " + modelo.darLista().getElement(1).darLikes());
+				view.printMessage("Dislikes: " + modelo.darLista().getElement(1).darDisLikes());
+				view.printMessage("Las categorías cargargadas son:");
+				for( int i = 1; i < modelo.leerCategorias().tamanio; i++ )
+				{
+					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+				}
 				esLista = true;
 				break;
 			
 			case 3:
-				view.printMessage("Inserte el tama�o deseado de la muestra."); 
-				while(dato.equals(""))
-				{
-					dato = lector.nextLine();
-				}
+				view.printMessage("Requerimiento 1"); 
 				if(esArreglo)
 				{
-					mArreglo = modelo.muestraArreglo(Integer.valueOf(dato));
+					modelo.muestraArreglo(Integer.valueOf(dato));
 					for(int i = 1; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
 					{
 						try

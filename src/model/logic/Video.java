@@ -132,9 +132,19 @@ public class Video implements Comparable<Video>
 		return vistas;
 	}
 
-	public String darEtiqueta() 
+	public boolean buscarEtiqueta(String pEt) 
 	{
-		return etiqueta;
+		boolean termino = false;
+		for(int i = 0; i < darTags().size() && !termino; i++)
+		{
+			String act = darTags().getElement(i);
+			if(act.equals(pEt))
+			{
+				etiqueta = act;
+				termino = true;
+			}
+		}
+		return termino;
 	}
 
 	public ArregloDinamico<String> darTags()

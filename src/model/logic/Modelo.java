@@ -9,13 +9,9 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
@@ -261,51 +257,23 @@ public class Modelo <T extends Comparable<T>>
 	{	 
 		//Primero se ordena por cantidadVistas
 
-		System.out.println("Se inicio el req1");
-		if(!datosArreglo.isEmpty())
+		ArregloDinamico<Video>  arregloSolucion = new ArregloDinamico<>(n);
+		int j = 0;
+		for(int i = 0; i < n && i < datosArreglo.size(); i++)
 		{
-			System.out.println("Es arreglo");
-			ArregloDinamico<Video>  arregloSolucion = new ArregloDinamico<>(n);
-			int j = 0;
-			for(int i = 0; i < n && i < datosArreglo.size(); i++)
+			Video actual = datosArreglo.getElement(i);
+			if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(pCat))
 			{
-				Video actual = datosArreglo.getElement(i);
-				if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(" " + pCat))
-				{
-					arregloSolucion.insertElement(actual, j);
-					System.out.println("Video " + i + " es " + actual.getTitle());
-					j++;
-				}
-				else
-				{
-					n++;
-				}
+				arregloSolucion.insertElement(actual, j);
+				System.out.println("Video " + i + " es " + actual.getTitle());
+				j++;
 			}
-
-		}
-
-		else
-		{
-			System.out.println("Es lista");
-			ListaEncadenada<Video>  listaSolucion = new ListaEncadenada<>();
-			Video actual = datosLista.firstElement();
-			int i = 1;
-			while(actual != null && i < n)
+			else
 			{
-				if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(" " + pCat))
-				{
-					listaSolucion.addLast(actual);
-					System.out.println("Video " + i + " es " + actual.getTitle());
-					i++;
-					actual = datosLista.getElement(i);
-
-				}
-				else
-				{
-					n++;
-				}
+				n++;
 			}
 		}
+
 
 	}
 	// Requerimiento 2. Video con más días como tendencia dado el país 
@@ -336,28 +304,21 @@ public class Modelo <T extends Comparable<T>>
 	}
 
 	//Requerimiento4
-	public ILista<Video> Req2(int n, String pTag, String pPa)
+	public ILista<Video> masGustados(int n, String pTag, String pPa)
 	{
-		ILista<Video> solucion = null; 
-
-
-		Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
 		//Primero se ordena por cantidadLikes
-
-
-		if(!datosArreglo.isEmpty())
-		{
-			ArregloDinamico<Video>  arregloSolucion = new ArregloDinamico<>(n);
-			ordenamientos.ordenarInsercion(darArreglo(), compardorXLikes, true);
+		
+			ArregloDinamico<Video>  solucion = new ArregloDinamico<>(n);
 			int j = 0;
 			for(int i = 0; i < n; i++)
 			{
 				try
 				{
 					Video actual = datosArreglo.getElement(i);
-					if(actual.darPais().equals(pPa) && actual.darEtiqueta().equals(pTag))
+					if(actual.darPais().equals(pPa) && actual.buscarEtiqueta(pTag))
 					{
-						arregloSolucion.insertElement(actual, j);
+						solucion.insertElement(actual, j);
+						System.out.println("Video " + i + " es " + actual.getTitle());
 						j++;
 					}
 					else
@@ -370,28 +331,7 @@ public class Modelo <T extends Comparable<T>>
 
 				}
 			}
-			solucion = arregloSolucion;
-		}
-		else
-		{
-			ListaEncadenada<Video>  listaSolucion = new ListaEncadenada<>();
-			ordenamientos.ordenarInsercion(darLista(), compardorXLikes, true);
-			Video actual = datosLista.firstElement();
-			int i = 1;
-			while(actual != null || i < n)
-			{
-				if(actual.darPais().equals(pPa) && actual.darEtiqueta().equals(pTag))
-				{
-					listaSolucion.addLast(actual);
-					actual = datosLista.getElement(i);
-					i++;
-				}
-				else
-				{
-					n++;
-				}
-			}
-		}
+		
 		return solucion;
 	}
 }

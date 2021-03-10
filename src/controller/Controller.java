@@ -44,6 +44,7 @@ public class Controller {
 		String n = "";
 		String cat = "";
 		String pa = "";
+		String et = "";
 		String respuesta = "";
 		ILista<Video> solucion = new ArregloDinamico<Video>(50);
 		boolean esArreglo = false;
@@ -191,7 +192,11 @@ public class Controller {
 					view.printMessage("");
 				}
 				break;
+				
 			case 8:
+				Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
+				ordenamientos.ordenarShell(modelo.darArreglo(), compardorXLikes, true);
+				
 				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
 				while(n.equals(""))
 				{
@@ -214,7 +219,33 @@ public class Controller {
 				pa = "";
 
 				break;
-			case 9: 
+			case 9:
+				Video.ComparadorXLikes compardorXlikes = new Video.ComparadorXLikes();
+				ordenamientos.ordenarShell(modelo.darArreglo(), compardorXlikes, true);
+				
+				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
+				while(n.equals(""))
+				{
+					n = lector.nextLine();
+				}
+				view.printMessage("Inserte la etiqueta entre \"\" de los videos que quiere conocer. ");
+				while(et.equals(""))
+				{
+					et = lector.nextLine();
+				}
+				view.printMessage("Inserte el pais que desea consultar. ");
+				while(pa.equals(""))
+				{
+					pa = lector.nextLine();
+				}
+
+				modelo.masGustados(Integer.parseInt(n), et, pa);
+				n = "";
+				et = "";
+				pa = "";
+
+				break;
+			case 10: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;

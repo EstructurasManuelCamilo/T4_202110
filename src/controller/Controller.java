@@ -81,25 +81,7 @@ public class Controller {
 				break;
 
 			case 2:
-				view.printMessage("Las categorías cargargadas son:");
-				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
-				{
-					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
-				}
-				view.printMessage("Inicio de lectura de los archivos."); 
-				modelo.leerDatosVideosListaEncadenada();
-				view.printMessage("El total de videos cargados es: " + modelo.darLista().size());
-				view.printMessage("La información del primer video es: ");
-				view.printMessage("Title: " + modelo.darLista().getElement(1).getTitle());
-				view.printMessage("Trending date: " + modelo.darLista().getElement(1).getTrendingDate());
-				view.printMessage("Country: " + modelo.darLista().getElement(1).darPais());
-				view.printMessage("Views: " + modelo.darLista().getElement(1).darVistas());
-				view.printMessage("Likes: " + modelo.darLista().getElement(1).darLikes());
-				view.printMessage("Dislikes: " + modelo.darLista().getElement(1).darDisLikes());
-				for(int i = 1; i < modelo.darLista().getElement(1).darTags().size(); i++)
-					view.printMessage("Tag: " + i + " "+ modelo.darLista().getElement(1).darTags().getElement(i));
-				esLista = true;
-				cargados = true;
+				
 				break;
 
 			case 3: 

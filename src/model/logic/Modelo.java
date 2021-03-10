@@ -145,36 +145,6 @@ public class Modelo <T extends Comparable<T>>
 				String pais = excel.get("country");
 				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, darNomCat(Integer.valueOf(categoria),categorias), pais);
 				datosArreglo.addLast(nuevo);
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-
-	public void leerDatosVideosListaEncadenada()
-	{
-		try 
-		{
-			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-small.csv")),"UTF-8");
-			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
-			for(final CSVRecord excel : separador)
-			{
-
-				String id = excel.get("video_id");
-				String fechaTrending = excel.get("trending_date");		
-				String titulo = excel.get("title");
-				String canal = excel.get("channel_title");
-				String categoria = excel.get("category_id");
-				String publicacion = excel.get("publish_time");
-				String tags = excel.get("tags");
-				String vistas = excel.get("views");
-				String likes =excel.get("likes");
-				String dislikes = excel.get("dislikes");
-				String pais = excel.get("country");
-				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, darNomCat(Integer.valueOf(categoria), categorias), pais);
 				datosLista.addLast(nuevo);
 			}
 		}
@@ -183,6 +153,7 @@ public class Modelo <T extends Comparable<T>>
 			e.printStackTrace();
 		}
 	}
+
 
 
 	public Date fecha1(String pFecha) throws ParseException
@@ -211,7 +182,7 @@ public class Modelo <T extends Comparable<T>>
 		try 
 		{
 			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/category-id.csv")),"UTF-8");
-			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter('	'));
+			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{
 				String id = excel.get("id");

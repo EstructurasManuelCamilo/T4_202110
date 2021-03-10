@@ -273,34 +273,30 @@ public class Modelo <T extends Comparable<T>>
 				n++;
 			}
 		}
-
-
 	}
 	// Requerimiento 2. Video con más días como tendencia dado el país 
-	public ILista <Video> videoTendenciaPais(String pPais)
+	public Video videoTendenciaPais(String pPais)
 	{
-		ILista<Video> resp = null;
+		Video videoTendencia = null;
 		if (datosArreglo.isEmpty()) 
-		{
-			return resp;
-		}
+		{}
 		else
 		{
-			ArregloDinamico<Video> videoPorPais = new ArregloDinamico<>(0);
 			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
-			Video.ComparadorXPais compararPais = new Video.ComparadorXPais();
-			Video videoTendencia = datosArreglo.getElement(0);
-			ordenamientos.ordenarInsercion(datosArreglo, compararPais, true);
+			ordenamientos.ordenarInsercion(datosArreglo, new Video.ComparadorXVistas(), true);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
 				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
 				{
-					respArrg.addLast(datosArreglo.getElement(i)); //tengo todos los video de un país
+					respArrg.addLast(datosArreglo.getElement(i));
 				}
 				i ++;
 			}
+			if (i>0)
+				videoTendencia = respArrg.lastElement();
 		}
+		return videoTendencia;
 	}
 
 	//Requerimiento4

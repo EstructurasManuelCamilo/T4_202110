@@ -39,8 +39,9 @@ public class Modelo <T extends Comparable<T>>
 	private Ordenamientos ordenamientos;
 
 	private ComparadorXLikes comparar;
-	
-	
+
+	private ArregloDinamico<Categoria> categorias; 
+
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -130,7 +131,7 @@ public class Modelo <T extends Comparable<T>>
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{
-				
+
 				String id = excel.get("video_id");
 				String fechaTrending = excel.get("trending_date");		
 				String titulo = excel.get("title");
@@ -142,7 +143,7 @@ public class Modelo <T extends Comparable<T>>
 				String likes =excel.get("likes");
 				String dislikes = excel.get("dislikes");
 				String pais = excel.get("country");
-				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, categoria, pais);
+				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, darNomCat(Integer.valueOf(categoria),categorias), pais);
 				datosArreglo.addLast(nuevo);
 			}
 		}
@@ -161,7 +162,7 @@ public class Modelo <T extends Comparable<T>>
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{
-				
+
 				String id = excel.get("video_id");
 				String fechaTrending = excel.get("trending_date");		
 				String titulo = excel.get("title");
@@ -173,7 +174,7 @@ public class Modelo <T extends Comparable<T>>
 				String likes =excel.get("likes");
 				String dislikes = excel.get("dislikes");
 				String pais = excel.get("country");
-				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, categoria, pais);
+				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, darNomCat(Integer.valueOf(categoria), categorias), pais);
 				datosLista.addLast(nuevo);
 			}
 		}
@@ -223,6 +224,7 @@ public class Modelo <T extends Comparable<T>>
 		{
 			e.printStackTrace();
 		}
+		categorias = resp;
 		return resp;
 	}
 
@@ -268,14 +270,14 @@ public class Modelo <T extends Comparable<T>>
 		return (ListaEncadenada<Video>) datosLista;
 	}
 
-	public String darNomCat(int pId, ArrayList<Categoria> pCategorias)
+	public String darNomCat(int pId, ArregloDinamico<Categoria> categorias2)
 	{
 		String resp = "";
-		for(int i = 0; i < pCategorias.size() & resp.equals(""); i++)
+		for(int i = 0; i < categorias2.size() & resp.equals(""); i++)
 		{
-			if(pId == pCategorias.get(i).darIdCat())
+			if(pId == categorias2.getElement(i).darIdCat())
 			{
-				resp = pCategorias.get(i).darNombreCat();
+				resp = categorias2.getElement(i).darNombreCat();
 			}
 
 		}
@@ -283,49 +285,48 @@ public class Modelo <T extends Comparable<T>>
 	}
 
 	//Requerimiento1
-	public ILista<Video> mejoresVideosCatPa(int n, String pCat, String pPa)
-	{
-		ILista<Video> solucion = null; 
+	public void mejoresVideosCatPa(int n, String pCat, String pPa)
+	{	 
 		//Primero se ordena por cantidadVistas
-		
+
+		System.out.println("Se inicio el req1");
 		if(!datosArreglo.isEmpty())
 		{
+			System.out.println("Es arreglo");
 			ArregloDinamico<Video>  arregloSolucion = new ArregloDinamico<>(n);
 			int j = 0;
-			for(int i = 0; i < n; i++)
+			for(int i = 0; i < n && i < datosArreglo.size(); i++)
 			{
-				try
+				Video actual = datosArreglo.getElement(i);
+				if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(" " + pCat))
 				{
-					Video actual = datosArreglo.getElement(i);
-					if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(pCat))
-					{
-						arregloSolucion.insertElement(actual, j);
-						j++;
-					}
-					else
-					{
-						n++;
-					}
+					arregloSolucion.insertElement(actual, j);
+					System.out.println("Video " + i + " es " + actual.getTitle());
+					j++;
 				}
-				catch(Exception e)
+				else
 				{
-
+					n++;
 				}
 			}
-			solucion = arregloSolucion;
+
 		}
+
 		else
 		{
+			System.out.println("Es lista");
 			ListaEncadenada<Video>  listaSolucion = new ListaEncadenada<>();
 			Video actual = datosLista.firstElement();
 			int i = 1;
-			while(actual != null || i < n)
+			while(actual != null && i < n)
 			{
-				if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(pCat))
+				if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(" " + pCat))
 				{
 					listaSolucion.addLast(actual);
-					actual = datosLista.getElement(i);
+					System.out.println("Video " + i + " es " + actual.getTitle());
 					i++;
+					actual = datosLista.getElement(i);
+
 				}
 				else
 				{
@@ -333,26 +334,30 @@ public class Modelo <T extends Comparable<T>>
 				}
 			}
 		}
-		return solucion;
+
 	}
 	// Requerimiento 2
-	
-		public ILista <Video> videoTendenciaPais(String pPais)
-		{
-			ILista<Video> resp = null;
-			return resp;
-		}
+
+	public ILista <Video> videoTendenciaPais(String pPais)
+	{
+		ILista<Video> resp = null;
+		return resp;
+	}
 
 	//Requerimiento4
 	public ILista<Video> Req2(int n, String pTag, String pPa)
 	{
 		ILista<Video> solucion = null; 
+
+
+		Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
 		//Primero se ordena por cantidadLikes
-		
-		
+
+
 		if(!datosArreglo.isEmpty())
 		{
 			ArregloDinamico<Video>  arregloSolucion = new ArregloDinamico<>(n);
+			ordenamientos.ordenarInsercion(darArreglo(), compardorXLikes, true);
 			int j = 0;
 			for(int i = 0; i < n; i++)
 			{
@@ -379,6 +384,7 @@ public class Modelo <T extends Comparable<T>>
 		else
 		{
 			ListaEncadenada<Video>  listaSolucion = new ListaEncadenada<>();
+			ordenamientos.ordenarInsercion(darLista(), compardorXLikes, true);
 			Video actual = datosLista.firstElement();
 			int i = 1;
 			while(actual != null || i < n)

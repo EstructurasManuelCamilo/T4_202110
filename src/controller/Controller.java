@@ -22,10 +22,6 @@ public class Controller {
 
 	private Ordenamientos<Video> ordenamientos;
 
-	//private ListaEncadenada<Video> lista; //NO VA ACA
-
-	private ArregloDinamico<Video> mArreglo;  //NO VA ACA
-
 	private ComparadorXLikes comparar;
 
 	private boolean cargados;
@@ -38,7 +34,6 @@ public class Controller {
 		view = new View();
 		modelo = new Modelo<Video>();
 		ordenamientos = new Ordenamientos<Video>();
-		mArreglo = new ArregloDinamico<Video>(2000);
 	}
 
 	public void run() 
@@ -50,6 +45,7 @@ public class Controller {
 		String cat = "";
 		String pa = "";
 		String respuesta = "";
+		ILista<Video> solucion = new ArregloDinamico<Video>(50);
 		boolean esArreglo = false;
 		boolean esLista = false;
 
@@ -61,6 +57,13 @@ public class Controller {
 
 			case 1:
 				view.printMessage("Inicio de lectura de los archivos."); 
+
+				view.printMessage("Las categorías cargargadas son:");
+				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
+				{
+					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+				}
+				view.printMessage(""); 
 				modelo.leerDatosVideosArregloDinamico();
 				view.printMessage("El total de videos cargados es: " + modelo.darArreglo().size());
 				view.printMessage("La información del primer video es: ");
@@ -71,18 +74,18 @@ public class Controller {
 				view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
 				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
 				for(int i = 0; i < modelo.darArreglo().getElement(0).darTags().size(); i++)
-				view.printMessage("Tag: " + i + " "+ modelo.darArreglo().getElement(0).darTags().getElement(i));
-				
-				view.printMessage("Las categorías cargargadas son:");
-				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
-				{
-					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
-				}
+					view.printMessage("Tag: " + i + " "+ modelo.darArreglo().getElement(0).darTags().getElement(i));
+
 				esArreglo = true;
 				cargados = true;
 				break;
 
 			case 2:
+				view.printMessage("Las categorías cargargadas son:");
+				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
+				{
+					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+				}
 				view.printMessage("Inicio de lectura de los archivos."); 
 				modelo.leerDatosVideosListaEncadenada();
 				view.printMessage("El total de videos cargados es: " + modelo.darLista().size());
@@ -93,14 +96,8 @@ public class Controller {
 				view.printMessage("Views: " + modelo.darLista().getElement(1).darVistas());
 				view.printMessage("Likes: " + modelo.darLista().getElement(1).darLikes());
 				view.printMessage("Dislikes: " + modelo.darLista().getElement(1).darDisLikes());
-				for(int i = 0; i < modelo.darLista().getElement(1).darTags().size(); i++)
-					view.printMessage("Tag: " + i + " "+ modelo.darArreglo().getElement(0).darTags().getElement(i));
-					
-				view.printMessage("Las categorías cargargadas son:");
-				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
-				{
-					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
-				}
+				for(int i = 1; i < modelo.darLista().getElement(1).darTags().size(); i++)
+					view.printMessage("Tag: " + i + " "+ modelo.darLista().getElement(1).darTags().getElement(i));
 				esLista = true;
 				cargados = true;
 				break;
@@ -213,15 +210,27 @@ public class Controller {
 				}
 				break;
 			case 8:
-				view.printMessage("Inicio requerimiento 1. ");
 				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
-				n = dato = lector.nextLine();
+				while(n.equals(""))
+				{
+					n = lector.nextLine();
+				}
 				view.printMessage("Inserte la categoría de los videos que quiere conocer. ");
-				cat = dato = lector.nextLine();
+				while(cat.equals(""))
+				{
+					cat = lector.nextLine();
+				}
 				view.printMessage("Inserte el pais que desea consultar. ");
-				pa = dato = lector.nextLine();
+				while(pa.equals(""))
+				{
+					pa = lector.nextLine();
+				}
 
 				modelo.mejoresVideosCatPa(Integer.parseInt(n), cat, pa);
+				n = "";
+				cat = "";
+				pa = "";
+
 				break;
 			case 9: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 

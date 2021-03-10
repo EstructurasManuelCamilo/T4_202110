@@ -185,7 +185,7 @@ public class Video implements Comparable<Video>
 			
 			int  pais1 = video1.darVistas();
 			int pais2 = video2.darVistas();
-			return video2-video1;
+			return pais2 - pais1;
 		}	
 	}
 }

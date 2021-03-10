@@ -1,14 +1,9 @@
 package controller;
 
-import java.util.Iterator;
 import java.util.Scanner;
 
-import model.data_structures.ArregloDinamico;
-import model.data_structures.ILista;
-import model.data_structures.ListaEncadenada;
 import model.logic.Modelo;
 import model.logic.Video;
-import model.logic.Video.ComparadorXLikes;
 import model.utils.Ordenamientos;
 import view.View;
 
@@ -22,9 +17,6 @@ public class Controller {
 
 	private Ordenamientos<Video> ordenamientos;
 
-	private ComparadorXLikes comparar;
-
-	private boolean cargados;
 	/**
 	 * Crear la vista y el modelo del proyecto
 	 * @param capacidad tamaNo inicial del arreglo
@@ -40,15 +32,11 @@ public class Controller {
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
-		String dato = "";
 		String n = "";
 		String cat = "";
 		String pa = "";
 		String et = "";
-		String respuesta = "";
-		ILista<Video> solucion = new ArregloDinamico<Video>(50);
-		boolean esArreglo = false;
-		boolean esLista = false;
+		String dato = "";
 
 		while( !fin ){
 			view.printMenu();
@@ -58,7 +46,6 @@ public class Controller {
 
 			case 1:
 				view.printMessage("Inicio de lectura de los archivos."); 
-
 				view.printMessage("Las categorías cargargadas son:");
 				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
 				{
@@ -76,124 +63,10 @@ public class Controller {
 				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
 				for(int i = 0; i < modelo.darArreglo().getElement(0).darTags().size(); i++)
 					view.printMessage("Tag: " + i + " "+ modelo.darArreglo().getElement(0).darTags().getElement(i));
-
-				esArreglo = true;
-				cargados = true;
 				break;
 
 			case 2:
-				
-				break;
-
-			case 3: 
-
-				view.printMessage("Inserte el tamanio deseado de la muestra."); 
-				while(dato.equals(""))
-				{
-					dato = lector.nextLine();
-				}
-				if(esArreglo)
-				{
-					modelo.muestraArreglo(Integer.valueOf(dato));
-					for(int i = 1; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
-					{
-						try
-						{
-							System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraArreglo(Integer.valueOf(dato)).getElement(i-1)).getTitle());
-						}
-						catch(Exception e){
-							e.printStackTrace();
-						}
-					}
-				}
-				else 
-				{
-					for(int i = 1; i < modelo.muestraLista(Integer.valueOf(dato)).size(); i++)
-					{
-						try
-						{
-							System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraLista(Integer.valueOf(dato)).getElement(i)).getTitle());
-						}
-						catch(Exception e)
-						{
-							e.printStackTrace();
-						}
-					}
-				}
-
-				view.printMessage("");
-				break;
-
-			case 4:
-				if(esArreglo)
-				{
-					view.printMessage("Muestra ordenada por insercion"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarInsercion(modelo.darArreglo(), compardorXLikes, true);
-					for(int i = 0; i < modelo.darTamanoArreglo(); i++)
-						view.printMessage(modelo.darArreglo().getElement(i).darLikes());
-				}
-				else 
-				{
-					view.printMessage("Lista ordenada por insercion"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarInsercion(modelo.darLista(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				break;
-			case 5:
-				if(esArreglo)
-				{
-					view.printMessage("Muestra ordenada por ShellSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarShell(modelo.darArreglo(), compardorXLikes, true);
-					for(int i = 0; i < modelo.darTamanoArreglo(); i++)
-						view.printMessage(modelo.darArreglo().getElement(i).darLikes());
-					view.printMessage("");
-				}
-				else 
-				{
-					view.printMessage("Lista ordenada por Shellsort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarShell(modelo.darLista(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				break;
-
-			case 6:
-				if(esArreglo)
-				{
-					view.printMessage("Muestra ordenada por MergeSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarMerge(modelo.darArreglo(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				else 
-				{
-					view.printMessage("Lista ordenada por MergeSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarMerge(modelo.darLista(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				break;
-			case 7:
-				if(esArreglo)
-				{
-					view.printMessage("Lista ordenada por QuickSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarQuickSort(modelo.darArreglo(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				else 
-				{
-					view.printMessage("Lista ordenada por QuickSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarQuickSort(modelo.darLista(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				break;
-				
-			case 8:
+				 // REQUERIMIENTO 1
 				Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
 				ordenamientos.ordenarShell(modelo.darArreglo(), compardorXLikes, true);
 				
@@ -217,9 +90,24 @@ public class Controller {
 				n = "";
 				cat = "";
 				pa = "";
-
 				break;
-			case 9:
+
+			case 3: 
+				// REQUERIMIENTO 2
+				view.printMessage("Ingrese el país del cual quiere obtener la información");
+				dato = lector.next();
+				Video vid = modelo.videoTendenciaPais(dato);
+				view.printMessage("El título del video es: " + vid.getTitle());
+				view.printMessage("El nombre del canal es: " + vid.getChannel());
+				view.printMessage("El país del video es: " + vid.darPais());
+				view.printMessage("El número de días como tendencia es: " + vid.getTrendingDate());
+				break;
+			case 4:
+				// REQUERIMIENTO 3
+				
+				break;
+			case 5:
+				// REQUERIMIENTO 4
 				Video.ComparadorXLikes compardorXlikes = new Video.ComparadorXLikes();
 				ordenamientos.ordenarShell(modelo.darArreglo(), compardorXlikes, true);
 				
@@ -243,15 +131,13 @@ public class Controller {
 				n = "";
 				et = "";
 				pa = "";
-
 				break;
-			case 10: 
+				
+			case 7: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;
 				break;	
-
-
 
 			default: 
 				view.printMessage("--------- \n Opcion Invalida !! \n---------");
@@ -261,3 +147,41 @@ public class Controller {
 
 	}	
 }
+
+//view.printMessage("Inserte el tamanio deseado de la muestra."); 
+//while(dato.equals(""))
+//{
+//	dato = lector.nextLine();
+//}
+//if(esArreglo)
+//{
+//	modelo.muestraArreglo(Integer.valueOf(dato));
+//	for(int i = 1; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
+//	{
+//		try
+//		{
+//			System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraArreglo(Integer.valueOf(dato)).getElement(i-1)).getTitle());
+//		}
+//		catch(Exception e){
+//			e.printStackTrace();
+//		}
+//	}
+//}
+//else 
+//{
+//	for(int i = 1; i < modelo.muestraLista(Integer.valueOf(dato)).size(); i++)
+//	{
+//		try
+//		{
+//			System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraLista(Integer.valueOf(dato)).getElement(i)).getTitle());
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
+//}
+//
+//view.printMessage("");
+//
+

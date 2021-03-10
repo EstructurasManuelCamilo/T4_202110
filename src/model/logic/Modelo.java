@@ -33,7 +33,7 @@ public class Modelo <T extends Comparable<T>>
 
 	private ListaEncadenada<Video> datosLista;
 
-	private Ordenamientos ordenamientos;
+	private Ordenamientos<Video> ordenamientos;
 
 	private ComparadorXLikes comparar;
 
@@ -298,7 +298,29 @@ public class Modelo <T extends Comparable<T>>
 		}
 		return videoTendencia;
 	}
-
+	public Video videoTendenciaCategoría(String pCategoria)
+	{
+		Video videoTendencia = null;
+		if (datosArreglo.isEmpty()) 
+		{}
+		else
+		{
+			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
+			ordenamientos.ordenarInsercion(datosArreglo, new Video.ComparadorXVistas(), true);
+			int i = 0;
+			while(i < datosArreglo.size())
+			{
+				if (datosArreglo.getElement(i).darPais().equals(pCategoria)) 
+				{
+					respArrg.addLast(datosArreglo.getElement(i));
+				}
+				i ++;
+			}
+			if (i>0)
+				videoTendencia = respArrg.lastElement();
+		}
+		return videoTendencia;
+	}
 	//Requerimiento4
 	public ILista<Video> masGustados(int n, String pTag, String pPa)
 	{

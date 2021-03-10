@@ -137,11 +137,12 @@ public class Modelo <T extends Comparable<T>>
 				String canal = excel.get("channel_title");
 				String categoria = excel.get("category_id");
 				String publicacion = excel.get("publish_time");
+				String tags = excel.get("tags");
 				String vistas = excel.get("views");
 				String likes =excel.get("likes");
 				String dislikes = excel.get("dislikes");
 				String pais = excel.get("country");
-				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, Integer.valueOf(vistas), likes, dislikes, categoria, pais);
+				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, categoria, pais);
 				datosArreglo.addLast(nuevo);
 			}
 		}
@@ -167,11 +168,12 @@ public class Modelo <T extends Comparable<T>>
 				String canal = excel.get("channel_title");
 				String categoria = excel.get("category_id");
 				String publicacion = excel.get("publish_time");
+				String tags = excel.get("tags");
 				String vistas = excel.get("views");
 				String likes =excel.get("likes");
 				String dislikes = excel.get("dislikes");
 				String pais = excel.get("country");
-				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, Integer.valueOf(vistas), likes, dislikes, categoria, pais);
+				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, categoria, pais);
 				datosLista.addLast(nuevo);
 			}
 		}
@@ -208,7 +210,7 @@ public class Modelo <T extends Comparable<T>>
 		try 
 		{
 			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/category-id.csv")),"UTF-8");
-			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
+			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter('	'));
 			for(final CSVRecord excel : separador)
 			{
 				String id = excel.get("id");
@@ -333,6 +335,13 @@ public class Modelo <T extends Comparable<T>>
 		}
 		return solucion;
 	}
+	// Requerimiento 2
+	
+		public ILista <Video> videoTendenciaPais(String pPais)
+		{
+			ILista<Video> resp = null;
+			return resp;
+		}
 
 	//Requerimiento4
 	public ILista<Video> Req2(int n, String pTag, String pPa)
@@ -388,16 +397,4 @@ public class Modelo <T extends Comparable<T>>
 		}
 		return solucion;
 	}
-	
-	// Requerimiento 2
-	
-	public ILista <Video> videoTendenciaPais(String pPais)
-	{
-		ILista<Video> resp = null;
-		return resp;
-	}
-	
-	
-	//RETORNA LA 794
-	//ERROR EN 998
 }

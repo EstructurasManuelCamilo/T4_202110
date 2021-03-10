@@ -2,8 +2,11 @@ package model.logic;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+
+import model.data_structures.ArregloDinamico;
 
 public class Video implements Comparable<Video>
 {
@@ -21,20 +24,24 @@ public class Video implements Comparable<Video>
 	private String categoria;
 
 	private LocalDateTime publishTime;
-	
+
 	private String fechaPublicacion;
-	
+
 	private String likes;
-	
+
 	private String disLikes;
-	
+
 	private String pais; // Agrego el pais
-	
+
 	private int vistas;
-	
+
 	private String etiqueta;
 
-	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, int pVistas, String pLikes, String pDislikes, String pNomCat, String pPais)
+	private String listags;
+
+	private ArregloDinamico<String> tags;
+
+	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, String pListags, int pVistas, String pLikes, String pDislikes, String pNomCat, String pPais)
 	{
 		id = pId;
 		trendingDate = date;
@@ -49,10 +56,11 @@ public class Video implements Comparable<Video>
 		pais = pPais;
 		pais = pPais;
 		vistas = pVistas;
+		listags = pListags;
 	}
-	
+
 	/** Comparación natural de acuerdo a algún atributo con identificación única
-	* @return valor 0 si this y otro son iguales. Numero negativo si this es menor a otro. 
+	 * @return valor 0 si this y otro son iguales. Numero negativo si this es menor a otro. 
 	 * Numero positivo this es mayor a otro */
 	public int compareTo(Video v) 
 	{
@@ -93,7 +101,7 @@ public class Video implements Comparable<Video>
 	{
 		return publishTime;
 	}
-	
+
 	public String darPublishTime()
 	{
 		return fechaPublicacion;
@@ -103,45 +111,57 @@ public class Video implements Comparable<Video>
 	{
 		return categoria;
 	}
-	
+
 	public String darLikes()
 	{
 		return likes;
 	}
-	
+
 	public String darDisLikes()
 	{
 		return disLikes;
 	}
-	
+
 	public String darPais()
 	{
 		return pais;
 	}
-	
+
 	public int darVistas()
 	{
 		return vistas;
 	}
-	
+
 	public String darEtiqueta() 
 	{
 		return etiqueta;
 	}
 
+	public ArregloDinamico<String> darTags()
+	{
+		tags = new ArregloDinamico<>(20); 
+		String[] partes = listags.split("\\|");
+		
+		for(int i = 0;i<Arrays.asList(partes).size(); i++)
+		{
+			tags.addLast(Arrays.asList(partes).get(i));
+		}
+
+		return tags;
+	}
 	public static class ComparadorXLikes implements Comparator<Video> 
 	{
 
 		/** Comparador alterno de acuerdo al número de likes
-		* @return valor 0 si video1 y video2 tiene los mismos likes.
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
 		 valor negativo si video1 tiene menos likes que video2.
 		 valor positivo si video1 tiene más likes que video2. */
-		 public int compare(Video video1, Video video2) 
-		 {
-			 int lksV1 = Integer.parseInt(video1.darLikes());
-			 int lksV2 = Integer.parseInt(video2.darLikes());
-			 return lksV2 - lksV1;
-		 }
+		public int compare(Video video1, Video video2) 
+		{
+			int lksV1 = Integer.parseInt(video1.darLikes());
+			int lksV2 = Integer.parseInt(video2.darLikes());
+			return lksV2 - lksV1;
+		}
 	}
-	
+
 }

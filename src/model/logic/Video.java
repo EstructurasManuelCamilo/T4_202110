@@ -163,5 +163,19 @@ public class Video implements Comparable<Video>
 			return lksV2 - lksV1;
 		}
 	}
+	public static class ComparadorXPais implements Comparator<Video> 
+	{
 
+		/** Comparador alterno de acuerdo al número de likes
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		public int compare(Video video1, Video video2) 
+		{
+			
+			String  pais1 = video1.darPais();
+			String pais2 = video2.darLikes();
+			return pais1.compareToIgnoreCase(pais2);
+		}	
+	}
 }

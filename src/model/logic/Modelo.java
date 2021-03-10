@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Definicion del modelo del mundo
@@ -307,12 +308,31 @@ public class Modelo <T extends Comparable<T>>
 		}
 
 	}
-	// Requerimiento 2
-
+	// Requerimiento 2. Video con más días como tendencia dado el país 
 	public ILista <Video> videoTendenciaPais(String pPais)
 	{
 		ILista<Video> resp = null;
-		return resp;
+		if (datosArreglo.isEmpty()) 
+		{
+			return resp;
+		}
+		else
+		{
+			ArregloDinamico<Video> videoPorPais = new ArregloDinamico<>(0);
+			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
+			Video.ComparadorXPais compararPais = new Video.ComparadorXPais();
+			Video videoTendencia = datosArreglo.getElement(0);
+			ordenamientos.ordenarInsercion(datosArreglo, compararPais, true);
+			int i = 0;
+			while(i < datosArreglo.size())
+			{
+				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
+				{
+					respArrg.addLast(datosArreglo.getElement(i)); //tengo todos los video de un país
+				}
+				i ++;
+			}
+		}
 	}
 
 	//Requerimiento4

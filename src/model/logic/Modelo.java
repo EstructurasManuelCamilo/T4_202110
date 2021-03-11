@@ -2,7 +2,6 @@ package model.logic;
 
 import model.data_structures.*;
 import model.logic.Video.ComparadorXLikes;
-import model.logic.Video.ComparadorXVistas;
 import model.utils.Ordenamientos;
 
 import org.apache.commons.csv.CSVFormat;
@@ -34,9 +33,9 @@ public class Modelo <T extends Comparable<T>>
 
 	private ListaEncadenada<Video> datosLista;
 
-	private Ordenamientos<Video> ordenamientos;
+	private Ordenamientos ordenamientos;
 
-	private ComparadorXVistas comparar;
+	private ComparadorXLikes comparar;
 
 	private ArregloDinamico<Categoria> categorias; 
 
@@ -253,13 +252,7 @@ public class Modelo <T extends Comparable<T>>
 		return resp;
 	}
 
-	/**
-	 * Requerimiento 1
-	 * @param n
-	 * @paramp pCat 
-	 * @paramp pPa
-	 * @return los n videos con más reproducciones (views) que son tendencia para un país y una categoría especifica.
-	 */
+	//Requerimiento1
 	public void mejoresVideosCatPa(int n, String pCat, String pPa)
 	{	 
 		//Primero se ordena por cantidadVistas
@@ -280,73 +273,37 @@ public class Modelo <T extends Comparable<T>>
 				n++;
 			}
 		}
+
+
 	}
-	
-	/**
-	 * Requerimiento 2
-	 * @param pPais
-	 * @return el video con más días como tendencia en un país.
-	 */
-	public Video videoTendenciaPais(String pPais)
+	// Requerimiento 2. Video con más días como tendencia dado el país 
+	public ILista <Video> videoTendenciaPais(String pPais)
 	{
-		Video videoTendencia = null;
+		ILista<Video> resp = null;
 		if (datosArreglo.isEmpty()) 
-		{}
+		{
+			return resp;
+		}
 		else
 		{
+			ArregloDinamico<Video> videoPorPais = new ArregloDinamico<>(0);
 			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
-			System.out.println(datosArreglo.getElement(1));
-			ordenamientos.ordenarShell(datosArreglo, comparar, true);
+			Video.ComparadorXPais compararPais = new Video.ComparadorXPais();
+			Video videoTendencia = datosArreglo.getElement(0);
+			ordenamientos.ordenarInsercion(datosArreglo, compararPais, true);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
 				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
 				{
-					respArrg.addLast(datosArreglo.getElement(i));
+					respArrg.addLast(datosArreglo.getElement(i)); //tengo todos los video de un país
 				}
 				i ++;
 			}
-			if (i>0)
-				videoTendencia = respArrg.lastElement();
 		}
-		return videoTendencia;
 	}
-	
-	/**
-	 * Requerimiento 3
-	 * @param pCategoria
-	 * @return el video con el mayor numero de dias en la categoria dada 
-	 */
-	public Video videoTendenciaCategoría(String pCategoria)
-	{
-		Video videoTendencia = null;
-		if (datosArreglo.isEmpty()) 
-		{}
-		else
-		{
-			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
-			ordenamientos.ordenarInsercion(datosArreglo, new Video.ComparadorXVistas(), true);
-			int i = 0;
-			while(i < datosArreglo.size())
-			{
-				if (datosArreglo.getElement(i).darPais().equals(pCategoria)) 
-				{
-					respArrg.addLast(datosArreglo.getElement(i));
-				}
-				i ++;
-			}
-			if (i>0)
-				videoTendencia = respArrg.lastElement();
-		}
-		return videoTendencia;
-	}
-	/**
-	 * Requerimiento 4
-	 * @param n
-	 * @param pTag
-	 * @param pPa
-	 * @return  los n videos con más Likes en un país y con una etiqueta especifica.
-	 */
+
+	//Requerimiento4
 	public ILista<Video> masGustados(int n, String pTag, String pPa)
 	{
 		//Primero se ordena por cantidadLikes

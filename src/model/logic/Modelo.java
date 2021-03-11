@@ -38,6 +38,8 @@ public class Modelo <T extends Comparable<T>>
 	private ComparadorXLikes comparar;
 
 	private ArregloDinamico<Categoria> categorias; 
+	
+	private int diasTendencia;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -47,6 +49,7 @@ public class Modelo <T extends Comparable<T>>
 		datosArreglo = new ArregloDinamico<Video>(501);
 		datosLista = new ListaEncadenada<Video>();
 		ordenamientos = new Ordenamientos<>();
+		diasTendencia = 0;
 	}
 
 	/**
@@ -325,39 +328,66 @@ public class Modelo <T extends Comparable<T>>
 		}
 		return videoTendencia;
 	}
-	
+
 	/**
 	 * Requerimiento 3
 	 * @param pCategoria
 	 * @return el video con el mayor numero de dias en la categoria dada 
 	 */
-	public Video videoTendenciaCategoría(String pCategoria)
+	public Video videoTendenciaCategoría(String pCat)
 	{
-		Video.ComparadorXDia comparacion = new Video.ComparadorXDia();
+		Video.ComparadorXCategoria comp = new Video.ComparadorXCategoria();
+		Video.ComparadorXId comp2 = new Video.ComparadorXId();
+		ArregloDinamico<Video> videosCat = new ArregloDinamico<>(20);
 		Video videoTendencia = null;
-		boolean encontre = false;
-		if (datosArreglo.isEmpty()) 
-		{}
-		else
+		int masDias = 0;
+		int contador = 1;
+		boolean encontreCategoria = false;
+		boolean termino = false;
+
+		ordenamientos.ordenarShell(datosArreglo, comp, true);
+
+		int i = 0;
+		Video actual = null;
+		while(i < datosArreglo.size() && !termino)
 		{
-			ordenamientos.ordenarShell(datosArreglo, comparacion, false);
-			int i = 0;
-			while(i < datosArreglo.size())
+			actual = datosArreglo.getElement(i);
+			if (actual.darNombreCategoria().equals(pCat)) 
 			{
-				if (datosArreglo.getElement(i).darNombreCategoria().equals(pCategoria)) 
-				{
-					videoTendencia = datosArreglo.getElement(i);
-				}
-				if (datosArreglo.getElement(i+1) != null && encontre)
-				{
-					if (datosArreglo.getElement(i+1).darPais().compareTo(datosArreglo.getElement(i).darPais())!=0)
-					{
-						break;
-					}
-				}
-				i ++;
+				encontreCategoria = true;
+				videosCat.addLast(actual);
+			}
+			i++;
+			if(encontreCategoria && !datosArreglo.getElement(i).darNombreCategoria().equals(pCat))
+			{
+				termino = true;
 			}
 		}
+		
+		ordenamientos.ordenarShell(videosCat, comp2, true);
+		Video act = videosCat.getElement(0);
+		
+		for(int j = 1; j < videosCat.size(); j++)
+		{
+			if(videosCat.getElement(j).getId().equals(act.getId()))
+			{
+				contador++;
+				
+			}
+			else if(contador > masDias)
+			{
+				videoTendencia = act;
+				masDias = contador;
+				contador = 1;
+			}
+			else
+			{
+				contador = 1;
+			}
+			act = videosCat.getElement(j);
+		}
+		
+		diasTendencia = masDias;
 		return videoTendencia;
 	}
 
@@ -393,6 +423,11 @@ public class Modelo <T extends Comparable<T>>
 		return solucion;
 	}
 	
+	public int darDiasTendencia()
+	{
+		return diasTendencia;
+	}
+
 	public int diasTendencia(String pId)
 	{
 		Video.ComparadorXId comp = new Video.ComparadorXId(); //ordeno por ID

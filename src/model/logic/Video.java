@@ -203,7 +203,7 @@ public class Video implements Comparable<Video>
 	public static class ComparadorXVistas implements Comparator<Video> 
 	{
 
-		/** Comparador alterno de acuerdo al número de likes
+		/** Comparador alterno de acuerdo al número de vistas
 		 * @return valor 0 si video1 y video2 tiene los mismos likes.
 		 valor negativo si video1 tiene menos likes que video2.
 		 valor positivo si video1 tiene más likes que video2. */
@@ -219,7 +219,7 @@ public class Video implements Comparable<Video>
 	public static class ComparadorXDia implements Comparator<Video> 
 	{
 
-		/** Comparador alterno de acuerdo al número de likes
+		/** Comparador alterno de acuerdo a dias
 		 * @return valor 0 si video1 y video2 tiene los mismos likes.
 		 valor negativo si video1 tiene menos likes que video2.
 		 valor positivo si video1 tiene más likes que video2. */
@@ -235,7 +235,7 @@ public class Video implements Comparable<Video>
 	public static class ComparadorXId implements Comparator<Video> 
 	{
 
-		/** Comparador alterno de acuerdo al número de likes
+		/** Comparador alterno de acuerdo al id
 		 * @return valor 0 si video1 y video2 tiene los mismos likes.
 		 valor negativo si video1 tiene menos likes que video2.
 		 valor positivo si video1 tiene más likes que video2. */
@@ -247,13 +247,26 @@ public class Video implements Comparable<Video>
 	public static class ComparadorXPais implements Comparator<Video> 
 	{
 
-		/** Comparador alterno de acuerdo al número de likes
+		/** Comparador alterno de acuerdo al paiss
 		 * @return valor 0 si video1 y video2 tiene los mismos likes.
 		 valor negativo si video1 tiene menos likes que video2.
 		 valor positivo si video1 tiene más likes que video2. */
 		public int compare(Video video1, Video video2) 
 		{
 			return video1.darPais().compareTo(video2.darPais());
+		}	
+	}
+	
+	public static class ComparadorXCategoria implements Comparator<Video> 
+	{
+
+		/** Comparador alterno de acuerdo a categoria
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		public int compare(Video video1, Video video2) 
+		{
+			return video1.darNombreCategoria().compareTo(video2.darNombreCategoria());
 		}	
 	}
 

@@ -143,7 +143,7 @@ public class Controller {
 					view.printMessage("El título es: "+ resp2.getTitle());
 					view.printMessage("El canal es: "+ resp2.getChannel());
 					view.printMessage("La categoría es: "+ resp2.getCategoryId());
-					view.printMessage("El número de días son: "+ resp2.darNumerDiasTrendig(resp2.getPublishTime(), resp2.getTrendingDate()));
+					view.printMessage("El número de días son: "+ modelo.darDiasTendencia());
 					pa = "";
 				}
 				else 

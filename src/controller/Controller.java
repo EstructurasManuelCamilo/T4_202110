@@ -82,121 +82,7 @@ public class Controller {
 				break;
 
 			case 2:
-				
-				break;
 
-			case 3: 
-
-				view.printMessage("Inserte el tamanio deseado de la muestra."); 
-				while(dato.equals(""))
-				{
-					dato = lector.nextLine();
-				}
-				if(esArreglo)
-				{
-					modelo.muestraArreglo(Integer.valueOf(dato));
-					for(int i = 1; i < modelo.muestraArreglo(Integer.valueOf(dato)).size(); i++)
-					{
-						try
-						{
-							System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraArreglo(Integer.valueOf(dato)).getElement(i-1)).getTitle());
-						}
-						catch(Exception e){
-							e.printStackTrace();
-						}
-					}
-				}
-				else 
-				{
-					for(int i = 1; i < modelo.muestraLista(Integer.valueOf(dato)).size(); i++)
-					{
-						try
-						{
-							System.out.println("El titulo del video " + i + " es: " + ((Video) modelo.muestraLista(Integer.valueOf(dato)).getElement(i)).getTitle());
-						}
-						catch(Exception e)
-						{
-							e.printStackTrace();
-						}
-					}
-				}
-
-				view.printMessage("");
-				break;
-
-			case 4:
-				if(esArreglo)
-				{
-					view.printMessage("Muestra ordenada por insercion"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarInsercion(modelo.darArreglo(), compardorXLikes, true);
-					for(int i = 0; i < modelo.darTamanoArreglo(); i++)
-						view.printMessage(modelo.darArreglo().getElement(i).darLikes());
-				}
-				else 
-				{
-					view.printMessage("Lista ordenada por insercion"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarInsercion(modelo.darLista(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				break;
-			case 5:
-				if(esArreglo)
-				{
-					view.printMessage("Muestra ordenada por ShellSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarShell(modelo.darArreglo(), compardorXLikes, true);
-					for(int i = 0; i < modelo.darTamanoArreglo(); i++)
-						view.printMessage(modelo.darArreglo().getElement(i).darLikes());
-					view.printMessage("");
-				}
-				else 
-				{
-					view.printMessage("Lista ordenada por Shellsort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarShell(modelo.darLista(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				break;
-
-			case 6:
-				if(esArreglo)
-				{
-					view.printMessage("Muestra ordenada por MergeSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarMerge(modelo.darArreglo(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				else 
-				{
-					view.printMessage("Lista ordenada por MergeSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarMerge(modelo.darLista(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				break;
-			case 7:
-				if(esArreglo)
-				{
-					view.printMessage("Lista ordenada por QuickSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarQuickSort(modelo.darArreglo(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				else 
-				{
-					view.printMessage("Lista ordenada por QuickSort"); 
-					Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-					ordenamientos.ordenarQuickSort(modelo.darLista(), compardorXLikes, true);
-					view.printMessage("");
-				}
-				break;
-				
-			case 8:
-				Video.ComparadorXLikes compardorXLikes = new Video.ComparadorXLikes();
-				ordenamientos.ordenarShell(modelo.darArreglo(), compardorXLikes, true);
-				
 				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
 				while(n.equals(""))
 				{
@@ -213,16 +99,28 @@ public class Controller {
 					pa = lector.nextLine();
 				}
 
-				modelo.mejoresVideosCatPa(Integer.parseInt(n), cat, pa);
+				ArregloDinamico<Video> sol = modelo.mejoresVideosCatPa(Integer.parseInt(n), cat, pa);
+				for(int i = 0; i < sol.size();i++)
+				{
+					view.printMessage("Video " + i);
+					view.printMessage("Title: " + sol.getElement(i).getTitle());
+					view.printMessage("Trending date: " + sol.getElement(i).getTrendingDate());
+					view.printMessage("Channel title: " + sol.getElement(i).getChannel());
+					view.printMessage("Publish time: " + sol.getElement(i).darPublishTime());
+					view.printMessage("Views: " + sol.getElement(i).darVistas());
+					view.printMessage("Likes: " + sol.getElement(i).darLikes());
+					view.printMessage("Dislikes: " + sol.getElement(i).darDisLikes());
+					view.printMessage("");
+				}
 				n = "";
 				cat = "";
 				pa = "";
 
 				break;
-			case 9:
+			case 5:
 				Video.ComparadorXLikes compardorXlikes = new Video.ComparadorXLikes();
 				ordenamientos.ordenarShell(modelo.darArreglo(), compardorXlikes, true);
-				
+
 				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
 				while(n.equals(""))
 				{

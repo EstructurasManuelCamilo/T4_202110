@@ -34,7 +34,7 @@ public class Modelo <T extends Comparable<T>>
 
 	private ListaEncadenada<Video> datosLista;
 
-	private Ordenamientos ordenamientos;
+	private Ordenamientos<Video> ordenamientos;
 
 	private ComparadorXLikes comparar;
 
@@ -47,6 +47,7 @@ public class Modelo <T extends Comparable<T>>
 	{
 		datosArreglo = new ArregloDinamico<Video>(501);
 		datosLista = new ListaEncadenada<Video>();
+		ordenamientos = new Ordenamientos<>();
 	}
 
 	/**
@@ -254,9 +255,11 @@ public class Modelo <T extends Comparable<T>>
 	}
 
 	//Requerimiento1
-	public void mejoresVideosCatPa(int n, String pCat, String pPa)
+	public ArregloDinamico<Video> mejoresVideosCatPa(int n, String pCat, String pPa)
 	{	 
 		//Primero se ordena por cantidadVistas
+		Video.ComparadorXVistas comp = new Video.ComparadorXVistas();
+		ordenamientos.ordenarShell(datosArreglo, comp, true);
 
 		ArregloDinamico<Video>  arregloSolucion = new ArregloDinamico<>(n);
 		int j = 0;
@@ -266,7 +269,6 @@ public class Modelo <T extends Comparable<T>>
 			if(actual.darPais().equals(pPa) && actual.darNombreCategoria().equals(pCat))
 			{
 				arregloSolucion.insertElement(actual, j);
-				System.out.println("Video " + i + " es " + actual.getTitle());
 				j++;
 			}
 			else
@@ -274,7 +276,7 @@ public class Modelo <T extends Comparable<T>>
 				n++;
 			}
 		}
-
+		return arregloSolucion;
 
 	}
 	// Requerimiento 2. Video con más días como tendencia dado el país 
@@ -286,7 +288,6 @@ public class Modelo <T extends Comparable<T>>
 		{}
 		else
 		{
-			ordenamientos = new Ordenamientos<>();
 			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
 			ordenamientos.ordenarShell(datosArreglo, comp, true);
 			int i = 0;

@@ -158,7 +158,7 @@ public class Modelo <T extends Comparable<T>>
 	public Date fecha1(String pFecha) throws ParseException
 	{
 		String[] partes = pFecha.split("\\.");
-		String anio  = partes[0];
+		String anio  = "20"+partes[0];
 		String dia  = partes[1];
 		String mes = partes[2];
 
@@ -167,12 +167,24 @@ public class Modelo <T extends Comparable<T>>
 
 		return date;
 	}
-	public LocalDateTime fecha2(String pFecha) throws ParseException
+	public Date fecha2(String pFecha) throws ParseException
 	{
-		String[] partes = pFecha.split("\\.");
-		String fechaHora  = partes[0];
-		LocalDateTime fecha = LocalDateTime.parse(fechaHora);
-		return fecha;
+		String[] partes = pFecha.split("T");
+		String anioMesDia  = partes[0];
+		String [] partes2 = anioMesDia.split("-");
+		String anio = partes2[0];
+		String mes = partes2[1];
+		String dia = partes2[2];
+		String fecha = dia + "/" + mes + "/" + anio;
+		Date date =new SimpleDateFormat("dd/MM/yyyy").parse(fecha);  
+
+		return date;
+	}
+	public Date fecha3(String pFecha) throws ParseException
+	{
+		SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+		Date fechaInicio      = date.parse(pFecha);
+		return fechaInicio;
 	}
 
 	public ArregloDinamico<Categoria> leerCategorias()
@@ -289,7 +301,7 @@ public class Modelo <T extends Comparable<T>>
 		else
 		{
 			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
-			ordenamientos.ordenarShell(datosArreglo, comp, true);
+			ordenamientos.ordenarShell(datosArreglo, comp, false);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
@@ -312,32 +324,31 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public Video videoTendenciaCategoría(String pCategoria)
 	{
+		Video.ComparadorXDia comparacion = new Video.ComparadorXDia();
 		Video videoTendencia = null;
 		if (datosArreglo.isEmpty()) 
 		{}
 		else
 		{
-			ordenamientos = new Ordenamientos<>();
 			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
-			ordenamientos.ordenarInsercion(datosArreglo, new Video.ComparadorXVistas(), true);
+			ordenamientos.ordenarShell(datosArreglo, comparacion, false);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
-				if (datosArreglo.getElement(i).darPais().equals(pCategoria)) 
+				if (datosArreglo.getElement(i).darNombreCategoria().equals(pCategoria)) 
 				{
-					respArrg.addLast(datosArreglo.getElement(i));
-					System.out.println(respArrg.getElement(i));
+					respArrg.addFirst(datosArreglo.getElement(i));
 				}
 				i ++;
 			}
 			if (i>0)
-				videoTendencia = respArrg.lastElement();
+				videoTendencia = respArrg.firstElement();
 		}
 		return videoTendencia;
 	}
 
 	//Requerimiento4
-	public ILista<Video> masGustados(int n, String pTag, String pPa)
+	public ArregloDinamico<Video> masGustados(int n, String pTag, String pPa)
 	{
 		//Primero se ordena por cantidadLikes
 
@@ -366,5 +377,10 @@ public class Modelo <T extends Comparable<T>>
 		}
 
 		return solucion;
+	}
+	
+	private Date convertirDate(LocalDateTime convertirFecha) 
+	{
+	    return java.sql.Timestamp.valueOf(convertirFecha);
 	}
 }

@@ -40,15 +40,10 @@ public class Controller {
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
-		String dato = "";
 		String n = "";
 		String cat = "";
 		String pa = "";
 		String et = "";
-		String respuesta = "";
-		ILista<Video> solucion = new ArregloDinamico<Video>(50);
-		boolean esArreglo = false;
-		boolean esLista = false;
 
 		while( !fin ){
 			view.printMenu();
@@ -74,15 +69,12 @@ public class Controller {
 				view.printMessage("Views: " + modelo.darArreglo().getElement(0).darVistas());
 				view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
 				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
-				for(int i = 0; i < modelo.darArreglo().getElement(0).darTags().size(); i++)
-					view.printMessage("Tag: " + i + " "+ modelo.darArreglo().getElement(0).darTags().getElement(i));
 
-				esArreglo = true;
 				cargados = true;
 				break;
 
 			case 2:
-
+				//REQ 1
 				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
 				while(n.equals(""))
 				{
@@ -117,9 +109,44 @@ public class Controller {
 				pa = "";
 
 				break;
+			case 3:
+				view.printMessage("Ingresar país que se desea consultar");
+				while(pa.equals(""))
+				{
+					pa = lector.nextLine();
+				}
+				Video resp = modelo.videoTendenciaPais(pa);
+				if (resp != null)
+				{
+					view.printMessage("El título es: "+ resp.getTitle());
+					view.printMessage("El canal es: "+ resp.getChannel());
+					view.printMessage("La categoría es: "+ resp.getCategoryId());
+					view.printMessage("El número de días son: "+ resp.darNumerDiasTrendig(resp.getPublishTime(), resp.getTrendingDate()));
+				}
+				else
+					view.printMessage("No se puedo encontrar un video con esa país");
+				pa = "";	
+				break;
+			case 4:
+				view.printMessage("Ingresar categoría que se desea consultar");
+				while(pa.equals(""))
+				{
+					pa = lector.nextLine();
+				}
+				Video resp2 = modelo.videoTendenciaCategoría(pa);
+				if (resp2 != null)
+				{
+					view.printMessage("El título es: "+ resp2.getTitle());
+					view.printMessage("El canal es: "+ resp2.getChannel());
+					view.printMessage("La categoría es: "+ resp2.getCategoryId());
+					view.printMessage("El número de días son: "+ resp2.darNumerDiasTrendig(resp2.getPublishTime(), resp2.getTrendingDate()));
+					pa = "";
+				}
+				else 
+					view.printMessage("No se puedo encontrar un video con esa categoría");
+				break;
+				
 			case 5:
-				Video.ComparadorXLikes compardorXlikes = new Video.ComparadorXLikes();
-				ordenamientos.ordenarShell(modelo.darArreglo(), compardorXlikes, true);
 
 				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
 				while(n.equals(""))
@@ -137,17 +164,30 @@ public class Controller {
 					pa = lector.nextLine();
 				}
 
-				modelo.masGustados(Integer.parseInt(n), et, pa);
+				ArregloDinamico<Video> sol4 = modelo.masGustados(Integer.parseInt(n), et, pa);
+			
+				for(int i = 0; i < sol4.size();i++)
+				{
+					view.printMessage("Video " + i);
+					view.printMessage("Title: " + sol4.getElement(i).getTitle());
+					view.printMessage("Channel title: " + sol4.getElement(i).getChannel());
+					view.printMessage("Publish time: " + sol4.getElement(i).darPublishTime());
+					view.printMessage("Views: " + sol4.getElement(i).darVistas());
+					view.printMessage("Likes: " + sol4.getElement(i).darLikes());
+					view.printMessage("Dislikes: " + sol4.getElement(i).darDisLikes());
+					view.printMessage("Tags: " + sol4.getElement(i).darListags());
+					view.printMessage("");
+				}
 				n = "";
 				et = "";
 				pa = "";
 
 				break;
-			case 10: 
+			case 6: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;
-				break;	
+				break;
 
 
 

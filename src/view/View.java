@@ -15,10 +15,10 @@ public class View
 		public void printMenu()
 		{
 			System.out.println("1. Leer datos de archivos.");
-			System.out.println("2. Requerimineto 1");
-			System.out.println("3. Requerimineto 2");
-			System.out.println("4. Requerimineto 3");
-			System.out.println("5. Requerimineto 4");
+			System.out.println("2. Conocer n videos con más vistas por categoria de un pais");
+			System.out.println("3. Conocer video con más días como tendencia de un el país");
+			System.out.println("4. Conocer  video con más días como tendencia de una categoria");
+			System.out.println("5. Conocer n videos con mas likes por etiqueta de un pais");
 			System.out.println("6. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}

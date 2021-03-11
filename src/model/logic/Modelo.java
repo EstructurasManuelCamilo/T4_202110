@@ -295,7 +295,7 @@ public class Modelo <T extends Comparable<T>>
 		else
 		{
 			videoTendencia = datosArreglo.getElement(0);
-			ordenamientos.ordenarQuickSort(datosArreglo, comp, false);
+			ordenamientos.ordenarShell(datosArreglo, comp, false);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{

@@ -2,6 +2,7 @@ package model.logic;
 
 import model.data_structures.*;
 import model.logic.Video.ComparadorXLikes;
+import model.logic.Video.ComparadorXVistas;
 import model.utils.Ordenamientos;
 
 import org.apache.commons.csv.CSVFormat;
@@ -277,61 +278,62 @@ public class Modelo <T extends Comparable<T>>
 
 	}
 	// Requerimiento 2. Video con más días como tendencia dado el país 
-	public ILista <Video> videoTendenciaPais(String pPais)
+	public Video videoTendenciaPais(String pPais)
 	{
-		ILista<Video> resp = null;
+		ComparadorXVistas comp = new ComparadorXVistas();
+		Video videoTendencia = null;
 		if (datosArreglo.isEmpty()) 
-		{
-			return resp;
-		}
+		{}
 		else
 		{
-			ArregloDinamico<Video> videoPorPais = new ArregloDinamico<>(0);
-			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
-			Video.ComparadorXPais compararPais = new Video.ComparadorXPais();
-			Video videoTendencia = datosArreglo.getElement(0);
-			ordenamientos.ordenarInsercion(datosArreglo, compararPais, true);
+			ordenamientos = new Ordenamientos<>();
+			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
+			ordenamientos.ordenarShell(datosArreglo, comp, true);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
 				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
 				{
-					respArrg.addLast(datosArreglo.getElement(i)); //tengo todos los video de un país
+					respArrg.addLast(datosArreglo.getElement(i));
+					System.out.println(respArrg.getElement(i));
 				}
 				i ++;
 			}
+			if (i>0)
+				videoTendencia = respArrg.lastElement();
 		}
+		return videoTendencia;
 	}
 
 	//Requerimiento4
 	public ILista<Video> masGustados(int n, String pTag, String pPa)
 	{
 		//Primero se ordena por cantidadLikes
-		
-			ArregloDinamico<Video>  solucion = new ArregloDinamico<>(n);
-			int j = 0;
-			for(int i = 0; i < n; i++)
-			{
-				try
-				{
-					Video actual = datosArreglo.getElement(i);
-					if(actual.darPais().equals(pPa) && actual.buscarEtiqueta(pTag))
-					{
-						solucion.insertElement(actual, j);
-						System.out.println("Video " + i + " es " + actual.getTitle());
-						j++;
-					}
-					else
-					{
-						n++;
-					}
-				}
-				catch(Exception e)
-				{
 
+		ArregloDinamico<Video>  solucion = new ArregloDinamico<>(n);
+		int j = 0;
+		for(int i = 0; i < n; i++)
+		{
+			try
+			{
+				Video actual = datosArreglo.getElement(i);
+				if(actual.darPais().equals(pPa) && actual.buscarEtiqueta(pTag))
+				{
+					solucion.insertElement(actual, j);
+					System.out.println("Video " + i + " es " + actual.getTitle());
+					j++;
+				}
+				else
+				{
+					n++;
 				}
 			}
-		
+			catch(Exception e)
+			{
+
+			}
+		}
+
 		return solucion;
 	}
 }

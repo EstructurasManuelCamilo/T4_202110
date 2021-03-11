@@ -322,6 +322,7 @@ public class Modelo <T extends Comparable<T>>
 	{
 		Video.ComparadorXDia comparacion = new Video.ComparadorXDia();
 		Video videoTendencia = null;
+		boolean encontre = false;
 		if (datosArreglo.isEmpty()) 
 		{}
 		else
@@ -333,6 +334,13 @@ public class Modelo <T extends Comparable<T>>
 				if (datosArreglo.getElement(i).darNombreCategoria().equals(pCategoria)) 
 				{
 					videoTendencia = datosArreglo.getElement(i);
+				}
+				if (datosArreglo.getElement(i+1) != null && encontre)
+				{
+					if (datosArreglo.getElement(i+1).darPais().compareTo(datosArreglo.getElement(i).darPais())!=0)
+					{
+						break;
+					}
 				}
 				i ++;
 			}

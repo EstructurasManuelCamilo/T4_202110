@@ -34,9 +34,9 @@ public class Modelo <T extends Comparable<T>>
 
 	private ListaEncadenada<Video> datosLista;
 
-	private Ordenamientos<Video> ordenamientos;
+	private Ordenamientos ordenamientos;
 
-	private ComparadorXVistas comparar;
+	private ComparadorXLikes comparar;
 
 	private ArregloDinamico<Categoria> categorias; 
 
@@ -253,13 +253,7 @@ public class Modelo <T extends Comparable<T>>
 		return resp;
 	}
 
-	/**
-	 * Requerimiento 1
-	 * @param n
-	 * @paramp pCat 
-	 * @paramp pPa
-	 * @return los n videos con más reproducciones (views) que son tendencia para un país y una categoría especifica.
-	 */
+	//Requerimiento1
 	public void mejoresVideosCatPa(int n, String pCat, String pPa)
 	{	 
 		//Primero se ordena por cantidadVistas
@@ -280,13 +274,10 @@ public class Modelo <T extends Comparable<T>>
 				n++;
 			}
 		}
+
+
 	}
-	
-	/**
-	 * Requerimiento 2
-	 * @param pPais
-	 * @return el video con más días como tendencia en un país.
-	 */
+	// Requerimiento 2. Video con más días como tendencia dado el país 
 	public Video videoTendenciaPais(String pPais)
 	{
 		Video.ComparadorXVistas comp = new Video.ComparadorXVistas();
@@ -334,6 +325,7 @@ public class Modelo <T extends Comparable<T>>
 				if (datosArreglo.getElement(i).darPais().equals(pCategoria)) 
 				{
 					respArrg.addLast(datosArreglo.getElement(i));
+					System.out.println(respArrg.getElement(i));
 				}
 				i ++;
 			}
@@ -342,41 +334,36 @@ public class Modelo <T extends Comparable<T>>
 		}
 		return videoTendencia;
 	}
-	/**
-	 * Requerimiento 4
-	 * @param n
-	 * @param pTag
-	 * @param pPa
-	 * @return  los n videos con más Likes en un país y con una etiqueta especifica.
-	 */
+
+	//Requerimiento4
 	public ILista<Video> masGustados(int n, String pTag, String pPa)
 	{
 		//Primero se ordena por cantidadLikes
-		
-			ArregloDinamico<Video>  solucion = new ArregloDinamico<>(n);
-			int j = 0;
-			for(int i = 0; i < n; i++)
-			{
-				try
-				{
-					Video actual = datosArreglo.getElement(i);
-					if(actual.darPais().equals(pPa) && actual.buscarEtiqueta(pTag))
-					{
-						solucion.insertElement(actual, j);
-						System.out.println("Video " + i + " es " + actual.getTitle());
-						j++;
-					}
-					else
-					{
-						n++;
-					}
-				}
-				catch(Exception e)
-				{
 
+		ArregloDinamico<Video>  solucion = new ArregloDinamico<>(n);
+		int j = 0;
+		for(int i = 0; i < n; i++)
+		{
+			try
+			{
+				Video actual = datosArreglo.getElement(i);
+				if(actual.darPais().equals(pPa) && actual.buscarEtiqueta(pTag))
+				{
+					solucion.insertElement(actual, j);
+					System.out.println("Video " + i + " es " + actual.getTitle());
+					j++;
+				}
+				else
+				{
+					n++;
 				}
 			}
-		
+			catch(Exception e)
+			{
+
+			}
+		}
+
 		return solucion;
 	}
 }

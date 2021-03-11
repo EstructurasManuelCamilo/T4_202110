@@ -52,14 +52,8 @@ public class Controller {
 			switch(option){
 
 			case 1:
-				view.printMessage("Inicio de lectura de los archivos."); 
-
-				view.printMessage("Las categorías cargargadas son:");
-				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
-				{
-					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
-				}
-				view.printMessage(""); 
+				view.printMessage("Inicio de lectura de los archivos.\n----------------"); 
+				modelo.leerCategorias();
 				modelo.leerDatosVideosArregloDinamico();
 				view.printMessage("El total de videos cargados es: " + modelo.darArreglo().size());
 				view.printMessage("La información del primer video es: ");
@@ -69,7 +63,15 @@ public class Controller {
 				view.printMessage("Views: " + modelo.darArreglo().getElement(0).darVistas());
 				view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
 				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
-
+				view.printMessage("El total de categorías cargargadas es:");
+				view.printMessage(""+modelo.leerCategorias().size());
+				view.printMessage("Las categorías cargargadas son:");
+				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
+				{
+					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+				}
+				view.printMessage(""); 
+				
 				cargados = true;
 				break;
 
@@ -104,6 +106,8 @@ public class Controller {
 					view.printMessage("Dislikes: " + sol.getElement(i).darDisLikes());
 					view.printMessage("");
 				}
+				if(sol.isEmpty())
+					view.printMessage("No se encontraron videos con la información dada");
 				n = "";
 				cat = "";
 				pa = "";
@@ -178,6 +182,8 @@ public class Controller {
 					view.printMessage("Tags: " + sol4.getElement(i).darListags());
 					view.printMessage("");
 				}
+				if(sol4.isEmpty())
+					view.printMessage("No se encontraron videos con la información dada");
 				n = "";
 				et = "";
 				pa = "";

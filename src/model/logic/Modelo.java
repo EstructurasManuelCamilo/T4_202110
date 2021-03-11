@@ -28,7 +28,6 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	long TInicio, TFin, tiempo;
 
-	private ILista<Video> videos; // TODO cambio ILista
 
 	private ArregloDinamico<Video> datosArreglo; 
 
@@ -362,7 +361,6 @@ public class Modelo <T extends Comparable<T>>
 				if(actual.darPais().equals(pPa) && actual.buscarEtiqueta(pTag))
 				{
 					solucion.insertElement(actual, j);
-					System.out.println("Video " + i + " es " + actual.getTitle());
 					j++;
 				}
 				else

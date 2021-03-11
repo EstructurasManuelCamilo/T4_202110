@@ -102,10 +102,18 @@ public class Controller {
 				view.printMessage("El país del video es: " + vid.darPais());
 				view.printMessage("El número de días como tendencia es: " + vid.getTrendingDate());
 				break;
+				
 			case 4:
 				// REQUERIMIENTO 3
-				
+				view.printMessage("Ingrese la categoría del cual quiere obtener la información");
+				dato = lector.next();
+				Video video = modelo.videoTendenciaCategoría(dato);
+				view.printMessage("El título del video es: " + video.getTitle());
+				view.printMessage("El nombre del canal es: " + video.getChannel());
+				view.printMessage("El país del video es: " + video.darPais());
+				view.printMessage("El número de días como tendencia es: " + video.getTrendingDate());
 				break;
+				
 			case 5:
 				// REQUERIMIENTO 4
 				Video.ComparadorXLikes compardorXlikes = new Video.ComparadorXLikes();

@@ -2,6 +2,7 @@ package model.logic;
 
 import model.data_structures.*;
 import model.logic.Video.ComparadorXLikes;
+import model.logic.Video.ComparadorXVistas;
 import model.utils.Ordenamientos;
 
 import org.apache.commons.csv.CSVFormat;
@@ -35,7 +36,7 @@ public class Modelo <T extends Comparable<T>>
 
 	private Ordenamientos<Video> ordenamientos;
 
-	private ComparadorXLikes comparar;
+	private ComparadorXVistas comparar;
 
 	private ArregloDinamico<Categoria> categorias; 
 
@@ -252,7 +253,13 @@ public class Modelo <T extends Comparable<T>>
 		return resp;
 	}
 
-	//Requerimiento1
+	/**
+	 * Requerimiento 1
+	 * @param n
+	 * @paramp pCat 
+	 * @paramp pPa
+	 * @return los n videos con más reproducciones (views) que son tendencia para un país y una categoría especifica.
+	 */
 	public void mejoresVideosCatPa(int n, String pCat, String pPa)
 	{	 
 		//Primero se ordena por cantidadVistas
@@ -274,7 +281,12 @@ public class Modelo <T extends Comparable<T>>
 			}
 		}
 	}
-	// Requerimiento 2. Video con más días como tendencia dado el país 
+	
+	/**
+	 * Requerimiento 2
+	 * @param pPais
+	 * @return el video con más días como tendencia en un país.
+	 */
 	public Video videoTendenciaPais(String pPais)
 	{
 		Video videoTendencia = null;
@@ -283,7 +295,8 @@ public class Modelo <T extends Comparable<T>>
 		else
 		{
 			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
-			ordenamientos.ordenarInsercion(datosArreglo, new Video.ComparadorXVistas(), true);
+			System.out.println(datosArreglo.getElement(1));
+			ordenamientos.ordenarShell(datosArreglo, comparar, true);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
@@ -298,6 +311,12 @@ public class Modelo <T extends Comparable<T>>
 		}
 		return videoTendencia;
 	}
+	
+	/**
+	 * Requerimiento 3
+	 * @param pCategoria
+	 * @return el video con el mayor numero de dias en la categoria dada 
+	 */
 	public Video videoTendenciaCategoría(String pCategoria)
 	{
 		Video videoTendencia = null;
@@ -321,7 +340,13 @@ public class Modelo <T extends Comparable<T>>
 		}
 		return videoTendencia;
 	}
-	//Requerimiento4
+	/**
+	 * Requerimiento 4
+	 * @param n
+	 * @param pTag
+	 * @param pPa
+	 * @return  los n videos con más Likes en un país y con una etiqueta especifica.
+	 */
 	public ILista<Video> masGustados(int n, String pTag, String pPa)
 	{
 		//Primero se ordena por cantidadLikes

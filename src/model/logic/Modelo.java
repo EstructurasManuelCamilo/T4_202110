@@ -174,6 +174,13 @@ public class Modelo <T extends Comparable<T>>
 		LocalDateTime fecha = LocalDateTime.parse(fechaHora);
 		return fecha;
 	}
+	
+	public Date cambiarFormato(LocalDateTime pFecha) throws ParseException
+	{
+		SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+		Date fechaInicio      = date.parse(pFecha.toString());
+		return fechaInicio;
+	}
 
 	public ArregloDinamico<Categoria> leerCategorias()
 	{ 
@@ -304,7 +311,7 @@ public class Modelo <T extends Comparable<T>>
 		}
 		return videoTendencia;
 	}
-	
+
 	/**
 	 * Requerimiento 3
 	 * @param pCategoria
@@ -337,9 +344,11 @@ public class Modelo <T extends Comparable<T>>
 	}
 
 	//Requerimiento4
-	public ILista<Video> masGustados(int n, String pTag, String pPa)
+	public ArregloDinamico<Video> masGustados(int n, String pTag, String pPa)
 	{
 		//Primero se ordena por cantidadLikes
+		Video.ComparadorXLikes comp = new Video.ComparadorXLikes();
+		ordenamientos.ordenarShell(datosArreglo, comp, true);
 
 		ArregloDinamico<Video>  solucion = new ArregloDinamico<>(n);
 		int j = 0;
@@ -351,7 +360,6 @@ public class Modelo <T extends Comparable<T>>
 				if(actual.darPais().equals(pPa) && actual.buscarEtiqueta(pTag))
 				{
 					solucion.insertElement(actual, j);
-					System.out.println("Video " + i + " es " + actual.getTitle());
 					j++;
 				}
 				else

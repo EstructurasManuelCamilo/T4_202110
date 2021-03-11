@@ -74,6 +74,10 @@ public class Controller {
 				view.printMessage("Views: " + modelo.darArreglo().getElement(0).darVistas());
 				view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
 				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
+				
+				view.printMessage("Fecha publicacion en local ");
+				view.printMessage("Fecha publicacion en local ");
+
 				for(int i = 0; i < modelo.darArreglo().getElement(0).darTags().size(); i++)
 					view.printMessage("Tag: " + i + " "+ modelo.darArreglo().getElement(0).darTags().getElement(i));
 
@@ -117,9 +121,8 @@ public class Controller {
 				pa = "";
 
 				break;
+				
 			case 5:
-				Video.ComparadorXLikes compardorXlikes = new Video.ComparadorXLikes();
-				ordenamientos.ordenarShell(modelo.darArreglo(), compardorXlikes, true);
 
 				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
 				while(n.equals(""))
@@ -137,13 +140,26 @@ public class Controller {
 					pa = lector.nextLine();
 				}
 
-				modelo.masGustados(Integer.parseInt(n), et, pa);
+				ArregloDinamico<Video> sol4 = modelo.masGustados(Integer.parseInt(n), et, pa);
+			
+				for(int i = 0; i < sol4.size();i++)
+				{
+					view.printMessage("Video " + i);
+					view.printMessage("Title: " + sol4.getElement(i).getTitle());
+					view.printMessage("Channel title: " + sol4.getElement(i).getChannel());
+					view.printMessage("Publish time: " + sol4.getElement(i).darPublishTime());
+					view.printMessage("Views: " + sol4.getElement(i).darVistas());
+					view.printMessage("Likes: " + sol4.getElement(i).darLikes());
+					view.printMessage("Dislikes: " + sol4.getElement(i).darDisLikes());
+					view.printMessage("Tags: " + sol4.getElement(i).darListags());
+					view.printMessage("");
+				}
 				n = "";
 				et = "";
 				pa = "";
 
 				break;
-			case 10: 
+			case 6: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;

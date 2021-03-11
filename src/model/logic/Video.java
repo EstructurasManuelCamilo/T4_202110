@@ -131,6 +131,11 @@ public class Video implements Comparable<Video>
 	{
 		return vistas;
 	}
+	
+	public String darListags()
+	{
+		return listags;
+	}
 
 	public boolean buscarEtiqueta(String pEt) 
 	{

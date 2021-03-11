@@ -289,7 +289,7 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public Video videoTendenciaPais(String pPais)
 	{
-		ComparadorXVistas comp = new ComparadorXVistas();
+		Video.ComparadorXVistas comp = new Video.ComparadorXVistas();
 		Video videoTendencia = null;
 		if (datosArreglo.isEmpty()) 
 		{}
@@ -301,16 +301,14 @@ public class Modelo <T extends Comparable<T>>
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
-				System.out.println(i);
 				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
 				{
-					sys
-					//respArrg.addLast(datosArreglo.getElement(i));
+					respArrg.addFirst(datosArreglo.getElement(i));
 				}
 				i ++;
 			}
 			if (i>0)
-				videoTendencia = respArrg.lastElement();
+				videoTendencia = respArrg.firstElement();
 		}
 		return videoTendencia;
 	}

@@ -344,7 +344,8 @@ public class Modelo <T extends Comparable<T>>
 	public ArregloDinamico<Video> masGustados(int n, String pTag, String pPa)
 	{
 		//Primero se ordena por cantidadLikes
-
+		Video.ComparadorXLikes comp = new Video.ComparadorXLikes();
+		ordenamientos.ordenarShell(datosArreglo, comp, true);
 		ArregloDinamico<Video>  solucion = new ArregloDinamico<>(n);
 		int j = 0;
 		for(int i = 0; i < n; i++)

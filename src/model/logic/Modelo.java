@@ -290,6 +290,7 @@ public class Modelo <T extends Comparable<T>>
 		Video.ComparadorXPais comp = new Video.ComparadorXPais();
 		Video videoTendencia = null;
 		int masDias = 0;
+		boolean encontre = false;
 		if (datosArreglo.isEmpty()) 
 		{}
 		else
@@ -301,10 +302,22 @@ public class Modelo <T extends Comparable<T>>
 			{
 				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
 				{
+					encontre = true; 
+					System.out.println(i);
 					if(masDias < diasTendencia(datosArreglo.getElement(i).getId()))
 					{
 						masDias = diasTendencia(datosArreglo.getElement(i).getId());
+						System.out.println(masDias);
 						videoTendencia = datosArreglo.getElement(i);
+					}
+				}
+				if (datosArreglo.getElement(i+1) != null && encontre)
+				{
+					if (datosArreglo.getElement(i+1).darPais().compareTo(datosArreglo.getElement(i).darPais())!=0)
+					{
+						System.out.println(i);
+						System.out.println("BREAK");
+						break;
 					}
 				}
 				i ++;

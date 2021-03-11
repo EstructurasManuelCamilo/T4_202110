@@ -169,7 +169,7 @@ public class Video implements Comparable<Video>
 		long startTime = fecha1.getTime();
 	     long endTime = fecha2.getTime();
 	     long diffTime = endTime - startTime;
-	     return (int)TimeUnit.DAYS.convert(diffTime, TimeUnit.MILLISECONDS);
+	     return (int)TimeUnit.DAYS.convert(diffTime, TimeUnit.MILLISECONDS) + 1;
 	}
 	
 	

@@ -125,7 +125,7 @@ public class Modelo <T extends Comparable<T>>
 
 		try 
 		{
-			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-small.csv")),"UTF-8");
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-all.csv")),"UTF-8");
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{
@@ -299,19 +299,16 @@ public class Modelo <T extends Comparable<T>>
 		{}
 		else
 		{
-			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
 			ordenamientos.ordenarShell(datosArreglo, comp, false);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
 				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
 				{
-					respArrg.addFirst(datosArreglo.getElement(i));
+					videoTendencia = datosArreglo.getElement(i);
 				}
 				i ++;
 			}
-			if (i>0)
-				videoTendencia = respArrg.firstElement();
 		}
 		return videoTendencia;
 	}
@@ -329,19 +326,16 @@ public class Modelo <T extends Comparable<T>>
 		{}
 		else
 		{
-			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
 			ordenamientos.ordenarShell(datosArreglo, comparacion, false);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
 				if (datosArreglo.getElement(i).darNombreCategoria().equals(pCategoria)) 
 				{
-					respArrg.addFirst(datosArreglo.getElement(i));
+					videoTendencia = datosArreglo.getElement(i);
 				}
 				i ++;
 			}
-			if (i>0)
-				videoTendencia = respArrg.firstElement();
 		}
 		return videoTendencia;
 	}

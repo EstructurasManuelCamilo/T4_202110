@@ -43,8 +43,11 @@ public class Video implements Comparable<Video>
 
 	private ArregloDinamico<String> tags;
 	
-
-	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, Date fecha2, String pFpub, String pListags, int pVistas, String pLikes, String pDislikes, String pNomCat, String pPais)
+	private int diasTendencia;
+	
+	public Video(String pId, Date date, String pTitle, String pChannel, 
+			int pCat, Date fecha2, String pFpub, String pListags, int pVistas, 
+			String pLikes, String pDislikes, String pNomCat, String pPais)
 	{
 		id = pId;
 		trendingDate = date;
@@ -75,11 +78,21 @@ public class Video implements Comparable<Video>
 			return 1;
 	}
 
+	public int getDiasTendencia()
+	{
+		
+		return diasTendencia;
+	}
+	
 	public String getId() 
 	{
 		return id;
 	}
-
+	
+	public String darListags() 
+	{
+		return listags;
+	}
 	
 	public Date getTrendingDate() 
 	{
@@ -219,8 +232,29 @@ public class Video implements Comparable<Video>
 		}	
 	}
 
-	public String darListags() 
+	public static class ComparadorXId implements Comparator<Video> 
 	{
-		return listags;
+
+		/** Comparador alterno de acuerdo al número de likes
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		public int compare(Video video1, Video video2) 
+		{
+			return video1.getId().compareTo(video2.getId());
+		}	
 	}
+	public static class ComparadorXPais implements Comparator<Video> 
+	{
+
+		/** Comparador alterno de acuerdo al número de likes
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		public int compare(Video video1, Video video2) 
+		{
+			return video1.darPais().compareTo(video2.darPais());
+		}	
+	}
+
 }

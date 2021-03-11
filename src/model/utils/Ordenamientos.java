@@ -28,7 +28,7 @@ public class Ordenamientos <T extends Comparable<T>>
 		 }
 		 TFin = System.currentTimeMillis();
 		 tiempo = TFin - TInicio;
-		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
+		 //System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	}
 	
 	/* Ordenamiento de N elementos en posiciones [1, N], con criterio de comparacion,
@@ -51,7 +51,7 @@ public class Ordenamientos <T extends Comparable<T>>
 		}
 		TFin = System.currentTimeMillis();
 		 tiempo = TFin - TInicio;
-		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
+		 //System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	 }
 	public final void ordenarShell(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	 {
@@ -80,7 +80,7 @@ public class Ordenamientos <T extends Comparable<T>>
 		 }
 		 TFin = System.currentTimeMillis();
 		 tiempo = TFin - TInicio;
-		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
+		 //System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	 }
 	
 	public final void ordenarSort(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
@@ -103,7 +103,7 @@ public class Ordenamientos <T extends Comparable<T>>
 		 }
 		 TFin = System.currentTimeMillis();
 		 tiempo = TFin - TInicio;
-		 System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
+		 //System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	 }
 	public void ordenarMerge(ILista<T> lista, Comparator<T> criterio, boolean ascendente)
 	{
@@ -166,7 +166,7 @@ public class Ordenamientos <T extends Comparable<T>>
 		sort(lista, criterio, ascendente, 1, lista.size()-1);
 		TFin = System.currentTimeMillis();
 		tiempo = TFin - TInicio;
-		System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
+		//System.out.println("Tiempo de ejecucion en milisegundos: " + tiempo);
 	}
 	
 	private void sort(ILista<T> lista, Comparator<T> criterio, boolean ascendente, int lo, int hi)

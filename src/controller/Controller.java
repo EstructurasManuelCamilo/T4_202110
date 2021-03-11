@@ -194,7 +194,7 @@ public class Controller {
 				lector.close();
 				fin = true;
 				break;
-
+				
 
 
 			default: 

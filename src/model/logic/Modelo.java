@@ -179,12 +179,6 @@ public class Modelo <T extends Comparable<T>>
 
 		return date;
 	}
-	public Date fecha3(String pFecha) throws ParseException
-	{
-		SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-		Date fechaInicio      = date.parse(pFecha);
-		return fechaInicio;
-	}
 
 	public ArregloDinamico<Categoria> leerCategorias()
 	{ 
@@ -293,19 +287,25 @@ public class Modelo <T extends Comparable<T>>
 	// Requerimiento 2. Video con más días como tendencia dado el país 
 	public Video videoTendenciaPais(String pPais)
 	{
-		Video.ComparadorXVistas comp = new Video.ComparadorXVistas();
+		Video.ComparadorXPais comp = new Video.ComparadorXPais();
 		Video videoTendencia = null;
+		int masDias = 0;
 		if (datosArreglo.isEmpty()) 
 		{}
 		else
 		{
-			ordenamientos.ordenarShell(datosArreglo, comp, false);
+			videoTendencia = datosArreglo.getElement(0);
+			ordenamientos.ordenarQuickSort(datosArreglo, comp, false);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
 				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
 				{
-					videoTendencia = datosArreglo.getElement(i);
+					if(masDias < diasTendencia(datosArreglo.getElement(i).getId()))
+					{
+						masDias = diasTendencia(datosArreglo.getElement(i).getId());
+						videoTendencia = datosArreglo.getElement(i);
+					}
 				}
 				i ++;
 			}
@@ -372,8 +372,29 @@ public class Modelo <T extends Comparable<T>>
 		return solucion;
 	}
 	
-	private Date convertirDate(LocalDateTime convertirFecha) 
+	public int diasTendencia(String pId)
 	{
-	    return java.sql.Timestamp.valueOf(convertirFecha);
+		Video.ComparadorXId comp = new Video.ComparadorXId(); //ordeno por ID
+		ordenamientos.ordenarShell(datosArreglo, comp, true);
+		int i = 0;
+		int resp = 0;
+		boolean encontroUno = false;
+		while(i < datosArreglo.size())
+		{
+			if (datosArreglo.getElement(i).getId().equals(pId)) 
+			{
+				encontroUno = true;
+				resp ++;
+			}
+			if (datosArreglo.getElement(i+1) != null && encontroUno)
+			{
+				if (datosArreglo.getElement(i+1).getId().compareTo(datosArreglo.getElement(i).getId())!=0) //ya no pertenece al video 
+				{
+					break;
+				}
+			}
+			i ++;
+		}
+		return resp;
 	}
 }

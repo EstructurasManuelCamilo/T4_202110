@@ -289,20 +289,23 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public Video videoTendenciaPais(String pPais)
 	{
+		ComparadorXVistas comp = new ComparadorXVistas();
 		Video videoTendencia = null;
 		if (datosArreglo.isEmpty()) 
 		{}
 		else
 		{
-			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
-			System.out.println(datosArreglo.getElement(1));
-			ordenamientos.ordenarShell(datosArreglo, comparar, true);
+			ordenamientos = new Ordenamientos<>();
+			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
+			ordenamientos.ordenarShell(datosArreglo, comp, true);
 			int i = 0;
 			while(i < datosArreglo.size())
 			{
+				System.out.println(i);
 				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
 				{
-					respArrg.addLast(datosArreglo.getElement(i));
+					sys
+					//respArrg.addLast(datosArreglo.getElement(i));
 				}
 				i ++;
 			}
@@ -324,7 +327,8 @@ public class Modelo <T extends Comparable<T>>
 		{}
 		else
 		{
-			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(0);
+			ordenamientos = new Ordenamientos<>();
+			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
 			ordenamientos.ordenarInsercion(datosArreglo, new Video.ComparadorXVistas(), true);
 			int i = 0;
 			while(i < datosArreglo.size())

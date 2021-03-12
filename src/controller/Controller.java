@@ -146,10 +146,10 @@ public class Controller {
 					view.printMessage("El canal es: "+ resp2.getChannel());
 					view.printMessage("El Id de la categoría es: "+ resp2.getCategoryId());
 					view.printMessage("El número de días son: "+ modelo.darDiasTendencia());
-					pa = "";
 				}
 				else 
 					view.printMessage("No se puedo encontrar un video con esa categoría");
+				pa = "";
 				break;
 				
 			case 5:

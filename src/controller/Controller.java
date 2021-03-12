@@ -52,26 +52,28 @@ public class Controller {
 			switch(option){
 
 			case 1:
-				view.printMessage("Inicio de lectura de los archivos.\n----------------"); 
-				modelo.leerCategorias();
-				modelo.leerDatosVideosArregloDinamico();
-				view.printMessage("El total de videos cargados es: " + modelo.darArreglo().size());
-				view.printMessage("La información del primer video es: ");
-				view.printMessage("Title: " + modelo.darArreglo().getElement(0).getTitle());
-				view.printMessage("Trending date: " + modelo.darArreglo().getElement(0).getTrendingDate());
-				view.printMessage("Country: " + modelo.darArreglo().getElement(0).darPais());
-				view.printMessage("Views: " + modelo.darArreglo().getElement(0).darVistas());
-				view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
-				view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
-				view.printMessage("El total de categorías cargargadas es:");
-				view.printMessage(""+modelo.leerCategorias().size());
-				view.printMessage("Las categorías cargargadas son:");
-				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
+				if(!cargados)
 				{
-					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+					view.printMessage("Inicio de lectura de los archivos.\n----------------"); 
+					modelo.leerCategorias();
+					modelo.leerDatosVideosArregloDinamico();
+					view.printMessage("El total de videos cargados es: " + modelo.darArreglo().size());
+					view.printMessage("La información del primer video es: ");
+					view.printMessage("Title: " + modelo.darArreglo().getElement(0).getTitle());
+					view.printMessage("Trending date: " + modelo.darArreglo().getElement(0).getTrendingDate());
+					view.printMessage("Country: " + modelo.darArreglo().getElement(0).darPais());
+					view.printMessage("Views: " + modelo.darArreglo().getElement(0).darVistas());
+					view.printMessage("Likes: " + modelo.darArreglo().getElement(0).darLikes());
+					view.printMessage("Dislikes: " + modelo.darArreglo().getElement(0).darDisLikes());
+					view.printMessage("El total de categorías cargargadas es:");
+					view.printMessage(""+modelo.leerCategorias().size());
+					view.printMessage("Las categorías cargargadas son:");
+					for( int i = 1; i < modelo.leerCategorias().size(); i++ )
+					{
+						view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+					}
+					view.printMessage(""); 
 				}
-				view.printMessage(""); 
-				
 				cargados = true;
 				break;
 

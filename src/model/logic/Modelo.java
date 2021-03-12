@@ -356,28 +356,18 @@ public class Modelo <T extends Comparable<T>>
 		Video videoTendencia = null;
 		int masDias = 0;
 		int contador = 1;
-		boolean encontreCategoria = false;
-		boolean termino = false;
-
-		ordenamientos.ordenarShell(datosArreglo, comp, true);
-
+		
 		int i = 0;
 		Video actual = null;
-		while(i < datosArreglo.size() && !termino)
+		while(i < datosArreglo.size())
 		{
 			actual = datosArreglo.getElement(i);
 			if (actual.darNombreCategoria().equals(pCat)) 
 			{
-				encontreCategoria = true;
 				videosCat.addLast(actual);
 			}
 			i++;
-			if(encontreCategoria && !datosArreglo.getElement(i).darNombreCategoria().equals(pCat))
-			{
-				termino = true;
-			}
 		}
-		
 		ordenamientos.ordenarShell(videosCat, comp2, true);
 		Video act = videosCat.getElement(0);
 		

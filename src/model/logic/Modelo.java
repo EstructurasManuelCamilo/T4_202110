@@ -288,34 +288,23 @@ public class Modelo <T extends Comparable<T>>
 	// Requerimiento 2. Video con más días como tendencia dado el país 
 	public Video videoTendenciaPais(String pPais)
 	{
-		Video.ComparadorXPais comp = new Video.ComparadorXPais();
 		Video.ComparadorXId comp2 = new Video.ComparadorXId();
 		ArregloDinamico<Video> videosPais = new ArregloDinamico<>(20);
 		Video videoTendencia = null;
 		int masDias = 0;
 		int contador = 1;
-		boolean encontrarPais = false;
-		boolean termino = false;
-
-		ordenamientos.ordenarShell(datosArreglo, comp, true);
-
+		
 		int i = 0;
 		Video actual = null;
-		while(i < datosArreglo.size() && !termino)
+		while(i < datosArreglo.size())
 		{
 			actual = datosArreglo.getElement(i);
 			if (actual.darPais().equals(pPais)) 
 			{
-				encontrarPais = true;
 				videosPais.addLast(actual);
 			}
 			i++;
-			if(encontrarPais && !datosArreglo.getElement(i).darPais().equals(pPais))
-			{
-				termino = true;
-			}
 		}
-		
 		ordenamientos.ordenarShell(videosPais, comp2, true);
 		Video act = videosPais.getElement(0);
 		
@@ -350,7 +339,6 @@ public class Modelo <T extends Comparable<T>>
 	 */
 	public Video videoTendenciaCategoría(String pCat)
 	{
-		Video.ComparadorXCategoria comp = new Video.ComparadorXCategoria();
 		Video.ComparadorXId comp2 = new Video.ComparadorXId();
 		ArregloDinamico<Video> videosCat = new ArregloDinamico<>(20);
 		Video videoTendencia = null;

@@ -128,7 +128,7 @@ public class Controller {
 					view.printMessage("El número de días son: "+ resp.darNumerDiasTrendig(resp.getPublishTime(), resp.getTrendingDate()));
 				}
 				else
-					view.printMessage("No se puedo encontrar un video con esa país");
+					view.printMessage("No se puedo encontrar un video con ese país");
 				pa = "";	
 				break;
 			case 4:

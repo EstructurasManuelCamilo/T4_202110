@@ -291,41 +291,57 @@ public class Modelo <T extends Comparable<T>>
 	public Video videoTendenciaPais(String pPais)
 	{
 		Video.ComparadorXPais comp = new Video.ComparadorXPais();
+		Video.ComparadorXId comp2 = new Video.ComparadorXId();
+		ArregloDinamico<Video> videosPais = new ArregloDinamico<>(20);
 		Video videoTendencia = null;
 		int masDias = 0;
-		boolean encontre = false;
-		if (datosArreglo.isEmpty()) 
-		{}
-		else
+		int contador = 1;
+		boolean encontrarPais = false;
+		boolean termino = false;
+
+		ordenamientos.ordenarShell(datosArreglo, comp, true);
+
+		int i = 0;
+		Video actual = null;
+		while(i < datosArreglo.size() && !termino)
 		{
-			videoTendencia = datosArreglo.getElement(0);
-			ordenamientos.ordenarShell(datosArreglo, comp, false);
-			int i = 0;
-			while(i < datosArreglo.size())
+			actual = datosArreglo.getElement(i);
+			if (actual.darPais().equals(pPais)) 
 			{
-				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
-				{
-					encontre = true; 
-					System.out.println(i);
-					if(masDias < diasTendencia(datosArreglo.getElement(i).getId()))
-					{
-						masDias = diasTendencia(datosArreglo.getElement(i).getId());
-						System.out.println(masDias);
-						videoTendencia = datosArreglo.getElement(i);
-					}
-				}
-				if (datosArreglo.getElement(i+1) != null && encontre)
-				{
-					if (datosArreglo.getElement(i+1).darPais().compareTo(datosArreglo.getElement(i).darPais())!=0)
-					{
-						System.out.println(i);
-						System.out.println("BREAK");
-						break;
-					}
-				}
-				i ++;
+				encontrarPais = true;
+				videosPais.addLast(actual);
+			}
+			i++;
+			if(encontrarPais && !datosArreglo.getElement(i).darPais().equals(pPais))
+			{
+				termino = true;
 			}
 		}
+		
+		ordenamientos.ordenarShell(videosPais, comp2, true);
+		Video act = videosPais.getElement(0);
+		
+		for(int j = 1; j < videosPais.size(); j++)
+		{
+			if(videosPais.getElement(j).getId().equals(act.getId()))
+			{
+				contador++;
+				
+			}
+			else if(contador > masDias)
+			{
+				videoTendencia = act;
+				masDias = contador;
+				contador = 1;
+			}
+			else
+			{
+				contador = 1;
+			}
+			act = videosPais.getElement(j);
+		}
+		
+		diasTendencia = masDias;
 		return videoTendencia;
 	}
 

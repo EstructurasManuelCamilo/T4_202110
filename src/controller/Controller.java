@@ -124,7 +124,7 @@ public class Controller {
 				{
 					view.printMessage("El título es: "+ resp.getTitle());
 					view.printMessage("El canal es: "+ resp.getChannel());
-					view.printMessage("La categoría es: "+ resp.getCategoryId());
+					view.printMessage("El país es: "+ resp.darPais());
 					view.printMessage("El número de días son: "+ resp.darNumerDiasTrendig(resp.getPublishTime(), resp.getTrendingDate()));
 				}
 				else

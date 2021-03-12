@@ -35,8 +35,6 @@ public class Modelo <T extends Comparable<T>>
 
 	private Ordenamientos<Video> ordenamientos;
 
-	private ComparadorXLikes comparar;
-
 	private ArregloDinamico<Categoria> categorias; 
 	
 	private int diasTendencia;
@@ -444,29 +442,5 @@ public class Modelo <T extends Comparable<T>>
 		return diasTendencia;
 	}
 
-	public int diasTendencia(String pId)
-	{
-		Video.ComparadorXId comp = new Video.ComparadorXId(); //ordeno por ID
-		ordenamientos.ordenarShell(datosArreglo, comp, true);
-		int i = 0;
-		int resp = 0;
-		boolean encontroUno = false;
-		while(i < datosArreglo.size())
-		{
-			if (datosArreglo.getElement(i).getId().equals(pId)) 
-			{
-				encontroUno = true;
-				resp ++;
-			}
-			if (datosArreglo.getElement(i+1) != null && encontroUno)
-			{
-				if (datosArreglo.getElement(i+1).getId().compareTo(datosArreglo.getElement(i).getId())!=0) //ya no pertenece al video 
-				{
-					break;
-				}
-			}
-			i ++;
-		}
-		return resp;
-	}
+	
 }

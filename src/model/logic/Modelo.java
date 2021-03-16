@@ -67,6 +67,11 @@ public class Modelo <T extends Comparable<T>>
 	{
 		return datosArreglo.size();
 	}
+	
+	public int darDiasTendencia()
+	{
+		return diasTendencia;
+	}
 
 	/**
 	 * Requerimiento de agregar dato
@@ -415,9 +420,23 @@ public class Modelo <T extends Comparable<T>>
 		return solucion;
 	}
 	
-	public int darDiasTendencia()
+
+	public void leerTablaSimbolor() 
 	{
-		return diasTendencia;
+		// TODO Leer datos con tabla simbolo
+		
+	}
+	
+	/**
+	 * Informa el número y los videos que pertenecen a un mismo país y nombre de categoría
+	 * @param pPais
+	 * @param pCategoria
+	 * @return Lista con el número y los videos
+	 */
+	public ILista informarVideosPorPaisCategoria(String pPais, String pCategoria)
+	{
+		
+		return null;
 	}
 
 	

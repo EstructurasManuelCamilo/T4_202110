@@ -436,7 +436,11 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 				String categoria = excel.get("category_id");
 				String pais = excel.get("country");
 				
-				datosTablaSimbolos
+				if (pais.equals(pPais) && categoria.equals(pCategoria)) 
+				{
+					NodoTS<Comparable<K>, V> nodo = new NodoTS<Comparable<K>, V> (null, null);
+					datosTablaSimbolos.put();
+				}
 			}
 		}
 		catch(Exception e)

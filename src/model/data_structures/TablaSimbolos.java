@@ -47,15 +47,6 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 		return size;
 	}
 	
-	/**
-	 * Primer nodo de la lista enlazada
-	 */
-	private Node first;
-	
-	/**
-	 * Clase privada del nodo
-	 */
-	
 	
 	/**
 	 * Retorna el valor de la Key o null si no existe

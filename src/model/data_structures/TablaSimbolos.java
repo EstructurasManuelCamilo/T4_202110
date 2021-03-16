@@ -3,6 +3,7 @@ package model.data_structures;
 public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> implements ITablaSimbolos <K,V>
 {
 
+	private ILista <NodoTS<K, V>> listaNodos;
 	/**
 	 * Capacidad maxima de la tabla
 	 */
@@ -25,6 +26,11 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	 * Lista con los valores
 	 */
 	private ILista<V> vals;
+	
+	public TablaSimbolos()
+	{
+		listaNodos = new ArregloDinamico<NodoTS<K,V>>(7);
+	}
 	
 	/**
 	 * Retorna la lista de valores
@@ -49,18 +55,7 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	/**
 	 * Clase privada del nodo
 	 */
-	private class Node
-	{
-		K key;
-		V val;
-		Node next;
-		public Node(K key, V val, Node next)
-		{
-			this.key = key;
-			this.val = val;
-			this.next = next;
-		}
-	}
+	
 	
 	/**
 	 * Retorna el valor de la Key o null si no existe
@@ -68,10 +63,17 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	 */
 	public V get(K key)
 	{
-		for (Node x = first; x != null; x = x.next)
-			if (key.equals(x.key))
-				return x.val;
-		return null;
+		NodoTS<K,V> resp = null;
+		int i = 0;
+		while( listaNodos.size() < i && resp == null)
+		{
+			if( listaNodos.getElement(i).getKey().equals(key) )
+			{
+				resp = listaNodos.getElement(i);
+			}
+			i ++;
+		}
+		return resp.getValue() != null? resp.getValue(): null;
 	}
 	
 	/**
@@ -80,10 +82,8 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	 */
 	public void put(K key, V val)
 	{ 
-		for (Node x = first; x != null; x = x.next)
-			if (key.equals(x.key))
-			{ x.val = val; return; } 
-		first = new Node(key, val, first); 
+		NodoTS<K,V> agregar = new NodoTS<K,V>(key, val);
+		listaNodos.addLast(agregar);
 	}
 	
 	/**

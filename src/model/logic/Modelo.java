@@ -21,7 +21,7 @@ import java.util.Iterator;
  * Definicion del modelo del mundo
  *
  */
-public class Modelo <T extends Comparable<T>>
+public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 {
 	/**
 	 * Atributos del modelo del mundo
@@ -32,6 +32,8 @@ public class Modelo <T extends Comparable<T>>
 	private ArregloDinamico<Video> datosArreglo; 
 
 	private ListaEncadenada<Video> datosLista;
+	
+	private TablaSimbolos<K,V> datosTablaSimbolos;
 
 	private Ordenamientos<Video> ordenamientos;
 
@@ -421,9 +423,26 @@ public class Modelo <T extends Comparable<T>>
 	}
 	
 
-	public void leerTablaSimbolor() 
+	public void leerTablaSimbolos(String pPais, String pCategoria)
 	{
 		// TODO Leer datos con tabla simbolo
+		try 
+		{
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-all.csv")),"UTF-8");
+			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
+			for(final CSVRecord excel : separador)
+			{		
+				String titulo = excel.get("title");
+				String categoria = excel.get("category_id");
+				String pais = excel.get("country");
+				
+				datosTablaSimbolos
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 	

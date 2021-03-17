@@ -52,7 +52,7 @@ public class Controller {
 				{
 					view.printMessage("Inicio de lectura de los archivos.\n----------------"); 
 					modelo.leerDatosTablaSimbolos();
-					view.printMessage("El total de videos cargados es: " + modelo.darTablaSimbolos().size());
+					view.printMessage("El total de videos cargados es: " + modelo.darCantidadVideos());
 					view.printMessage("El total de duplas es: " + modelo.darDuplas());
 					view.printMessage("El tiempo de ejecución promedio del método put() es: "+ modelo.darTiempoEjecucionPromedio());
 				}

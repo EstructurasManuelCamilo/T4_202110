@@ -41,9 +41,11 @@ public class Modelo
 	
 	private int diasTendencia;
 
-	private int cantidadDuplas = 0;
+	private int cantidadDuplas;
 	
-	private float tiempoEjecucionPromedio = 0;
+	private float tiempoEjecucionPromedio;
+
+	private int cantidadVideos;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -54,6 +56,9 @@ public class Modelo
 		datosLista = new ListaEncadenada<Video>();
 		ordenamientos = new Ordenamientos<>();
 		diasTendencia = 0;
+		cantidadDuplas = 0;
+		tiempoEjecucionPromedio = 0;
+		cantidadVideos = 0;
 		datosTablaSimbolos = new TablaSimbolos<>();
 	}
 
@@ -78,6 +83,11 @@ public class Modelo
 	public int darDiasTendencia()
 	{
 		return diasTendencia;
+	}
+	
+	public int darCantidadVideos()
+	{
+		return cantidadVideos;
 	}
 
 	/**
@@ -473,7 +483,7 @@ public class Modelo
 				{
 					cont ++;
 					ArregloDinamico<Video> lista = new ArregloDinamico<>(1);
-					lista.addLast(nuevo);
+					lista.addFirst(nuevo);
 					TInicio = System.currentTimeMillis();
 					datosTablaSimbolos.put(llave, lista);
 					tiempo = System.currentTimeMillis() - TInicio;
@@ -481,9 +491,14 @@ public class Modelo
 				}
 				else
 				{
+					cont ++;
 					cantidadDuplas ++;
+					TInicio = System.currentTimeMillis();
 					datosTablaSimbolos.get(llave).addLast(nuevo);
+					tiempo = System.currentTimeMillis() - TInicio;
+					tiempoEjecucionPromedio += tiempo;
 				}
+				cantidadVideos = cont;
 			}
 			tiempoEjecucionPromedio /= cont;
 		}

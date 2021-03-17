@@ -31,6 +31,7 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	public TablaSimbolos()
 	{
 		listaNodos = new ArregloDinamico<NodoTS<K,V>>(7);
+		size = 0;
 	}
 	
 	/**
@@ -41,7 +42,7 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 		return vals;
 	}
 	/**
-	 * Retorna la capacidad maxima del arreglo
+	 * Retorna el número de duplas en la Tabla de Símbolos
 	 */
 	public int size()
 	{
@@ -74,9 +75,10 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	 */
 	public void put(K key, V val)
 	{ 
+		
 		NodoTS<K,V> agregar = new NodoTS<K,V>(key, val);
 		listaNodos.addLast(agregar);
-
+		size ++;
 	}
 	
 	/**

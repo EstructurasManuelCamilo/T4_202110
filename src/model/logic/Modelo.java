@@ -532,5 +532,28 @@ public class Modelo
 		}
 		return resp;
 	}
+
+	public ArregloDinamico<Video> requerimiento1(String pais, String categoria) 
+	{
+		String llave = pais +"-"+categoria;
+		ArregloDinamico<Video> listaVideos = datosTablaSimbolos.get(llave);
+		return listaVideos == null? null: listaVideos;
+	}
+
+	
+
+//	public int desempenioMetodoGetLlavesExistentes() 
+//	{
+//		int random_int = 0;
+//		for( int i = 0; i < 700; i++)
+//		{
+//			int min = 0;
+//		    int max = 699;
+//			random_int = (int)(Math.random() * (max - min + 1) + min);
+//			datosTablaSimbolos.get(datos)
+//		}
+//	
+//		return 0;
+//	}
 	
 }

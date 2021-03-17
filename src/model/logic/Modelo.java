@@ -54,6 +54,7 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 		datosLista = new ListaEncadenada<Video>();
 		ordenamientos = new Ordenamientos<>();
 		diasTendencia = 0;
+		datosTablaSimbolos = new TablaSimbolos<>();
 	}
 
 	/**

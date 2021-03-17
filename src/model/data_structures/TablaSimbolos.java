@@ -66,9 +66,9 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	{
 		NodoTS<K,V> resp = null;
 		int i = 0;
-		while( listaNodos.size() < i && resp == null)
+		while( listaNodos.size() > i && resp == null)
 		{
-			if( listaNodos.getElement(i).getKey().equals(key) )
+			if( listaNodos.getElement(i).getKey().compareTo(key)  == 0)
 			{
 				resp = listaNodos.getElement(i);
 			}
@@ -83,8 +83,18 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	 */
 	public void put(K key, V val)
 	{ 
-		NodoTS<K,V> agregar = new NodoTS<K,V>(key, val);
-		listaNodos.addLast(agregar);
+		//if(!contains(key))
+		{
+			NodoTS<K,V> agregar = new NodoTS<K,V>(key, val);
+			listaNodos.addLast(agregar);
+		}
+//		else
+//		{
+//			V viejo = get(key);
+//			remove(key);
+//			NodoTS<K,V> agregar = new NodoTS<K,V>(key, viejo);
+//			listaNodos.addLast(agregar);
+//		}
 	}
 	
 	/**

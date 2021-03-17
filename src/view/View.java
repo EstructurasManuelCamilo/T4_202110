@@ -14,12 +14,10 @@ public class View
 	    
 		public void printMenu()
 		{
-			System.out.println("1. Leer datos de archivos.");
-			System.out.println("2. Requerimineto 1");
-			System.out.println("3. Requerimineto 2");
-			System.out.println("4. Requerimineto 3");
-			System.out.println("5. Requerimineto 4");
-			System.out.println("6. Exit");
+			System.out.println("1. Cargar datos");
+			System.out.println("2. Conocer el número y videos que pertenecen a un país y nombre de categoría");
+			System.out.println("3. Realizar consultas aleatorias");
+			System.out.println("4. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 

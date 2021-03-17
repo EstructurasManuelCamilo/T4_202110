@@ -2,9 +2,11 @@ package model.logic;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import model.data_structures.ArregloDinamico;
 
@@ -23,7 +25,7 @@ public class Video implements Comparable<Video>
 
 	private String categoria;
 
-	private LocalDateTime publishTime;
+	private Date publishTime;
 
 	private String fechaPublicacion;
 
@@ -40,8 +42,12 @@ public class Video implements Comparable<Video>
 	private String listags;
 
 	private ArregloDinamico<String> tags;
-
-	public Video(String pId, Date date, String pTitle, String pChannel, int pCat, LocalDateTime fecha2, String pFpub, String pListags, int pVistas, String pLikes, String pDislikes, String pNomCat, String pPais)
+	
+	private int diasTendencia;
+	
+	public Video(String pId, Date date, String pTitle, String pChannel, 
+			int pCat, Date fecha2, String pFpub, String pListags, int pVistas, 
+			String pLikes, String pDislikes, String pNomCat, String pPais)
 	{
 		id = pId;
 		trendingDate = date;
@@ -72,11 +78,17 @@ public class Video implements Comparable<Video>
 			return 1;
 	}
 
+	public int getDiasTendencia()
+	{
+		
+		return diasTendencia;
+	}
+	
 	public String getId() 
 	{
 		return id;
 	}
-
+	
 	public Date getTrendingDate() 
 	{
 		return trendingDate;
@@ -97,7 +109,7 @@ public class Video implements Comparable<Video>
 		return categoryId;
 	}
 
-	public LocalDateTime getPublishTime() 
+	public Date getPublishTime() 
 	{
 		return publishTime;
 	}
@@ -164,6 +176,16 @@ public class Video implements Comparable<Video>
 
 		return tags;
 	}
+	
+	public int darNumerDiasTrendig(Date fecha1, Date fecha2)
+	{
+		long startTime = fecha1.getTime();
+	     long endTime = fecha2.getTime();
+	     long diffTime = endTime - startTime;
+	     return (int)TimeUnit.DAYS.convert(diffTime, TimeUnit.MILLISECONDS) + 1;
+	}
+	
+	
 	public static class ComparadorXLikes implements Comparator<Video> 
 	{
 
@@ -181,7 +203,7 @@ public class Video implements Comparable<Video>
 	public static class ComparadorXVistas implements Comparator<Video> 
 	{
 
-		/** Comparador alterno de acuerdo al número de likes
+		/** Comparador alterno de acuerdo al número de vistas
 		 * @return valor 0 si video1 y video2 tiene los mismos likes.
 		 valor negativo si video1 tiene menos likes que video2.
 		 valor positivo si video1 tiene más likes que video2. */
@@ -193,4 +215,59 @@ public class Video implements Comparable<Video>
 			return pais2 - pais1;
 		}	
 	}
+	
+	public static class ComparadorXDia implements Comparator<Video> 
+	{
+
+		/** Comparador alterno de acuerdo a dias
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		public int compare(Video video1, Video video2) 
+		{
+			
+			int  pais1 = video1.darNumerDiasTrendig(video1.getPublishTime(), video1.getTrendingDate());
+			int pais2 = video2.darNumerDiasTrendig(video2.getPublishTime(), video2.getTrendingDate());
+			return pais2 - pais1;
+		}	
+	}
+
+	public static class ComparadorXId implements Comparator<Video> 
+	{
+
+		/** Comparador alterno de acuerdo al id
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		public int compare(Video video1, Video video2) 
+		{
+			return video1.getId().compareTo(video2.getId());
+		}	
+	}
+	public static class ComparadorXPais implements Comparator<Video> 
+	{
+
+		/** Comparador alterno de acuerdo al paiss
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		public int compare(Video video1, Video video2) 
+		{
+			return video1.darPais().compareTo(video2.darPais());
+		}	
+	}
+	
+	public static class ComparadorXCategoria implements Comparator<Video> 
+	{
+
+		/** Comparador alterno de acuerdo a categoria
+		 * @return valor 0 si video1 y video2 tiene los mismos likes.
+		 valor negativo si video1 tiene menos likes que video2.
+		 valor positivo si video1 tiene más likes que video2. */
+		public int compare(Video video1, Video video2) 
+		{
+			return video1.darNombreCategoria().compareTo(video2.darNombreCategoria());
+		}	
+	}
+
 }

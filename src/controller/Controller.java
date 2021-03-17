@@ -15,7 +15,7 @@ import view.View;
 public class Controller {
 
 	/* Instancia del Modelo*/
-	private Modelo<Video> modelo;
+	private Modelo<String, Video> modelo;
 
 	/* Instancia de la Vista*/
 	private View view;
@@ -32,7 +32,7 @@ public class Controller {
 	public Controller ()
 	{
 		view = new View();
-		modelo = new Modelo<Video>();
+		modelo = new Modelo<String, Video>();
 		ordenamientos = new Ordenamientos<Video>();
 	}
 
@@ -40,15 +40,10 @@ public class Controller {
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
-		String dato = "";
 		String n = "";
 		String cat = "";
 		String pa = "";
 		String et = "";
-		String respuesta = "";
-		ILista<Video> solucion = new ArregloDinamico<Video>(50);
-		boolean esArreglo = false;
-		boolean esLista = false;
 
 		while( !fin ){
 			view.printMenu();
@@ -57,13 +52,15 @@ public class Controller {
 			switch(option){
 
 			case 1:
-				view.printMessage("Inicio de lectura de los archivos."); 
-
-				view.printMessage("Las categorías cargargadas son:");
-				for( int i = 1; i < modelo.leerCategorias().size(); i++ )
+				if(!cargados)
 				{
-					view.printMessage("Id: "+ modelo.leerCategorias().getElement(i).darIdCat() + " Nombre: "+ modelo.leerCategorias().getElement(i).darNombreCat());
+					view.printMessage("Inicio de lectura de los archivos.\n----------------"); 
+					modelo.leerDatosTablaSimbolos();
+					view.printMessage("El total de videos cargados es: ");
+					view.printMessage("El total de duplas es: ");
+					view.printMessage("El tiempo de ejecución promedio del método put() es: ");
 				}
+
 				view.printMessage(""); 
 				modelo.leerDatosVideosArregloDinamico();
 				view.printMessage("El total de videos cargados es: " + modelo.darArreglo().size());
@@ -81,46 +78,19 @@ public class Controller {
 				for(int i = 0; i < modelo.darArreglo().getElement(0).darTags().size(); i++)
 					view.printMessage("Tag: " + i + " "+ modelo.darArreglo().getElement(0).darTags().getElement(i));
 
-				esArreglo = true;
 				cargados = true;
 				break;
 
 			case 2:
-
-				view.printMessage("Inserte la cantidad de videos que quiere conocer. ");
-				while(n.equals(""))
-				{
-					n = lector.nextLine();
-				}
-				view.printMessage("Inserte la categoría de los videos que quiere conocer. ");
-				while(cat.equals(""))
-				{
-					cat = lector.nextLine();
-				}
-				view.printMessage("Inserte el pais que desea consultar. ");
-				while(pa.equals(""))
-				{
-					pa = lector.nextLine();
-				}
-
-				ArregloDinamico<Video> sol = modelo.mejoresVideosCatPa(Integer.parseInt(n), cat, pa);
-				for(int i = 0; i < sol.size();i++)
-				{
-					view.printMessage("Video " + i);
-					view.printMessage("Title: " + sol.getElement(i).getTitle());
-					view.printMessage("Trending date: " + sol.getElement(i).getTrendingDate());
-					view.printMessage("Channel title: " + sol.getElement(i).getChannel());
-					view.printMessage("Publish time: " + sol.getElement(i).darPublishTime());
-					view.printMessage("Views: " + sol.getElement(i).darVistas());
-					view.printMessage("Likes: " + sol.getElement(i).darLikes());
-					view.printMessage("Dislikes: " + sol.getElement(i).darDisLikes());
-					view.printMessage("");
-				}
-				n = "";
-				cat = "";
-				pa = "";
+				//REQ 1
+				view.printMessage("El título es: ");
+				view.printMessage("El número de views son: ");
+				view.printMessage("El número de likes son: ");
+				view.printMessage("El número de dislikes son: ");
+				view.printMessage("No se puede reportar una respuesta ");
 
 				break;
+
 				
 			case 5:
 
@@ -159,14 +129,18 @@ public class Controller {
 				pa = "";
 
 				break;
-			case 6: 
+
+			case 3:
+				view.printMessage("El tiempo promedio es:");
+					
+				break;
+				
+			case 4: 
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;
-				break;	
-
-
-
+				break;
+				
 			default: 
 				view.printMessage("--------- \n Opcion Invalida !! \n---------");
 				break;

@@ -21,24 +21,25 @@ import java.util.Iterator;
  * Definicion del modelo del mundo
  *
  */
-public class Modelo <T extends Comparable<T>>
+public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 {
 	/**
 	 * Atributos del modelo del mundo
 	 */
 	long TInicio, TFin, tiempo;
 
-	private ILista<Video> videos; // TODO cambio ILista
 
 	private ArregloDinamico<Video> datosArreglo; 
 
 	private ListaEncadenada<Video> datosLista;
+	
+	private TablaSimbolos<K,V> datosTablaSimbolos;
 
 	private Ordenamientos<Video> ordenamientos;
 
-	private ComparadorXLikes comparar;
-
 	private ArregloDinamico<Categoria> categorias; 
+	
+	private int diasTendencia;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -48,6 +49,7 @@ public class Modelo <T extends Comparable<T>>
 		datosArreglo = new ArregloDinamico<Video>(501);
 		datosLista = new ListaEncadenada<Video>();
 		ordenamientos = new Ordenamientos<>();
+		diasTendencia = 0;
 	}
 
 	/**
@@ -66,6 +68,11 @@ public class Modelo <T extends Comparable<T>>
 	public int darTamanoArreglo()
 	{
 		return datosArreglo.size();
+	}
+	
+	public int darDiasTendencia()
+	{
+		return diasTendencia;
 	}
 
 	/**
@@ -126,7 +133,7 @@ public class Modelo <T extends Comparable<T>>
 
 		try 
 		{
-			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-small.csv")),"UTF-8");
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-all.csv")),"UTF-8");
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{
@@ -158,7 +165,7 @@ public class Modelo <T extends Comparable<T>>
 	public Date fecha1(String pFecha) throws ParseException
 	{
 		String[] partes = pFecha.split("\\.");
-		String anio  = partes[0];
+		String anio  = "20"+partes[0];
 		String dia  = partes[1];
 		String mes = partes[2];
 
@@ -167,12 +174,18 @@ public class Modelo <T extends Comparable<T>>
 
 		return date;
 	}
-	public LocalDateTime fecha2(String pFecha) throws ParseException
+	public Date fecha2(String pFecha) throws ParseException
 	{
-		String[] partes = pFecha.split("\\.");
-		String fechaHora  = partes[0];
-		LocalDateTime fecha = LocalDateTime.parse(fechaHora);
-		return fecha;
+		String[] partes = pFecha.split("T");
+		String anioMesDia  = partes[0];
+		String [] partes2 = anioMesDia.split("-");
+		String anio = partes2[0];
+		String mes = partes2[1];
+		String dia = partes2[2];
+		String fecha = dia + "/" + mes + "/" + anio;
+		Date date =new SimpleDateFormat("dd/MM/yyyy").parse(fecha);  
+
+		return date;
 	}
 	
 	public Date cambiarFormato(LocalDateTime pFecha) throws ParseException
@@ -289,26 +302,47 @@ public class Modelo <T extends Comparable<T>>
 	// Requerimiento 2. Video con más días como tendencia dado el país 
 	public Video videoTendenciaPais(String pPais)
 	{
-		Video.ComparadorXVistas comp = new Video.ComparadorXVistas();
+		Video.ComparadorXId comp2 = new Video.ComparadorXId();
+		ArregloDinamico<Video> videosPais = new ArregloDinamico<>(20);
 		Video videoTendencia = null;
-		if (datosArreglo.isEmpty()) 
-		{}
-		else
+		int masDias = 0;
+		int contador = 1;
+		
+		int i = 0;
+		Video actual = null;
+		while(i < datosArreglo.size())
 		{
-			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
-			ordenamientos.ordenarShell(datosArreglo, comp, true);
-			int i = 0;
-			while(i < datosArreglo.size())
+			actual = datosArreglo.getElement(i);
+			if (actual.darPais().equals(pPais)) 
 			{
-				if (datosArreglo.getElement(i).darPais().equals(pPais)) 
-				{
-					respArrg.addFirst(datosArreglo.getElement(i));
-				}
-				i ++;
+				videosPais.addLast(actual);
 			}
-			if (i>0)
-				videoTendencia = respArrg.firstElement();
+			i++;
 		}
+		ordenamientos.ordenarShell(videosPais, comp2, true);
+		Video act = videosPais.getElement(0);
+		
+		for(int j = 1; j < videosPais.size(); j++)
+		{
+			if(videosPais.getElement(j).getId().equals(act.getId()))
+			{
+				contador++;
+				
+			}
+			else if(contador > masDias)
+			{
+				videoTendencia = act;
+				masDias = contador;
+				contador = 1;
+			}
+			else
+			{
+				contador = 1;
+			}
+			act = videosPais.getElement(j);
+		}
+		
+		diasTendencia = masDias;
 		return videoTendencia;
 	}
 
@@ -317,29 +351,49 @@ public class Modelo <T extends Comparable<T>>
 	 * @param pCategoria
 	 * @return el video con el mayor numero de dias en la categoria dada 
 	 */
-	public Video videoTendenciaCategoría(String pCategoria)
+	public Video videoTendenciaCategoría(String pCat)
 	{
+		Video.ComparadorXId comp2 = new Video.ComparadorXId();
+		ArregloDinamico<Video> videosCat = new ArregloDinamico<>(20);
 		Video videoTendencia = null;
-		if (datosArreglo.isEmpty()) 
-		{}
-		else
+		int masDias = 0;
+		int contador = 1;
+		
+		int i = 0;
+		Video actual = null;
+		while(i < datosArreglo.size())
 		{
-			ordenamientos = new Ordenamientos<>();
-			ArregloDinamico<Video> respArrg = new ArregloDinamico<>(7);
-			ordenamientos.ordenarInsercion(datosArreglo, new Video.ComparadorXVistas(), true);
-			int i = 0;
-			while(i < datosArreglo.size())
+			actual = datosArreglo.getElement(i);
+			if (actual.darNombreCategoria().equals(pCat)) 
 			{
-				if (datosArreglo.getElement(i).darPais().equals(pCategoria)) 
-				{
-					respArrg.addLast(datosArreglo.getElement(i));
-					System.out.println(respArrg.getElement(i));
-				}
-				i ++;
+				videosCat.addLast(actual);
 			}
-			if (i>0)
-				videoTendencia = respArrg.lastElement();
+			i++;
 		}
+		ordenamientos.ordenarShell(videosCat, comp2, true);
+		Video act = videosCat.getElement(0);
+		
+		for(int j = 1; j < videosCat.size(); j++)
+		{
+			if(videosCat.getElement(j).getId().equals(act.getId()))
+			{
+				contador++;
+				
+			}
+			else if(contador > masDias)
+			{
+				videoTendencia = act;
+				masDias = contador;
+				contador = 1;
+			}
+			else
+			{
+				contador = 1;
+			}
+			act = videosCat.getElement(j);
+		}
+		
+		diasTendencia = masDias;
 		return videoTendencia;
 	}
 
@@ -375,4 +429,78 @@ public class Modelo <T extends Comparable<T>>
 
 		return solucion;
 	}
+	
+
+	@SuppressWarnings("unchecked")
+	public void leerDatosTablaSimbolos()
+	{
+		// TODO Leer datos con tabla simbolo
+		try 
+		{
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-all.csv")),"UTF-8");
+			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
+			for(final CSVRecord excel : separador)
+			{		
+				String titulo = excel.get("title");
+				String category_id = excel.get("category_id");
+				String pais = excel.get("country");
+				
+				String llave = pais +"-" +darCategoria(category_id);
+				if (!datosTablaSimbolos.contains((K) llave))
+				{
+					ArregloDinamico<String> lista = new ArregloDinamico<>(1);
+					datosTablaSimbolos.put((K)llave, (V) titulo);
+				}
+				else
+				{
+					for(int i = 0; i < datosTablaSimbolos.darListaNodos().size(); i++)
+					{
+						if (datosTablaSimbolos.darListaNodos().getElement(i).getKey().compareTo((K) llave) == 0) 
+						{
+							datosTablaSimbolos.darListaNodos().getElement(i).setValue(datosTablaSimbolos.darListaNodos().getElement(i).getValue());
+						}
+					}
+					datosTablaSimbolos.darListaNodos().getElement(diasTendencia);
+					//datosTablaSimbolos.put((K)llave, datosTablaSimbolos.get((K)llave));
+				}
+				
+				
+//				if (pais.equals(pPais) && category_id.equals(pCategoria)) 
+//				{
+//					NodoTS<K, V> nodo = new NodoTS(pais + "-" + darCategoria(category_id), titulo);
+//					datosTablaSimbolos.put();
+//				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Informa el número y los videos que pertenecen a un mismo país y nombre de categoría
+	 * @param pPais
+	 * @param pCategoria
+	 * @return Lista con el número y los videos
+	 */
+	public ILista informarVideosPorPaisCategoria(String pPais, String pCategoria)
+	{
+		return null;
+	}
+
+	public String darCategoria(String pId)
+	{
+		String resp = null;
+		for(int i = 0; i < categorias.size(); i ++)
+		{
+			if (categorias.getElement(i).darIdCat() == Integer.parseInt(pId)) 
+			{
+				resp = categorias.getElement(i).darNombreCat();
+			}
+		}
+		return resp;
+	}
+	
 }

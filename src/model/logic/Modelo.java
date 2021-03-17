@@ -41,6 +41,10 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 	
 	private int diasTendencia;
 
+	private int cantidadDuplas = 0;
+	
+	private float tiempoEjecucionPromedio = 0;
+
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -252,7 +256,22 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 	{
 		return (ListaEncadenada<Video>) datosLista;
 	}
-
+	
+	public TablaSimbolos<K,V> darTablaSimbolos()
+	{
+		return datosTablaSimbolos;
+	}
+	
+	public int darDuplas()
+	{
+		return cantidadDuplas;
+	}
+	
+	public float darTiempoEjecucionPromedio()
+	{
+		return tiempoEjecucionPromedio;
+	}
+	
 	public String darNomCat(int pId, ArregloDinamico<Categoria> categorias2)
 	{
 		String resp = "";
@@ -429,40 +448,52 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 		// TODO Leer datos con tabla simbolo
 		try 
 		{
-			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-all.csv")),"UTF-8");
+			leerCategorias();
+			int cont = 0;
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-small.csv")),"UTF-8");
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{		
+
+				String id = excel.get("video_id");
+				String fechaTrending = excel.get("trending_date");		
 				String titulo = excel.get("title");
-				String category_id = excel.get("category_id");
+				String canal = excel.get("channel_title");
+				String categoria = excel.get("category_id");
+				String publicacion = excel.get("publish_time");
+				String tags = excel.get("tags");
+				String vistas = excel.get("views");
+				String likes =excel.get("likes");
+				String dislikes = excel.get("dislikes");
 				String pais = excel.get("country");
+				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, darNomCat(Integer.valueOf(categoria),categorias), pais);
 				
-				String llave = pais +"-" +darCategoria(category_id);
+				String llave = pais +"-" +darCategoria(categoria);
 				if (!datosTablaSimbolos.contains((K) llave))
 				{
-					ArregloDinamico<String> lista = new ArregloDinamico<>(1);
-					datosTablaSimbolos.put((K)llave, (V) titulo);
+					cont ++;
+					ArregloDinamico<Video> lista = new ArregloDinamico<>(1);
+					lista.addLast(nuevo);
+					TInicio = System.currentTimeMillis();
+					datosTablaSimbolos.put((K)llave, (V) nuevo);
+					tiempo = System.currentTimeMillis() - TInicio;
+					tiempoEjecucionPromedio += tiempo;
 				}
 				else
 				{
+					cantidadDuplas ++;
 					for(int i = 0; i < datosTablaSimbolos.darListaNodos().size(); i++)
 					{
 						if (datosTablaSimbolos.darListaNodos().getElement(i).getKey().compareTo((K) llave) == 0) 
 						{
-							datosTablaSimbolos.darListaNodos().getElement(i).setValue(datosTablaSimbolos.darListaNodos().getElement(i));
+							ArregloDinamico<Video> viejo = (ArregloDinamico<Video>) datosTablaSimbolos.darListaNodos().getElement(i).getValue();
+							viejo.addLast(nuevo);
+							datosTablaSimbolos.darListaNodos().getElement(i).setValue((V) viejo);
 						}
 					}
-					datosTablaSimbolos.darListaNodos().getElement(diasTendencia)
-					//datosTablaSimbolos.put((K)llave, datosTablaSimbolos.get((K)llave));
 				}
-				
-				
-//				if (pais.equals(pPais) && category_id.equals(pCategoria)) 
-//				{
-//					NodoTS<K, V> nodo = new NodoTS(pais + "-" + darCategoria(category_id), titulo);
-//					datosTablaSimbolos.put();
-//				}
 			}
+			tiempoEjecucionPromedio /= cont;
 		}
 		catch(Exception e)
 		{

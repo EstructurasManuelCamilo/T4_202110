@@ -15,7 +15,7 @@ import view.View;
 public class Controller {
 
 	/* Instancia del Modelo*/
-	private Modelo<Video> modelo;
+	private Modelo<String, Video> modelo;
 
 	/* Instancia de la Vista*/
 	private View view;
@@ -32,7 +32,7 @@ public class Controller {
 	public Controller ()
 	{
 		view = new View();
-		modelo = new Modelo<Video>();
+		modelo = new Modelo<String, Video>();
 		ordenamientos = new Ordenamientos<Video>();
 	}
 
@@ -40,10 +40,6 @@ public class Controller {
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
-		String n = "";
-		String cat = "";
-		String pa = "";
-		String et = "";
 
 		while( !fin ){
 			view.printMenu();
@@ -55,10 +51,10 @@ public class Controller {
 				if(!cargados)
 				{
 					view.printMessage("Inicio de lectura de los archivos.\n----------------"); 
-					modelo.leerTablaSimbolor();
-					view.printMessage("El total de videos cargados es: ");
-					view.printMessage("El total de duplas es: ");
-					view.printMessage("El tiempo de ejecución promedio del método put() es: ");
+					modelo.leerDatosTablaSimbolos();
+					view.printMessage("El total de videos cargados es: " + modelo.darTablaSimbolos().valueSet().size());
+					view.printMessage("El total de duplas es: " + modelo.darDuplas());
+					view.printMessage("El tiempo de ejecución promedio del método put() es: "+ modelo.darTiempoEjecucionPromedio());
 				}
 				cargados = true;
 				break;

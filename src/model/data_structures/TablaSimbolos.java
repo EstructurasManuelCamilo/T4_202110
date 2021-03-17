@@ -27,6 +27,16 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	 */
 	private ILista<V> vals;
 	
+	public ILista darLlaves()
+	{
+		return keys;
+	}
+	
+	public ILista<NodoTS<K,V>> darListaNodos()
+	{
+		return listaNodos;
+	}
+	
 	public TablaSimbolos()
 	{
 		listaNodos = new ArregloDinamico<NodoTS<K,V>>(7);

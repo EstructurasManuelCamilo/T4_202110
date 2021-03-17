@@ -423,7 +423,8 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 	}
 	
 
-	public void leerTablaSimbolos(String pPais, String pCategoria)
+	@SuppressWarnings("unchecked")
+	public void leerDatosTablaSimbolos()
 	{
 		// TODO Leer datos con tabla simbolo
 		try 
@@ -433,14 +434,34 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 			for(final CSVRecord excel : separador)
 			{		
 				String titulo = excel.get("title");
-				String categoria = excel.get("category_id");
+				String category_id = excel.get("category_id");
 				String pais = excel.get("country");
 				
-				if (pais.equals(pPais) && categoria.equals(pCategoria)) 
+				String llave = pais +"-" +darCategoria(category_id);
+				if (!datosTablaSimbolos.contains((K) llave))
 				{
-					NodoTS<Comparable<K>, V> nodo = new NodoTS<Comparable<K>, V> (null, null);
-					datosTablaSimbolos.put();
+					ArregloDinamico<String> lista = new ArregloDinamico<>(1);
+					datosTablaSimbolos.put((K)llave, (V) titulo);
 				}
+				else
+				{
+					for(int i = 0; i < datosTablaSimbolos.darListaNodos().size(); i++)
+					{
+						if (datosTablaSimbolos.darListaNodos().getElement(i).getKey().compareTo((K) llave) == 0) 
+						{
+							datosTablaSimbolos.darListaNodos().getElement(i).setValue(datosTablaSimbolos.darListaNodos().getElement(i));
+						}
+					}
+					datosTablaSimbolos.darListaNodos().getElement(diasTendencia)
+					//datosTablaSimbolos.put((K)llave, datosTablaSimbolos.get((K)llave));
+				}
+				
+				
+//				if (pais.equals(pPais) && category_id.equals(pCategoria)) 
+//				{
+//					NodoTS<K, V> nodo = new NodoTS(pais + "-" + darCategoria(category_id), titulo);
+//					datosTablaSimbolos.put();
+//				}
 			}
 		}
 		catch(Exception e)
@@ -458,9 +479,20 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 	 */
 	public ILista informarVideosPorPaisCategoria(String pPais, String pCategoria)
 	{
-		
 		return null;
 	}
 
+	public String darCategoria(String pId)
+	{
+		String resp = null;
+		for(int i = 0; i < categorias.size(); i ++)
+		{
+			if (categorias.getElement(i).darIdCat() == Integer.parseInt(pId)) 
+			{
+				resp = categorias.getElement(i).darNombreCat();
+			}
+		}
+		return resp;
+	}
 	
 }

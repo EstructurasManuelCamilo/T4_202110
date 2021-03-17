@@ -74,7 +74,7 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 			}
 			i ++;
 		}
-		return resp.getValue() != null? resp.getValue(): null;
+		return resp != null? resp.getValue(): null;
 	}
 	
 	/**

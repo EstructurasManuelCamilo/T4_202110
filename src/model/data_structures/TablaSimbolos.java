@@ -26,16 +26,7 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	 * Lista con los valores
 	 */
 	private ILista<V> vals;
-	
-	public ILista darLlaves()
-	{
-		return keys;
-	}
-	
-	public ILista<NodoTS<K,V>> darListaNodos()
-	{
-		return listaNodos;
-	}
+
 	
 	public TablaSimbolos()
 	{
@@ -83,18 +74,10 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	 */
 	public void put(K key, V val)
 	{ 
-		//if(!contains(key))
-		{
-			NodoTS<K,V> agregar = new NodoTS<K,V>(key, val);
-			listaNodos.addLast(agregar);
-		}
-//		else
-//		{
-//			V viejo = get(key);
-//			remove(key);
-//			NodoTS<K,V> agregar = new NodoTS<K,V>(key, viejo);
-//			listaNodos.addLast(agregar);
-//		}
+
+		NodoTS<K,V> agregar = new NodoTS<K,V>(key, val);
+		listaNodos.addLast(agregar);
+
 	}
 	
 	/**

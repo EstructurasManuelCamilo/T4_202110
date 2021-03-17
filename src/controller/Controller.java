@@ -15,7 +15,7 @@ import view.View;
 public class Controller {
 
 	/* Instancia del Modelo*/
-	private Modelo<String, Video> modelo;
+	private Modelo modelo;
 
 	/* Instancia de la Vista*/
 	private View view;
@@ -32,7 +32,7 @@ public class Controller {
 	public Controller ()
 	{
 		view = new View();
-		modelo = new Modelo<String, Video>();
+		modelo = new Modelo();
 		ordenamientos = new Ordenamientos<Video>();
 	}
 
@@ -52,7 +52,7 @@ public class Controller {
 				{
 					view.printMessage("Inicio de lectura de los archivos.\n----------------"); 
 					modelo.leerDatosTablaSimbolos();
-					view.printMessage("El total de videos cargados es: " + modelo.darTablaSimbolos().valueSet().size());
+					view.printMessage("El total de videos cargados es: " + modelo.darTablaSimbolos().size());
 					view.printMessage("El total de duplas es: " + modelo.darDuplas());
 					view.printMessage("El tiempo de ejecución promedio del método put() es: "+ modelo.darTiempoEjecucionPromedio());
 				}

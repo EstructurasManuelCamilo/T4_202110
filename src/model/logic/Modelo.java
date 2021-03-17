@@ -21,7 +21,7 @@ import java.util.Iterator;
  * Definicion del modelo del mundo
  *
  */
-public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
+public class Modelo 
 {
 	/**
 	 * Atributos del modelo del mundo
@@ -33,7 +33,7 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 
 	private ListaEncadenada<Video> datosLista;
 	
-	private TablaSimbolos<K,V> datosTablaSimbolos;
+	private TablaSimbolos<String, ArregloDinamico<Video>> datosTablaSimbolos;
 
 	private Ordenamientos<Video> ordenamientos;
 
@@ -258,7 +258,7 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 		return (ListaEncadenada<Video>) datosLista;
 	}
 	
-	public TablaSimbolos<K,V> darTablaSimbolos()
+	public TablaSimbolos<String,ArregloDinamico<Video>> darTablaSimbolos()
 	{
 		return datosTablaSimbolos;
 	}
@@ -443,7 +443,6 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 	}
 	
 
-	@SuppressWarnings("unchecked")
 	public void leerDatosTablaSimbolos()
 	{
 		// TODO Leer datos con tabla simbolo
@@ -470,28 +469,20 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, darNomCat(Integer.valueOf(categoria),categorias), pais);
 				
 				String llave = pais +"-" +darCategoria(categoria);
-				if (!datosTablaSimbolos.contains((K) llave))
+				if (!datosTablaSimbolos.contains(llave))
 				{
 					cont ++;
 					ArregloDinamico<Video> lista = new ArregloDinamico<>(1);
 					lista.addLast(nuevo);
 					TInicio = System.currentTimeMillis();
-					datosTablaSimbolos.put((K)llave, (V) nuevo);
+					datosTablaSimbolos.put(llave, lista);
 					tiempo = System.currentTimeMillis() - TInicio;
 					tiempoEjecucionPromedio += tiempo;
 				}
 				else
 				{
 					cantidadDuplas ++;
-					for(int i = 0; i < datosTablaSimbolos.darListaNodos().size(); i++)
-					{
-						if (datosTablaSimbolos.darListaNodos().getElement(i).getKey().compareTo((K) llave) == 0) 
-						{
-							ArregloDinamico<Video> viejo = (ArregloDinamico<Video>) datosTablaSimbolos.darListaNodos().getElement(i).getValue();
-							viejo.addLast(nuevo);
-							datosTablaSimbolos.darListaNodos().getElement(i).setValue((V) viejo);
-						}
-					}
+					datosTablaSimbolos.get(llave).addLast(nuevo);
 				}
 			}
 			tiempoEjecucionPromedio /= cont;

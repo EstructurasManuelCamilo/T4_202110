@@ -84,6 +84,10 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 	public void put(K key, V val)
 	{ 
 		NodoTS<K,V> agregar = new NodoTS<K,V>(key, val);
+		for(int i = 0; i < listaNodos.size(); i++)
+		{
+			if()
+		}
 		listaNodos.addLast(agregar);
 	}
 	

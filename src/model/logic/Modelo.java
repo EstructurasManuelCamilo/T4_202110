@@ -33,7 +33,7 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 
 	private ListaEncadenada<Video> datosLista;
 	
-	private TablaSimbolos<K,V> datosTablaSimbolos;
+	private TablaSimbolos<String,Video> datosTablaSimbolos;
 
 	private Ordenamientos<Video> ordenamientos;
 
@@ -50,6 +50,8 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 		datosLista = new ListaEncadenada<Video>();
 		ordenamientos = new Ordenamientos<>();
 		diasTendencia = 0;
+		
+		datosTablaSimbolos = new TablaSimbolos<>();
 	}
 
 	/**
@@ -441,15 +443,27 @@ public class Modelo <K extends Comparable<K>, V extends Comparable<V>>
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{		
+				String id = excel.get("video_id");
+				String fechaTrending = excel.get("trending_date");		
 				String titulo = excel.get("title");
-				String category_id = excel.get("category_id");
+				String canal = excel.get("channel_title");
+				String categoria = excel.get("category_id");
+				String publicacion = excel.get("publish_time");
+				String tags = excel.get("tags");
+				String vistas = excel.get("views");
+				String likes =excel.get("likes");
+				String dislikes = excel.get("dislikes");
 				String pais = excel.get("country");
+				Video nuevo = new Video(id, fecha1(fechaTrending), titulo, canal, Integer.valueOf(categoria), fecha2(publicacion), publicacion, tags, Integer.valueOf(vistas), likes, dislikes, darNomCat(Integer.valueOf(categoria),categorias), pais);
 				
-				String llave = pais +"-" +darCategoria(category_id);
-				if (!datosTablaSimbolos.contains((K) llave))
+				
+				String llave = pais +"-" +darCategoria(categoria);
+				if (!datosTablaSimbolos.contains(llave))
 				{
-					ArregloDinamico<String> lista = new ArregloDinamico<>(1);
-					datosTablaSimbolos.put((K)llave, (V) titulo);
+					ArregloDinamico<NodoTS<K, V>> lista = new ArregloDinamico<>(1);
+					NodoTS<String, Video> node = new NodoTS<String, Video>(llave, nuevo);
+					lista.addLast((NodoTS<K, V>) node);
+					datosTablaSimbolos.put(llave, nuevo);
 				}
 				else
 				{

@@ -460,7 +460,7 @@ public class Modelo
 		{
 			leerCategorias();
 			int cont = 0;
-			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-small.csv")),"UTF-8");
+			final Reader pDatos = new InputStreamReader (new FileInputStream(new File("./data/videos-all.csv")),"UTF-8");
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{		
@@ -551,25 +551,24 @@ public class Modelo
 		while(i < 700)
 		{
 			int min = 0;
-		    int max = datosTablaSimbolos.size();
+		    int max = datosTablaSimbolos.keySet().size() - 1;
 			int random_int = (int)(Math.random() * (max - min + 1) + min);
+			String llaveTemp = datosTablaSimbolos.keySet().getElement(random_int);
 			TInicio = System.currentTimeMillis();
-			datosTablaSimbolos.get(random_int);
+			datosTablaSimbolos.get(llaveTemp);
 			tiempo = System.currentTimeMillis() - TInicio;
 			prom1 += tiempo;
-			i++;
+			i ++;
 		}
 		prom1 /= 700;
 		while(i < 300)
 		{
-			int min = 0;
-		    int max = datosTablaSimbolos.size();
-			int random_int = (int)(Math.random() * (max - min + 1) + min);
+			String llaveTemp = "";
 			TInicio = System.currentTimeMillis();
-			datosTablaSimbolos.get(datosTablaSimbolos.size()+random_int);
+			datosTablaSimbolos.get(llaveTemp);
 			tiempo = System.currentTimeMillis() - TInicio;
 			prom2 += tiempo;
-			i++;
+			i ++;
 		}
 		prom2 /= 300;
 		tiempoEjecucionPromedio = (prom1 + prom2)/2;

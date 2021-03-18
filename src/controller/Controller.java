@@ -94,7 +94,7 @@ public class Controller {
 				break;
 			case 3:
 				//int promedio = modelo.desempenioMetodoGet();
-				view.printMessage("El tiempo promedio es:" + modelo.darTiempoEjecucionPromedio());
+				view.printMessage("El tiempo promedio es: " + modelo.desempenioMetodoGetLlavesExistentes());
 					
 				break;
 				

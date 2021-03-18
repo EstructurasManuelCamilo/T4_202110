@@ -464,7 +464,6 @@ public class Modelo
 			final CSVParser separador = new CSVParser(pDatos, CSVFormat.EXCEL.withFirstRecordAsHeader().withDelimiter(','));
 			for(final CSVRecord excel : separador)
 			{		
-
 				String id = excel.get("video_id");
 				String fechaTrending = excel.get("trending_date");		
 				String titulo = excel.get("title");
@@ -554,6 +553,7 @@ public class Modelo
 		    int max = datosTablaSimbolos.keySet().size() - 1;
 			int random_int = (int)(Math.random() * (max - min + 1) + min);
 			String llaveTemp = datosTablaSimbolos.keySet().getElement(random_int);
+			System.out.println(llaveTemp);
 			TInicio = System.currentTimeMillis();
 			datosTablaSimbolos.get(llaveTemp);
 			tiempo = System.currentTimeMillis() - TInicio;

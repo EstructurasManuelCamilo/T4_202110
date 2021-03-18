@@ -69,6 +69,12 @@ public class TablaSimbolos<K extends Comparable<K>,V extends Comparable<V>> impl
 		return resp != null? resp.getValue(): null;
 	}
 	
+	public V get( int p)
+	{
+		NodoTS<K,V> resp = listaNodos.getElement(p);
+		return resp != null? resp.getValue(): null;
+	}
+	
 	/**
 	 * Inserta una key y su valor dentro de la tabla
 	 * Entra como parámetro la llave y su valor

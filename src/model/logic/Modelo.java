@@ -542,18 +542,38 @@ public class Modelo
 
 	
 
-//	public int desempenioMetodoGetLlavesExistentes() 
-//	{
-//		int random_int = 0;
-//		for( int i = 0; i < 700; i++)
-//		{
-//			int min = 0;
-//		    int max = 699;
-//			random_int = (int)(Math.random() * (max - min + 1) + min);
-//			datosTablaSimbolos.get(datos)
-//		}
-//	
-//		return 0;
-//	}
+	public float desempenioMetodoGetLlavesExistentes() 
+	{
+		int i = 0;
+		int prom1 = 0;
+		int prom2 = 0;
+		tiempoEjecucionPromedio = 0;
+		while(i < 700)
+		{
+			int min = 0;
+		    int max = datosTablaSimbolos.size();
+			int random_int = (int)(Math.random() * (max - min + 1) + min);
+			TInicio = System.currentTimeMillis();
+			datosTablaSimbolos.get(random_int);
+			tiempo = System.currentTimeMillis() - TInicio;
+			prom1 += tiempo;
+			i++;
+		}
+		prom1 /= 700;
+		while(i < 300)
+		{
+			int min = 0;
+		    int max = datosTablaSimbolos.size();
+			int random_int = (int)(Math.random() * (max - min + 1) + min);
+			TInicio = System.currentTimeMillis();
+			datosTablaSimbolos.get(datosTablaSimbolos.size()+random_int);
+			tiempo = System.currentTimeMillis() - TInicio;
+			prom2 += tiempo;
+			i++;
+		}
+		prom2 /= 300;
+		tiempoEjecucionPromedio = (prom1 + prom2)/2;
+		return tiempoEjecucionPromedio;
+	}
 	
 }
